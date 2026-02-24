@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://bestdeejay-design.github.io/axiiom_landing/</loc>
+    <loc>https://axiiom.ru/</loc>
     <lastmod>2025-02-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://bestdeejay-design.github.io/axiiom_landing/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bestdeejay-design.github.io/axiiom_landing/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bestdeejay-design.github.io/axiiom_landing/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://axiiom.ru/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://axiiom.ru/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://axiiom.ru/"/>
   </url>
   <url>
-    <loc>https://bestdeejay-design.github.io/axiiom_landing/en/</loc>
+    <loc>https://axiiom.ru/en/</loc>
     <lastmod>2025-02-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bestdeejay-design.github.io/axiiom_landing/en/"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://bestdeejay-design.github.io/axiiom_landing/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bestdeejay-design.github.io/axiiom_landing/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://axiiom.ru/en/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://axiiom.ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://axiiom.ru/"/>
   </url>
 </urlset>
