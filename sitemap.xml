@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-	<url>
-		<loc>https://axiiom.ru/</loc>
-		<lastmod>2025-10-31T09:42:32+00:00</lastmod>
-	</url>
-	<url>
-		<loc>https://axiiom.ru/eng</loc>
-		<lastmod>2025-08-11T07:45:44+00:00</lastmod>
-	</url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://bestdeejay-design.github.io/axiiom_landing/</loc>
+    <lastmod>2025-02-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bestdeejay-design.github.io/axiiom_landing/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bestdeejay-design.github.io/axiiom_landing/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bestdeejay-design.github.io/axiiom_landing/"/>
+  </url>
+  <url>
+    <loc>https://bestdeejay-design.github.io/axiiom_landing/en/</loc>
+    <lastmod>2025-02-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bestdeejay-design.github.io/axiiom_landing/en/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bestdeejay-design.github.io/axiiom_landing/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bestdeejay-design.github.io/axiiom_landing/"/>
+  </url>
 </urlset>

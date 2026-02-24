@@ -1,1 +1,263 @@
-<html><head><meta name="robots" content="noindex"><title>Tilda</title></head><body style="background-color:#eee;"><table style="width:100%; height:100%;"><tr><td style="vertical-align: middle; text-align: center;"><a href="https://axiioma.cc"><img src="//axiioma.ws/img/logo404.png" border="0" alt="Tilda" /></a></td></tr></table></body></html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Страница не найдена | AXIIOM</title>
+    <meta name="description" content="Страница не найдена. Вернитесь на главную AXIIOM - цифровые эксперты для элитных клиентов.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="./404.html">
+    <link rel="shortcut icon" href="images/axiiom3230-3932-4834-b432-373532376430__fav.svg" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fbf5ee;
+            overflow: hidden;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 40px;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        /* Greek column decoration */
+        .column {
+            position: absolute;
+            width: 60px;
+            height: 300px;
+            background: linear-gradient(90deg, #C9A962 0%, #f0d78c 50%, #C9A962 100%);
+            border-radius: 30px;
+            opacity: 0.1;
+        }
+        
+        .column-left {
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .column-right {
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .column::before,
+        .column::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 20px;
+            background: linear-gradient(90deg, #C9A962 0%, #f0d78c 50%, #C9A962 100%);
+            left: -10px;
+            border-radius: 10px;
+        }
+        
+        .column::before {
+            top: -10px;
+        }
+        
+        .column::after {
+            bottom: -10px;
+        }
+        
+        /* Meander pattern */
+        .meander {
+            width: 200px;
+            height: 20px;
+            margin: 30px auto;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20' viewBox='0 0 40 20'%3E%3Cpath d='M0 0h10v10H0zm10 10h10v10H10zm20-10h10v10H30zm-10 10h10v10H20z' fill='%23C9A962' fill-opacity='0.5'/%3E%3C/svg%3E");
+            opacity: 0.6;
+        }
+        
+        .error-code {
+            font-family: 'Cinzel', serif;
+            font-size: 180px;
+            font-weight: 700;
+            color: #C9A962;
+            text-shadow: 0 0 40px rgba(201, 169, 98, 0.3);
+            line-height: 1;
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+        }
+        
+        .error-title {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            font-weight: 500;
+            color: #fbf5ee;
+            margin-bottom: 20px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        .error-message {
+            font-size: 18px;
+            color: rgba(251, 245, 238, 0.8);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .home-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            border: 2px solid #C9A962;
+            color: #C9A962;
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .home-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 98, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .home-button:hover {
+            background: #C9A962;
+            color: #1a1a2e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
+        }
+        
+        .home-button:hover::before {
+            left: 100%;
+        }
+        
+        .language-switch {
+            margin-top: 40px;
+            font-size: 14px;
+            color: rgba(251, 245, 238, 0.6);
+        }
+        
+        .language-switch a {
+            color: #C9A962;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .language-switch a:hover {
+            color: #fbf5ee;
+        }
+        
+        /* Animated particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #C9A962;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 100px;
+            }
+            
+            .error-title {
+                font-size: 24px;
+            }
+            
+            .column {
+                display: none;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 4.5s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 1.5s;"></div>
+    </div>
+    
+    <div class="container">
+        <div class="column column-left"></div>
+        <div class="column column-right"></div>
+        
+        <div class="meander"></div>
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Страница не найдена</h2>
+        <p class="error-message">
+            Кажется, вы заблудились в цифровом пространстве.<br>
+            Страница, которую вы ищете, не существует или была перемещена.
+        </p>
+        <a href="./index.html" class="home-button">Вернуться на главную</a>
+        
+        <div class="language-switch">
+            <a href="./en/">English</a> | <a href="./index.html">Русский</a>
+        </div>
+        
+        <div class="meander"></div>
+    </div>
+</body>
+</html>
