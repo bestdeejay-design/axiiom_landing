@@ -1,12 +1,12 @@
 User-Agent: *
-Disallow: /tilda/form*
-Disallow: /tilda/rec*
-Disallow: /tilda/click*
-Disallow: /tilda/scroll*
-Disallow: /tilda/popup*
-Disallow: /tilda/cart*
-Disallow: /tilda/product*
-Disallow: /tilda/event*
+Disallow: /axiiom/form*
+Disallow: /axiiom/rec*
+Disallow: /axiiom/click*
+Disallow: /axiiom/scroll*
+Disallow: /axiiom/popup*
+Disallow: /axiiom/cart*
+Disallow: /axiiom/product*
+Disallow: /axiiom/event*
 Disallow: /*_escaped_fragment_*
 Disallow:
 
