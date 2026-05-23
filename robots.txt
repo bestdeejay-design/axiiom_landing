@@ -8,8 +8,5 @@ Disallow: /axiiom/cart*
 Disallow: /axiiom/product*
 Disallow: /axiiom/event*
 Disallow: /*_escaped_fragment_*
-Disallow:
-
 
 Sitemap: https://axiiom.ru/sitemap.xml
-Host: https://axiiom.ru
