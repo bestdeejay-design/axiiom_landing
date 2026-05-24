@@ -8,44 +8,11 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://axiiom.ru/uslugi.html">
   <link rel="shortcut icon" href="images/axiiom3230-3932-4834-b432-373532376430__fav.svg" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:wght@400;500&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/axiiom-pages.css" type="text/css">
   <!-- Yandex.RTB -->
   <script>window.yaContextCb=window.yaContextCb||[]</script>
   <script src="https://yandex.ru/ads/system/context.js" async></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:wght@400;500&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #1A1A1A; color: #cccccc; font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.7; }
-    .nav { background: #111; padding: 16px 32px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
-    .nav-logo { color: #ffffff; text-decoration: none; font-family: 'Cinzel', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.1em; }
-    .nav-links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .nav-links a { color: #999999; text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
-    .nav-links a:hover { color: #fbf5ee; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
-    h1 { font-family: 'Cinzel', serif; font-size: 36px; color: #fbf5ee; margin-bottom: 8px; letter-spacing: 0.08em; }
-    h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: #fbf5ee; margin: 40px 0 16px; }
-    .subtitle { color: #999999; font-size: 18px; margin-bottom: 40px; }
-    .breadcrumb { margin-bottom: 32px; font-size: 14px; }
-    .breadcrumb a { color: #999999; text-decoration: none; }
-    .breadcrumb a:hover { color: #fbf5ee; }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-top: 24px; }
-    .service-card { background: #232323; border-radius: 8px; padding: 32px; border: 1px solid #333; }
-    .service-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: #fbf5ee; margin-bottom: 12px; }
-    .service-card p { color: #999999; font-size: 15px; margin-bottom: 16px; }
-    .service-card .price { color: #4e9ed6; font-size: 22px; font-weight: 600; }
-    .additional { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 24px; }
-    .additional-item { background: #232323; border-radius: 8px; padding: 24px; border: 1px solid #333; }
-    .additional-item h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #fbf5ee; margin-bottom: 8px; }
-    .additional-item p { color: #999999; font-size: 14px; }
-    .btn { display: inline-block; background: #23374f; color: #fbf5ee; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-size: 15px; margin-top: 32px; }
-    .btn:hover { background: #335581; }
-    footer { background: #111; padding: 32px 24px; text-align: center; color: #666; font-size: 13px; margin-top: 60px; }
-    footer a { color: #4e9ed6; text-decoration: none; }
-    @media (max-width: 768px) {
-      h1 { font-size: 26px; }
-      .nav { padding: 12px 16px; gap: 16px; }
-      .container { padding: 40px 16px; }
-    }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -64,100 +31,119 @@
   </script>
 </head>
 <body>
-  <nav class="nav">
-    <a href="./index.html" class="nav-logo">AXIIOM</a>
-    <div class="nav-links">
+  <nav class="ap-nav" aria-label="Основная навигация">
+    <a href="./index.html" class="ap-nav-logo">AXIIOM</a>
+    <div class="ap-nav-links">
       <a href="./index.html">Главная</a>
-      <a href="./uslugi.html">Услуги</a>
+      <a href="./uslugi.html" class="active">Услуги</a>
       <a href="./kejsy.html">Кейсы</a>
       <a href="./o-kompanii.html">О компании</a>
       <a href="./kontakty.html">Контакты</a>
     </div>
   </nav>
 
-  <div class="container">
-    <div class="breadcrumb">
+  <main class="ap-container">
+    <nav class="ap-breadcrumb" aria-label="Хлебные крошки">
       <a href="./index.html">Главная</a> / Услуги
-    </div>
-    <h1>IT-услуги премиум-класса</h1>
-    <p class="subtitle">Полный цикл разработки цифровых продуктов — от идеи до запуска и поддержки</p>
+    </nav>
 
-    <h2>Основные услуги</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <h3>Сайты и лендинги</h3>
-        <p>Разрабатываем все виды сайтов: от простых визиток до сложных интернет-магазинов и корпоративных порталов. Каждый проект начинается с глубокого анализа бизнеса заказчика, изучения целевой аудитории и конкурентов. Мы не просто делаем красивые страницы, мы создаём инструменты, которые приносят прибыль.</p>
-        <p>Используем современные технологии: React, Vue.js, Node.js для создания быстрых, отзывчивых и безопасных веб-сайтов. Оптимизируем код для максимальной производительности, настраиваем SEO-теги, микроразметку Schema.org и интеграцию с CRM-системами.</p>
-        <p>После запуска обеспечиваем техническую поддержку, мониторинг доступности и регулярное обновление контента. Вы получаете не просто сайт, а полноценный канал продаж с гарантированной конверсией.</p>
-        <div class="price">от 250 000 ₽</div>
-      </div>
-      <div class="service-card">
-        <h3>WEB-приложения</h3>
-        <p>Создаём высоконагруженные веб-сервисы любой сложности: от внутренних порталов для сотрудников до публичных маркетплейсов и систем управления бизнес-процессами. Архитектура каждого приложения проектируется с учётом потенциального роста нагрузки — ваше приложение будет работать стабильно и при 100, и при 100 000 пользователей одновременно.</p>
-        <p>Используем микросервисную архитектуру на Node.js, Python или Go. Данные хранятся в PostgreSQL, MongoDB или ClickHouse — выбор зависит от специфики проекта. Внедряем очереди сообщений (RabbitMQ, Kafka), системы кеширования (Redis) и поисковые движки (Elasticsearch) для мгновенного отклика на запросы пользователей.</p>
-        <div class="price">от 300 000 ₽</div>
-      </div>
-      <div class="service-card">
-        <h3>Мобильные приложения</h3>
-        <p>Разрабатываем нативные приложения для iOS (Swift) и Android (Kotlin), а также кроссплатформенные решения на React Native и Flutter — выбор технологии зависит от ваших бизнес-задач и бюджета. Создаём приложения для розничной торговли, логистики, финансового сектора, здравоохранения и образования.</p>
-        <p>Интегрируем мобильные приложения с вашими внутренними системами: CRM, ERP, складским учётом, системами лояльности. Обеспечиваем push-уведомления, геолокацию, работу с камерой и NFC. Все приложения проходят строгое тестирование на реальных устройствах перед публикацией в App Store и Google Play.</p>
-        <div class="price">от 300 000 ₽</div>
-      </div>
-      <div class="service-card">
-        <h3>Highload сервисы</h3>
-        <p>Обеспечиваем бесперебойную работу вашего продукта в условиях пиковых нагрузок: сезонные распродажи, рекламные кампании, запуски новых продуктов. Настраиваем горизонтальное и вертикальное масштабирование серверной инфраструктуры, балансировку нагрузки, автоматическое резервирование и восстановление после сбоев.</p>
-        <p>Работаем с облачными провайдерами AWS, Google Cloud и Azure, а также с российскими облачными платформами. Мониторинг 24/7, автоматическое реагирование на инциденты, регулярное нагрузочное тестирование. Ваш сервис будет доступен на уровне 99.9% времени.</p>
-        <div class="price">По договоренности</div>
-      </div>
-      <div class="service-card">
-        <h3>UI/UX дизайн</h3>
-        <p>Проектируем интерфейсы, которые нравятся пользователям и увеличивают конверсию. Проводим UX-исследования: интервью с пользователями, анализ поведения, построение Customer Journey Map и User Flow. Создаём прототипы в Figma, тестируем их на реальных пользователях и итеративно улучшаем.</p>
-        <p>Разрабатываем дизайн-системы с компонентным подходом — это ускоряет разработку и обеспечивает визуальную консистентность продукта. Подготавливаем макеты в форматах для передачи разработчикам, включая состояния загрузки, ошибок и пустых экранов.</p>
-        <div class="price">от 150 000 ₽</div>
-      </div>
-      <div class="service-card">
-        <h3>Графический дизайн</h3>
-        <p>Разрабатываем логотипы и фирменный стиль с учётом позиционирования бренда, его ценностей и целевой аудитории. Создаём брендбуки с описанием правил использования логотипа, шрифтов, цветовой палитры и графических элементов — это необходимо для единого визуального образа компании на всех носителях.</p>
-        <p>Разрабатываем дизайн полиграфической продукции (визитки, буклеты, каталоги), упаковки товаров, сувенирной продукции и наружной рекламы. Используем профессиональный инструментарий Adobe Creative Suite, готовим макеты к печати согласно требованиям типографий.</p>
-        <div class="price">от 100 000 ₽</div>
-      </div>
-    </div>
+    <h1 class="ap-h1">IT-услуги премиум-класса</h1>
+    <p class="ap-subtitle">Полный цикл разработки цифровых продуктов — от идеи до запуска и технической поддержки</p>
 
-    <h2>Дополнительные услуги</h2>
-    <div class="additional">
-      <div class="additional-item">
-        <h3>Рекламные стратегии и сценарии</h3>
-        <p>Создаём эффективные планы кампаний, учитывая цели и аудиторию.</p>
+    <h2 class="ap-h2">Основные услуги</h2>
+    <div class="ap-grid-main">
+      <div class="ap-card">
+        <div class="ap-card-title">Сайты и лендинги</div>
+        <div class="ap-card-text">
+          <p>Разрабатываем все виды сайтов: от простых визиток до сложных интернет-магазинов и корпоративных порталов. Каждый проект начинается с глубокого анализа бизнеса заказчика, изучения целевой аудитории и конкурентов. Мы не просто делаем красивые страницы — мы создаём инструменты, которые приносят прибыль.</p>
+          <p>Используем современные технологии: <strong>React</strong>, <strong>Vue.js</strong>, <strong>Node.js</strong> для создания быстрых, отзывчивых и безопасных веб-сайтов. Оптимизируем код для максимальной производительности, настраиваем SEO-теги, микроразметку Schema.org и интеграцию с CRM-системами.</p>
+          <p>После запуска обеспечиваем техническую поддержку, мониторинг доступности и регулярное обновление контента. Вы получаете не просто сайт, а полноценный канал продаж с гарантированной конверсией.</p>
+        </div>
+        <div class="ap-price">от 250 000 ₽</div>
       </div>
-      <div class="additional-item">
-        <h3>Подготовка рекламных материалов</h3>
-        <p>Тексты, визуал, аудио и видео-продакшн с помощью AI-технологий.</p>
+
+      <div class="ap-card">
+        <div class="ap-card-title">WEB-приложения</div>
+        <div class="ap-card-text">
+          <p>Создаём высоконагруженные веб-сервисы любой сложности: от внутренних порталов для сотрудников до публичных маркетплейсов и систем управления бизнес-процессами. Архитектура каждого приложения проектируется с учётом потенциального роста нагрузки — ваше приложение будет работать стабильно и при 100, и при 100 000 пользователей одновременно.</p>
+          <p>Используем <strong>микросервисную архитектуру</strong> на Node.js, Python или Go. Данные хранятся в PostgreSQL, MongoDB или ClickHouse — выбор зависит от специфики проекта. Внедряем очереди сообщений (RabbitMQ, Kafka), системы кеширования (Redis) и поисковые движки (Elasticsearch) для мгновенного отклика на запросы пользователей.</p>
+        </div>
+        <div class="ap-price">от 300 000 ₽</div>
       </div>
-      <div class="additional-item">
-        <h3>Инфлюенс-маркетинг</h3>
-        <p>Работа напрямую с блогерами: отбор, переговоры, запуск и анализ результатов.</p>
+
+      <div class="ap-card">
+        <div class="ap-card-title">Мобильные приложения</div>
+        <div class="ap-card-text">
+          <p>Разрабатываем <strong>нативные приложения</strong> для iOS (Swift) и Android (Kotlin), а также кроссплатформенные решения на React Native и Flutter — выбор технологии зависит от ваших бизнес-задач и бюджета. Создаём приложения для розничной торговли, логистики, финансового сектора, здравоохранения и образования.</p>
+          <p>Интегрируем мобильные приложения с вашими внутренними системами: CRM, ERP, складским учётом, системами лояльности. Обеспечиваем push-уведомления, геолокацию, работу с камерой и NFC. Все приложения проходят строгое тестирование на реальных устройствах перед публикацией в App Store и Google Play.</p>
+        </div>
+        <div class="ap-price">от 300 000 ₽</div>
       </div>
-      <div class="additional-item">
-        <h3>SEO и контекстная реклама</h3>
-        <p>Настройка и ведение рекламы в Яндекс.Директ, VK Реклама и Telegram Ads.</p>
+
+      <div class="ap-card">
+        <div class="ap-card-title">Highload сервисы</div>
+        <div class="ap-card-text">
+          <p>Обеспечиваем бесперебойную работу вашего продукта в условиях пиковых нагрузок: сезонные распродажи, рекламные кампании, запуски новых продуктов. Настраиваем горизонтальное и вертикальное масштабирование серверной инфраструктуры, балансировку нагрузки, автоматическое резервирование и восстановление после сбоев.</p>
+          <p>Работаем с облачными провайдерами <strong>AWS</strong>, <strong>Google Cloud</strong> и <strong>Azure</strong>, а также с российскими облачными платформами. Мониторинг 24/7, автоматическое реагирование на инциденты, регулярное нагрузочное тестирование. Ваш сервис будет доступен на уровне 99.9% времени.</p>
+        </div>
+        <div class="ap-price">По договоренности</div>
       </div>
-      <div class="additional-item">
-        <h3>Разработка PR-стратегий</h3>
-        <p>Антикризисные коммуникации и работа с репутацией в сети.</p>
+
+      <div class="ap-card">
+        <div class="ap-card-title">UI/UX дизайн</div>
+        <div class="ap-card-text">
+          <p>Проектируем интерфейсы, которые нравятся пользователям и увеличивают конверсию. Проводим UX-исследования: интервью с пользователями, анализ поведения, построение Customer Journey Map и User Flow. Создаём прототипы в <strong>Figma</strong>, тестируем их на реальных пользователях и итеративно улучшаем.</p>
+          <p>Разрабатываем дизайн-системы с компонентным подходом — это ускоряет разработку и обеспечивает визуальную консистентность продукта. Подготавливаем макеты в форматах для передачи разработчикам, включая состояния загрузки, ошибок и пустых экранов.</p>
+        </div>
+        <div class="ap-price">от 150 000 ₽</div>
+      </div>
+
+      <div class="ap-card">
+        <div class="ap-card-title">Графический дизайн</div>
+        <div class="ap-card-text">
+          <p>Разрабатываем логотипы и фирменный стиль с учётом позиционирования бренда, его ценностей и целевой аудитории. Создаём брендбуки с описанием правил использования логотипа, шрифтов, цветовой палитры и графических элементов — это необходимо для единого визуального образа компании на всех носителях.</p>
+          <p>Разрабатываем дизайн полиграфической продукции (визитки, буклеты, каталоги), упаковки товаров, сувенирной продукции и наружной рекламы. Используем профессиональный инструментарий Adobe Creative Suite, готовим макеты к печати согласно требованиям типографий.</p>
+        </div>
+        <div class="ap-price">от 100 000 ₽</div>
       </div>
     </div>
 
-    <a href="./kontakty.html" class="btn">Обсудить проект</a>
+    <h2 class="ap-h2">Дополнительные услуги</h2>
+    <div class="ap-grid-3">
+      <div class="ap-card">
+        <div class="ap-h3">Рекламные стратегии и сценарии</div>
+        <div class="ap-card-text"><p>Создаём эффективные планы кампаний, учитывая цели и аудиторию. Разрабатываем креативные концепции, медиастратегии и сценарии для различных рекламных форматов.</p></div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-h3">Подготовка рекламных материалов</div>
+        <div class="ap-card-text"><p>Тексты, визуал, аудио и видео-продакшн с помощью AI-технологий. Адаптируем материалы под все рекламные площадки.</p></div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-h3">Инфлюенс-маркетинг</div>
+        <div class="ap-card-text"><p>Работа напрямую с блогерами: отбор, переговоры, запуск и анализ результатов. Полный цикл от брифа до отчёта.</p></div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-h3">SEO и контекстная реклама</div>
+        <div class="ap-card-text"><p>Настройка и ведение рекламы в Яндекс.Директ, VK Реклама и Telegram Ads. Комплексная поисковая оптимизация.</p></div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-h3">Разработка PR-стратегий</div>
+        <div class="ap-card-text"><p>Антикризисные коммуникации и работа с репутацией в сети. Построение долгосрочных отношений с медиа и лидерами мнений.</p></div>
+      </div>
+    </div>
 
-    <!-- Yandex.RTB R-A-19322985-1 -->
-    <div id="yandex_rtb_R-A-19322985-1" style="max-width:1100px;margin:40px auto;"></div>
+    <a href="./kontakty.html" class="ap-btn">Обсудить проект</a>
+
+    <div class="ap-ad" id="yandex_rtb_R-A-19322985-1"></div>
     <script>window.yaContextCb.push(() => {Ya.Context.AdvManager.render({"blockId": "R-A-19322985-1","renderTo": "yandex_rtb_R-A-19322985-1"})})</script>
-  </div>
+  </main>
 
-  <footer>
+  <footer class="ap-footer">
     <p>© 2024–2026 <a href="./index.html">AXIIOM</a>. ООО «Аксиома». Санкт-Петербург.</p>
   </footer>
 
-<!-- Yandex.Metrika counter --> <script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=109391253','ym');ym(109391253,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});</script> <noscript><div><img src="https://mc.yandex.ru/watch/109391253" style="position:absolute;left:-9999px;" alt=""></div></noscript>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=109391253','ym');ym(109391253,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});</script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109391253" style="position:absolute;left:-9999px;" alt=""></div></noscript>
 </body>
 </html>

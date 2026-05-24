@@ -3,50 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>О компании AXIIOM — Цифровые эксперты премиум-класса</title>
-  <meta name="description" content="AXIIOM — IT-компания из Санкт-Петербурга. Разработка сайтов, мобильных и веб-приложений, UI/UX дизайн. Технологии: React, Node.js, Python, Go, Figma.">
+  <title>О компании AXIIOM — Цифровые эксперты премиум-класса | Санкт-Петербург</title>
+  <meta name="description" content="AXIIOM — IT-компания из Санкт-Петербурга. Разработка сайтов, мобильных и веб-приложений, UI/UX дизайн. Технологии: React, Node.js, Python, Go, Figma. ОКВЭД 62.01.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://axiiom.ru/o-kompanii.html">
   <link rel="shortcut icon" href="images/axiiom3230-3932-4834-b432-373532376430__fav.svg" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:wght@400;500&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/axiiom-pages.css" type="text/css">
   <!-- Yandex.RTB -->
   <script>window.yaContextCb=window.yaContextCb||[]</script>
   <script src="https://yandex.ru/ads/system/context.js" async></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:wght@400;500&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #1A1A1A; color: #cccccc; font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.7; }
-    .nav { background: #111; padding: 16px 32px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
-    .nav-logo { color: #ffffff; text-decoration: none; font-family: 'Cinzel', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.1em; }
-    .nav-links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .nav-links a { color: #999999; text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
-    .nav-links a:hover { color: #fbf5ee; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
-    h1 { font-family: 'Cinzel', serif; font-size: 36px; color: #fbf5ee; margin-bottom: 8px; letter-spacing: 0.08em; }
-    h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: #fbf5ee; margin: 40px 0 16px; }
-    .subtitle { color: #999999; font-size: 18px; margin-bottom: 40px; }
-    .breadcrumb { margin-bottom: 32px; font-size: 14px; }
-    .breadcrumb a { color: #999999; text-decoration: none; }
-    .breadcrumb a:hover { color: #fbf5ee; }
-    .about-text { max-width: 800px; margin-bottom: 32px; }
-    .about-text p { margin-bottom: 16px; color: #bbbbbb; }
-    .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-    .tech-card { background: #232323; border-radius: 8px; padding: 28px; border: 1px solid #333; }
-    .tech-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #fbf5ee; margin-bottom: 12px; }
-    .tech-card ul { list-style: none; }
-    .tech-card li { color: #999999; font-size: 15px; padding: 4px 0; }
-    .tech-card li::before { content: "— "; color: #4e9ed6; }
-    .details-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .detail-card { background: #232323; border-radius: 8px; padding: 24px; border: 1px solid #333; }
-    .detail-card strong { color: #999999; font-weight: 600; }
-    .detail-card span { color: #cccccc; display: block; margin-top: 4px; }
-    footer { background: #111; padding: 32px 24px; text-align: center; color: #666; font-size: 13px; margin-top: 60px; }
-    footer a { color: #4e9ed6; text-decoration: none; }
-    @media (max-width: 768px) {
-      h1 { font-size: 26px; }
-      .nav { padding: 12px 16px; gap: 16px; }
-      .container { padding: 40px 16px; }
-    }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -75,111 +41,119 @@
   </script>
 </head>
 <body>
-  <nav class="nav">
-    <a href="./index.html" class="nav-logo">AXIIOM</a>
-    <div class="nav-links">
+  <nav class="ap-nav" aria-label="Основная навигация">
+    <a href="./index.html" class="ap-nav-logo">AXIIOM</a>
+    <div class="ap-nav-links">
       <a href="./index.html">Главная</a>
       <a href="./uslugi.html">Услуги</a>
       <a href="./kejsy.html">Кейсы</a>
-      <a href="./o-kompanii.html">О компании</a>
+      <a href="./o-kompanii.html" class="active">О компании</a>
       <a href="./kontakty.html">Контакты</a>
     </div>
   </nav>
 
-  <div class="container">
-    <div class="breadcrumb">
+  <main class="ap-container">
+    <nav class="ap-breadcrumb" aria-label="Хлебные крошки">
       <a href="./index.html">Главная</a> / О компании
-    </div>
-    <h1>О компании AXIIOM</h1>
-    <p class="subtitle">Цифровые эксперты для элитных клиентов</p>
+    </nav>
 
-    <div class="about-text">
+    <h1 class="ap-h1">О компании AXIIOM</h1>
+    <p class="ap-subtitle">Цифровые эксперты для элитных клиентов</p>
+
+    <div class="ap-text">
       <p><strong>AXIIOM</strong> — IT-компания из Санкт-Петербурга, специализирующаяся на разработке цифровых продуктов премиум-класса. Мы создаём сайты, мобильные и веб-приложения, системы автоматизации бизнеса и AI-решения.</p>
       <p>Наша миссия — помогать бизнесу расти через технологии. Мы объединяем экспертизу в разработке, дизайне и аналитике, чтобы создавать продукты, которые работают на результат.</p>
       <p>AXIIOM использует современный стек технологий и методологии: микросервисная архитектура, CI/CD, контейнеризация, облачные платформы. Мы работаем с корпоративными заказчиками, стартапами и государственными структурами.</p>
     </div>
 
-    <h2>Наш подход к разработке</h2>
-    <div class="about-text">
-      <p>Каждый проект в AXIIOM проходит через четыре последовательных этапа, гарантирующих качество и предсказуемость результата.</p>
-      <p><strong>1. Анализ и проектирование.</strong> Глубоко изучаем ваш бизнес, целевую аудиторию и конкурентное окружение. Формулируем бизнес-требования, строим карты пользовательских сценариев, определяем архитектуру решения и технологический стек. Результат этапа — техническое задание и прототипы ключевых экранов, согласованные с вами.</p>
+    <h2 class="ap-h2">Наш подход к разработке</h2>
+    <div class="ap-text">
+      <p><strong>1. Анализ и проектирование.</strong> Глубоко изучаем ваш бизнес, целевую аудиторию и конкурентное окружение. Формулируем бизнес-требования, строим карты пользовательских сценариев, определяем архитектуру решения и технологический стек. Результат этапа — техническое задание и прототипы ключевых экранов.</p>
       <p><strong>2. Дизайн и разработка.</strong> Создаём детальные макеты в Figma с учётом принципов UX-дизайна и вашего фирменного стиля. Параллельно команда разработки строит бэкенд и фронтенд. Используем agile-методологию с двухнедельными спринтами — вы видите прогресс каждые две недели и можете вносить коррективы.</p>
-      <p><strong>3. Тестирование и приёмка.</strong> Проводим многоуровневое тестирование: юнит-тесты, интеграционные тесты, нагрузочное тестирование, ручное тестирование на реальных устройствах. Организуем пилотную эксплуатацию с фокус-группой пользователей. Только после устранения всех замечаний продукт передаётся вам.</p>
-      <p><strong>4. Запуск и поддержка.</strong> Обеспечиваем плавный запуск с минимальными рисками: настраиваем мониторинг, резервное копирование, системы оповещения об инцидентах. После запуска доступны три уровня поддержки — от базового реагирования на инциденты до полноценного развития продукта с регулярными релизами новых функций.</p>
+      <p><strong>3. Тестирование и приёмка.</strong> Проводим многоуровневое тестирование: юнит-тесты, интеграционные тесты, нагрузочное тестирование, ручное тестирование на реальных устройствах. Организуем пилотную эксплуатацию с фокус-группой пользователей. После устранения замечаний продукт передаётся вам.</p>
+      <p><strong>4. Запуск и поддержка.</strong> Обеспечиваем плавный запуск с минимальными рисками: настраиваем мониторинг, резервное копирование, системы оповещения об инцидентах. После запуска доступны три уровня поддержки — от базового реагирования до полноценного развития продукта с регулярными релизами новых функций.</p>
     </div>
 
-    <h2>Технологический стек</h2>
-    <div class="tech-grid">
-      <div class="tech-card">
-        <h3>Фронтенд</h3>
-        <ul>
-          <li>React</li>
-          <li>Vue.js</li>
-          <li>Angular</li>
-          <li>Tailwind CSS</li>
-        </ul>
+    <h2 class="ap-h2">Технологический стек</h2>
+    <div class="ap-grid-3">
+      <div class="ap-card">
+        <div class="ap-h3">Фронтенд</div>
+        <div class="ap-card-text">
+          <p>React, Vue.js, Angular<br>Tailwind CSS, TypeScript<br>Svelte, Next.js</p>
+        </div>
       </div>
-      <div class="tech-card">
-        <h3>Бэкенд</h3>
-        <ul>
-          <li>Node.js</li>
-          <li>Python (Django / Flask)</li>
-          <li>Go</li>
-          <li>AWS, Azure, GCP</li>
-        </ul>
+      <div class="ap-card">
+        <div class="ap-h3">Бэкенд</div>
+        <div class="ap-card-text">
+          <p>Node.js, Python (Django/Flask)<br>Go, Java (Spring Boot)<br>AWS, Azure, Google Cloud</p>
+        </div>
       </div>
-      <div class="tech-card">
-        <h3>Дизайн и UX</h3>
-        <ul>
-          <li>Figma</li>
-          <li>Sketch</li>
-          <li>Adobe XD</li>
-          <li>UX-исследования</li>
-        </ul>
+      <div class="ap-card">
+        <div class="ap-h3">Дизайн и UX</div>
+        <div class="ap-card-text">
+          <p>Figma, Sketch, Adobe XD<br>UX-исследования<br>Дизайн-системы, брендинг</p>
+        </div>
       </div>
-    </div>
-
-    <h2>Юридическая информация</h2>
-    <div class="details-grid">
-      <div class="detail-card">
-        <strong>Полное наименование</strong>
-        <span>Общество с ограниченной ответственностью «Аксиома»</span>
+      <div class="ap-card">
+        <div class="ap-h3">Базы данных</div>
+        <div class="ap-card-text">
+          <p>PostgreSQL, MongoDB<br>ClickHouse, Redis<br>Elasticsearch</p>
+        </div>
       </div>
-      <div class="detail-card">
-        <strong>ИНН</strong>
-        <span>7842223709</span>
+      <div class="ap-card">
+        <div class="ap-h3">DevOps / Инфраструктура</div>
+        <div class="ap-card-text">
+          <p>Docker, Kubernetes<br>CI/CD (GitLab, GitHub Actions)<br>Terraform, Ansible</p>
+        </div>
       </div>
-      <div class="detail-card">
-        <strong>КПП</strong>
-        <span>780101001</span>
-      </div>
-      <div class="detail-card">
-        <strong>ОГРН</strong>
-        <span>1247800067690</span>
-      </div>
-      <div class="detail-card">
-        <strong>ОКВЭД</strong>
-        <span>62.01 — Разработка компьютерного программного обеспечения</span>
-      </div>
-      <div class="detail-card">
-        <strong>Юридический адрес</strong>
-        <span>199106, Санкт-Петербург, пр-кт Большой В.О., д. 83, лит. А, пом. 2-Н, оф. 329/1</span>
-      </div>
-      <div class="detail-card">
-        <strong>Банк</strong>
-        <span>АО БАНК «ПСКБ», г. Санкт-Петербург<br>р/с: 40702 810 2 0000 0906387<br>БИК: 044030852<br>к/с: 30101 810 0 0000 0000852</span>
+      <div class="ap-card">
+        <div class="ap-h3">AI / Data</div>
+        <div class="ap-card-text">
+          <p>LLM (GPT, Claude, YandexGPT)<br>RAG, LangChain, векторные БД<br>ML-модели, аналитика</p>
+        </div>
       </div>
     </div>
 
-    <!-- Yandex.RTB R-A-19322985-1 -->
-    <div id="yandex_rtb_R-A-19322985-1" style="max-width:1100px;margin:40px auto;"></div>
+    <h2 class="ap-h2">Юридическая информация</h2>
+    <div class="ap-grid-3">
+      <div class="ap-card">
+        <div class="ap-h3">ООО «Аксиома»</div>
+        <div class="ap-card-text">
+          <p><strong>ИНН:</strong> 7842223709<br><strong>КПП:</strong> 780101001<br><strong>ОГРН:</strong> 1247800067690</p>
+        </div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-h3">ОКВЭД</div>
+        <div class="ap-card-text">
+          <p>62.01 — Разработка компьютерного программного обеспечения</p>
+        </div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-h3">Юридический адрес</div>
+        <div class="ap-card-text">
+          <p>199106, Санкт-Петербург,<br>пр-кт Большой В.О., д. 83,<br>лит. А, пом. 2-Н, оф. 329/1</p>
+        </div>
+      </div>
+      <div class="ap-card">
+        <div class="ap-h3">Банковские реквизиты</div>
+        <div class="ap-card-text">
+          <p>АО БАНК «ПСКБ», г. Санкт-Петербург<br><strong>р/с:</strong> 40702 810 2 0000 0906387<br><strong>БИК:</strong> 044030852<br><strong>к/с:</strong> 30101 810 0 0000 0000852</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="./kontakty.html" class="ap-btn">Связаться с нами</a>
+
+    <div class="ap-ad" id="yandex_rtb_R-A-19322985-1"></div>
     <script>window.yaContextCb.push(() => {Ya.Context.AdvManager.render({"blockId": "R-A-19322985-1","renderTo": "yandex_rtb_R-A-19322985-1"})})</script>
-  </div>
+  </main>
 
-  <footer>
+  <footer class="ap-footer">
     <p>© 2024–2026 <a href="./index.html">AXIIOM</a>. ООО «Аксиома». Санкт-Петербург.</p>
   </footer>
 
-<!-- Yandex.Metrika counter --> <script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=109391253','ym');ym(109391253,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});</script> <noscript><div><img src="https://mc.yandex.ru/watch/109391253" style="position:absolute;left:-9999px;" alt=""></div></noscript>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=109391253','ym');ym(109391253,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});</script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/109391253" style="position:absolute;left:-9999px;" alt=""></div></noscript>
 </body>
 </html>

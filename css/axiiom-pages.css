@@ -1,0 +1,276 @@
+/* AXIIOM — Shared styles for standalone SEO pages */
+/* Brand: #1A1A1A bg, #fbf5ee light, #23374f blue, #4e9ed6 accent, #cccccc/#999999 text */
+/* Fonts: Cinzel (h1), Playfair Display (h2), Source Sans 3 (body) */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1A1A1A;
+  color: #cccccc;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* ── Nav ── */
+.ap-nav {
+  background: #111;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #222;
+}
+
+.ap-nav-logo {
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.ap-nav-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.ap-nav-links a {
+  color: #999999;
+  text-decoration: none;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color .2s;
+}
+
+.ap-nav-links a:hover,
+.ap-nav-links a.active {
+  color: #fbf5ee;
+}
+
+/* ── Container ── */
+.ap-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 24px 40px;
+}
+
+/* ── Breadcrumb ── */
+.ap-breadcrumb {
+  margin-bottom: 32px;
+  font-size: 13px;
+  color: #666;
+}
+
+.ap-breadcrumb a {
+  color: #666;
+  text-decoration: none;
+}
+
+.ap-breadcrumb a:hover {
+  color: #fbf5ee;
+}
+
+/* ── Headings ── */
+.ap-h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  color: #fbf5ee;
+  margin-bottom: 8px;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+}
+
+.ap-subtitle {
+  color: #999999;
+  font-size: 17px;
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+
+.ap-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #fbf5ee;
+  margin: 44px 0 18px;
+  line-height: 1.3;
+}
+
+.ap-h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: #fbf5ee;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+/* ── Cards ── */
+.ap-card {
+  background: #232323;
+  border-radius: 8px;
+  padding: 32px;
+  border: 1px solid #333;
+}
+
+.ap-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #fbf5ee;
+  margin-bottom: 12px;
+}
+
+.ap-card-text {
+  color: #999999;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.ap-card-text p {
+  margin-bottom: 12px;
+}
+
+.ap-card-text strong {
+  color: #cccccc;
+}
+
+.ap-price {
+  color: #4e9ed6;
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+/* ── Tags ── */
+.ap-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.ap-tag {
+  background: #23374f;
+  color: #fbf5ee;
+  padding: 3px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Grids ── */
+.ap-grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 24px; }
+.ap-grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 24px; }
+.ap-grid-main { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-top: 24px; }
+
+/* ── Buttons ── */
+.ap-btn {
+  display: inline-block;
+  background: #23374f;
+  color: #fbf5ee;
+  padding: 13px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 15px;
+  transition: background .2s;
+  margin-top: 40px;
+}
+
+.ap-btn:hover {
+  background: #335581;
+}
+
+/* ── Ad block ── */
+.ap-ad {
+  max-width: 1100px;
+  margin: 40px auto 0;
+}
+
+/* ── Footer ── */
+.ap-footer {
+  background: #111;
+  padding: 32px 24px;
+  text-align: center;
+  color: #666;
+  font-size: 13px;
+  border-top: 1px solid #222;
+  margin-top: 60px;
+}
+
+.ap-footer a {
+  color: #4e9ed6;
+  text-decoration: none;
+}
+
+/* ── Content text blocks ── */
+.ap-text {
+  max-width: 800px;
+  margin-bottom: 32px;
+  color: #bbbbbb;
+  line-height: 1.8;
+}
+
+.ap-text p {
+  margin-bottom: 16px;
+}
+
+.ap-text strong {
+  color: #fbf5ee;
+}
+
+/* ── Contact card ── */
+.ap-contact-card {
+  background: #232323;
+  border-radius: 8px;
+  padding: 32px;
+  border: 1px solid #333;
+}
+
+.ap-contact-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: #999999;
+  margin-bottom: 10px;
+}
+
+.ap-contact-value {
+  color: #fbf5ee;
+  font-size: 18px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.ap-contact-value:hover {
+  color: #4e9ed6;
+}
+
+.ap-contact-detail {
+  color: #999999;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 8px;
+}
+
+/* ── Map placeholder ── */
+.ap-map {
+  background: #232323;
+  border-radius: 8px;
+  border: 1px solid #333;
+  padding: 56px 32px;
+  text-align: center;
+  margin-top: 40px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .ap-h1 { font-size: 26px; }
+  .ap-h2 { font-size: 20px; }
+  .ap-nav { padding: 12px 16px; gap: 16px; }
+  .ap-container { padding: 40px 16px; }
+}
