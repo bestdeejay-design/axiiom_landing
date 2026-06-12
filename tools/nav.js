@@ -17,18 +17,6 @@ function initToolsNav(currentPath) {
   var base = '/tools/';
   var w = window.innerWidth;
 
-  // Tablet pills
-  var pillsContainer = document.getElementById('toolsPills');
-  if (pillsContainer && w >= 769 && w < 1024) {
-    TOOLS.forEach(function(t) {
-      var a = document.createElement('a');
-      a.href = base + t.path;
-      a.textContent = t.name;
-      if (t.path === currentPath) a.className = 'nav-active';
-      pillsContainer.appendChild(a);
-    });
-  }
-
   // Mobile overlay
   var desktopNav = document.getElementById('toolsNav');
   var mobileNav = document.getElementById('toolsNavMobile');
