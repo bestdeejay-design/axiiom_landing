@@ -14,11 +14,36 @@ var TOOLS = [
 ];
 
 function initToolsNav(currentPath) {
+  var base = '/tools/';
+  var w = window.innerWidth;
+
+  // Desktop sidebar
+  var sidebar = document.getElementById('toolsSidebar');
+  if (sidebar && w >= 1024) {
+    TOOLS.forEach(function(t) {
+      var a = document.createElement('a');
+      a.href = base + t.path;
+      a.textContent = t.name;
+      if (t.path === currentPath) a.className = 'nav-active';
+      sidebar.appendChild(a);
+    });
+  }
+
+  // Tablet pills
+  var pillsContainer = document.getElementById('toolsPills');
+  if (pillsContainer && w >= 769 && w < 1024) {
+    TOOLS.forEach(function(t) {
+      var a = document.createElement('a');
+      a.href = base + t.path;
+      a.textContent = t.name;
+      if (t.path === currentPath) a.className = 'nav-active';
+      pillsContainer.appendChild(a);
+    });
+  }
+
+  // Mobile overlay
   var desktopNav = document.getElementById('toolsNav');
   var mobileNav = document.getElementById('toolsNavMobile');
-  if (!desktopNav && !mobileNav) return;
-
-  var base = '/tools/';
 
   TOOLS.forEach(function(t) {
     var isActive = t.path === currentPath;
@@ -40,7 +65,7 @@ function initToolsNav(currentPath) {
     }
   });
 
-  // Re-bind nav toggle after populating
+  // Nav toggle
   var navToggle = document.getElementById('navToggle');
   var navOverlay = document.getElementById('navOverlay');
   if (navToggle && navOverlay) {
