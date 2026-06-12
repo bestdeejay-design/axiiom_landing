@@ -119,21 +119,24 @@ function copyPageUrl(btn) {
     var tip = btn.querySelector('.share-tooltip');
     if (navigator.clipboard) {
         navigator.clipboard.writeText(url).then(function() {
-            if (tip) { tip.classList.add('show'); setTimeout(function() { tip.classList.remove('show'); }, 2000); }
-        });
+            if (tip) tip.classList.add('show'); setTimeout(function() { tip.classList.remove('show'); }, 2000);
+        }).catch(function() { copyFallback(url, tip); });
     } else {
-        var ta = document.createElement('textarea');
-        ta.value = url;
-        ta.style.position = 'absolute';
-        ta.style.left = '-9999px';
-        ta.style.top = '0';
-        document.body.appendChild(ta);
-        ta.focus();
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        if (tip) { tip.classList.add('show'); setTimeout(function() { tip.classList.remove('show'); }, 2000); }
+        copyFallback(url, tip);
     }
+}
+function copyFallback(url, tip) {
+    var ta = document.createElement('textarea');
+    ta.value = url;
+    ta.style.position = 'absolute';
+    ta.style.left = '-9999px';
+    ta.style.top = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (tip) tip.classList.add('show'); setTimeout(function() { tip.classList.remove('show'); }, 2000);
 }
 </script>
 <script src="../nav.js"></script>
