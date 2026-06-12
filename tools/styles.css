@@ -781,6 +781,27 @@ a.logo:hover::after { width: 100%; }
 
 .copy .footer-link:hover { opacity: .7; }
 
+/* Tools navigation - compact for 12 items */
+.nav-links li a.nav-active {
+  color: var(--clr-heading);
+  opacity: 1;
+}
+
+.nav-links li a.nav-active::after {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .nav-links--desktop {
+    gap: 12px;
+  }
+  .nav-links--desktop a {
+    font-size: .72rem;
+    letter-spacing: .3px;
+    white-space: nowrap;
+  }
+}
+
 /* Reveal animations */
 .reveal {
     opacity: 0;

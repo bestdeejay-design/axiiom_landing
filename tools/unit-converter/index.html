@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Конвертер единиц — AXIIOM Tools</title>
     <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
-    <link rel="stylesheet" href="/tools/styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
 <div class="noise"></div>
@@ -15,7 +15,7 @@
     <div class="container">
         <nav class="nav">
             <a href="/" class="logo">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
                     <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
                     <rect x="20" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
                     <rect x="2" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
@@ -24,13 +24,7 @@
                 </svg>
                 <span>AXIIOM</span>
             </a>
-            <ul class="nav-links nav-links--desktop">
-                <li><a href="/">Главная</a></li>
-                <li><a href="/o-kompanii.html">О компании</a></li>
-                <li><a href="/uslugi.html">Услуги</a></li>
-                <li><a href="/kejsy.html">Кейсы</a></li>
-                <li><a href="/kontakty.html">Контакты</a></li>
-            </ul>
+            <ul class="nav-links nav-links--desktop" id="toolsNav"></ul>
             <div class="nav-actions">
                 <button class="theme-btn" id="themeToggle" aria-label="Сменить тему">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
@@ -44,26 +38,17 @@
 </header>
 
 <div class="nav-overlay" id="navOverlay">
-    <ul class="nav-links">
-        <li><a href="/">Главная</a></li>
-        <li><a href="/o-kompanii.html">О компании</a></li>
-        <li><a href="/uslugi.html">Услуги</a></li>
-        <li><a href="/kejsy.html">Кейсы</a></li>
-        <li><a href="/kontakty.html">Контакты</a></li>
-    </ul>
+    <ul class="nav-links" id="toolsNavMobile"></ul>
 </div>
 
 <section class="tool-page">
     <div class="container">
         <div class="tool-page-header">
-            <a href="/tools/" class="back-link">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-                Назад
-            </a>
+            <a href="../" class="back-link">← Все инструменты</a>
             <h1>Конвертер единиц</h1>
         </div>
 
-        <p class="tool-description">Перевод длины, массы, температуры, объёма, скорости, площади и давления. Введите значение — результат обновится мгновенно.</p>
+        <p class="tool-description">Перевод различных единиц измерения: длина, масса, температура, объём и другие.</p>
 
         <div class="tool-page-card">
             <div class="tool-row">
@@ -105,89 +90,85 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты для разработчиков, дизайнеров и SEO-специалистов</p>
+        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты</p>
     </div>
 </footer>
 
+<script src="../nav.js"></script>
 <script>
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
+initToolsNav('unit-converter/');
 
-const navToggle = document.getElementById('navToggle');
-const navOverlay = document.getElementById('navOverlay');
-navToggle?.addEventListener('click', () => {
-    navOverlay.classList.toggle('open');
-    navToggle.classList.toggle('active');
-    document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
-});
-navOverlay?.addEventListener('click', (e) => {
-    if (e.target === navOverlay) {
-        navOverlay.classList.remove('open');
-        navToggle.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
-
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-const saved = localStorage.getItem('theme');
+var themeToggle = document.getElementById('themeToggle');
+var html = document.documentElement;
+var saved = localStorage.getItem('theme');
 if (saved) html.setAttribute('data-theme', saved);
 if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
     html.setAttribute('data-theme', 'light');
 }
 updateIcon();
-themeToggle?.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    const next = current === 'light' ? '' : 'light';
+themeToggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'light' ? '' : 'light';
     html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
     updateIcon();
 });
 function updateIcon() {
-    const isLight = html.getAttribute('data-theme') === 'light';
+    var isLight = html.getAttribute('data-theme') === 'light';
     themeToggle.innerHTML = isLight
         ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
         : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
 }
 
-const units = {
+var header = document.getElementById('header');
+window.addEventListener('scroll', function() {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+var cursor = document.createElement('div');
+cursor.className = 'cursor-glow';
+document.body.appendChild(cursor);
+document.addEventListener('mousemove', function(e) {
+    cursor.style.transform = 'translate(' + (e.clientX - 400) + 'px, ' + (e.clientY - 400) + 'px)';
+});
+
+// Tool-specific JS
+var UNITS_DATA = {
     length: [
         { id: 'mm', label: 'мм' },
         { id: 'cm', label: 'см' },
         { id: 'm', label: 'м' },
         { id: 'km', label: 'км' },
-        { id: 'in', label: 'дюйм (in)' },
-        { id: 'ft', label: 'фут (ft)' },
-        { id: 'yd', label: 'ярд (yd)' },
-        { id: 'mi', label: 'миля (mi)' },
+        { id: 'in', label: 'дюйм' },
+        { id: 'ft', label: 'фут' },
+        { id: 'yd', label: 'ярд' },
+        { id: 'mi', label: 'миля' }
     ],
     mass: [
         { id: 'mg', label: 'мг' },
         { id: 'g', label: 'г' },
         { id: 'kg', label: 'кг' },
         { id: 't', label: 'т' },
-        { id: 'oz', label: 'унция (oz)' },
-        { id: 'lb', label: 'фунт (lb)' },
+        { id: 'oz', label: 'унция' },
+        { id: 'lb', label: 'фунт' }
     ],
     temperature: [
-        { id: 'celsius', label: '°C' },
-        { id: 'fahrenheit', label: '°F' },
-        { id: 'kelvin', label: 'K' },
+        { id: 'c', label: '°C' },
+        { id: 'f', label: '°F' },
+        { id: 'k', label: 'K' }
     ],
     volume: [
         { id: 'ml', label: 'мл' },
         { id: 'l', label: 'л' },
         { id: 'm3', label: 'м³' },
-        { id: 'gal', label: 'галлон (gal)' },
-        { id: 'floz', label: 'унция жидк. (fl oz)' },
+        { id: 'gal', label: 'галлон' },
+        { id: 'floz', label: 'fl oz' }
     ],
     speed: [
         { id: 'ms', label: 'м/с' },
         { id: 'kmh', label: 'км/ч' },
-        { id: 'mph', label: 'миль/ч (mph)' },
-        { id: 'kt', label: 'узлы (kt)' },
+        { id: 'mph', label: 'mph' },
+        { id: 'kt', label: 'узлы' }
     ],
     area: [
         { id: 'mm2', label: 'мм²' },
@@ -195,7 +176,7 @@ const units = {
         { id: 'm2', label: 'м²' },
         { id: 'ha', label: 'га' },
         { id: 'km2', label: 'км²' },
-        { id: 'ac', label: 'акр (ac)' },
+        { id: 'ac', label: 'акр' }
     ],
     pressure: [
         { id: 'pa', label: 'Па' },
@@ -203,83 +184,90 @@ const units = {
         { id: 'bar', label: 'бар' },
         { id: 'atm', label: 'атм' },
         { id: 'mmhg', label: 'мм рт. ст.' },
-        { id: 'psi', label: 'psi' },
-    ],
+        { id: 'psi', label: 'psi' }
+    ]
 };
 
-const toBase = {
+var TO_BASE = {
     length: { mm: 0.001, cm: 0.01, m: 1, km: 1000, in: 0.0254, ft: 0.3048, yd: 0.9144, mi: 1609.344 },
     mass: { mg: 0.001, g: 1, kg: 1000, t: 1000000, oz: 28.3495, lb: 453.592 },
     volume: { ml: 0.001, l: 1, m3: 1000, gal: 3.78541, floz: 0.0295735 },
     speed: { ms: 1, kmh: 0.277778, mph: 0.44704, kt: 0.514444 },
     area: { mm2: 0.000001, cm2: 0.0001, m2: 1, ha: 10000, km2: 1000000, ac: 4046.86 },
-    pressure: { pa: 1, kpa: 1000, bar: 100000, atm: 101325, mmhg: 133.322, psi: 6894.76 },
+    pressure: { pa: 1, kpa: 1000, bar: 100000, atm: 101325, mmhg: 133.322, psi: 6894.76 }
 };
 
-const fromBase = {
+var FROM_BASE = {
     length: { mm: 1000, cm: 100, m: 1, km: 0.001, in: 39.3701, ft: 3.28084, yd: 1.09361, mi: 0.000621371 },
     mass: { mg: 1000, g: 1, kg: 0.001, t: 0.000001, oz: 0.035274, lb: 0.00220462 },
     volume: { ml: 1000, l: 1, m3: 0.001, gal: 0.264172, floz: 33.814 },
     speed: { ms: 1, kmh: 3.6, mph: 2.23694, kt: 1.94384 },
     area: { mm2: 1000000, cm2: 10000, m2: 1, ha: 0.0001, km2: 0.000001, ac: 0.000247105 },
-    pressure: { pa: 1, kpa: 0.001, bar: 0.00001, atm: 0.00000986923, mmhg: 0.00750062, psi: 0.000145038 },
+    pressure: { pa: 1, kpa: 0.001, bar: 0.00001, atm: 0.00000986923, mmhg: 0.00750062, psi: 0.000145038 }
 };
 
-const categoryEl = document.getElementById('category');
-const valueEl = document.getElementById('value');
-const fromEl = document.getElementById('fromUnit');
-const toEl = document.getElementById('toUnit');
-const resultEl = document.getElementById('result');
+var categoryEl = document.getElementById('category');
+var valueEl = document.getElementById('value');
+var fromEl = document.getElementById('fromUnit');
+var toEl = document.getElementById('toUnit');
+var resultEl = document.getElementById('result');
 
 function populateUnits() {
-    const cat = categoryEl.value;
-    const list = units[cat];
-    const prevFrom = fromEl.value;
-    const prevTo = toEl.value;
+    var cat = categoryEl.value;
+    var list = UNITS_DATA[cat];
+    var prevFrom = fromEl.value;
+    var prevTo = toEl.value;
     fromEl.innerHTML = '';
     toEl.innerHTML = '';
-    list.forEach(u => {
-        fromEl.innerHTML += `<option value="${u.id}">${u.label}</option>`;
-        toEl.innerHTML += `<option value="${u.id}">${u.label}</option>`;
-    });
-    if (list.some(u => u.id === prevFrom)) fromEl.value = prevFrom;
+    for (var i = 0; i < list.length; i++) {
+        var u = list[i];
+        fromEl.innerHTML += '<option value="' + u.id + '">' + u.label + '</option>';
+        toEl.innerHTML += '<option value="' + u.id + '">' + u.label + '</option>';
+    }
+    var fromFound = false;
+    var toFound = false;
+    for (var j = 0; j < list.length; j++) {
+        if (list[j].id === prevFrom) fromFound = true;
+        if (list[j].id === prevTo) toFound = true;
+    }
+    if (fromFound) fromEl.value = prevFrom;
     else if (list.length > 1) fromEl.value = list[1].id;
-    if (list.some(u => u.id === prevTo)) toEl.value = prevTo;
+    if (toFound) toEl.value = prevTo;
     else if (list.length > 0) toEl.value = list[0].id;
     convert();
 }
 
 function convert() {
-    const cat = categoryEl.value;
-    const from = fromEl.value;
-    const to = toEl.value;
-    const val = parseFloat(valueEl.value);
+    var cat = categoryEl.value;
+    var from = fromEl.value;
+    var to = toEl.value;
+    var val = parseFloat(valueEl.value);
 
     if (isNaN(val) || !from || !to) {
         resultEl.textContent = '—';
         return;
     }
 
-    let result;
+    var result;
     if (cat === 'temperature') {
         result = convertTemperature(from, to, val);
     } else {
-        const baseVal = val * toBase[cat][from];
-        result = baseVal * fromBase[cat][to];
+        var baseVal = val * TO_BASE[cat][from];
+        result = baseVal * FROM_BASE[cat][to];
     }
 
-    const formatted = result % 1 === 0 ? result.toString() : result.toFixed(10).replace(/\.?0+$/, '');
+    var formatted = result % 1 === 0 ? result.toString() : result.toFixed(10).replace(/\.?0+$/, '');
     resultEl.textContent = formatted;
 }
 
 function convertTemperature(from, to, val) {
-    let celsius;
-    if (from === 'celsius') celsius = val;
-    else if (from === 'fahrenheit') celsius = (val - 32) * 5 / 9;
+    var celsius;
+    if (from === 'c') celsius = val;
+    else if (from === 'f') celsius = (val - 32) * 5 / 9;
     else celsius = val - 273.15;
 
-    if (to === 'celsius') return celsius;
-    if (to === 'fahrenheit') return celsius * 9 / 5 + 32;
+    if (to === 'c') return celsius;
+    if (to === 'f') return celsius * 9 / 5 + 32;
     return celsius + 273.15;
 }
 

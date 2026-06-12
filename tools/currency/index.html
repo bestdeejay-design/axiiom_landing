@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Конвертер валют — AXIIOM Tools</title>
     <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
-    <link rel="stylesheet" href="/tools/styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
 <div class="noise"></div>
@@ -15,7 +15,7 @@
     <div class="container">
         <nav class="nav">
             <a href="/" class="logo">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
                     <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
                     <rect x="20" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
                     <rect x="2" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
@@ -24,13 +24,7 @@
                 </svg>
                 <span>AXIIOM</span>
             </a>
-            <ul class="nav-links nav-links--desktop">
-                <li><a href="/">Главная</a></li>
-                <li><a href="/o-kompanii.html">О компании</a></li>
-                <li><a href="/uslugi.html">Услуги</a></li>
-                <li><a href="/kejsy.html">Кейсы</a></li>
-                <li><a href="/kontakty.html">Контакты</a></li>
-            </ul>
+            <ul class="nav-links nav-links--desktop" id="toolsNav"></ul>
             <div class="nav-actions">
                 <button class="theme-btn" id="themeToggle" aria-label="Сменить тему">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
@@ -44,35 +38,27 @@
 </header>
 
 <div class="nav-overlay" id="navOverlay">
-    <ul class="nav-links">
-        <li><a href="/">Главная</a></li>
-        <li><a href="/o-kompanii.html">О компании</a></li>
-        <li><a href="/uslugi.html">Услуги</a></li>
-        <li><a href="/kejsy.html">Кейсы</a></li>
-        <li><a href="/kontakty.html">Контакты</a></li>
-    </ul>
+    <ul class="nav-links" id="toolsNavMobile"></ul>
 </div>
 
 <section class="tool-page">
     <div class="container">
         <div class="tool-page-header">
-            <a href="/tools/" class="back-link">← Назад к инструментам</a>
+            <a href="../" class="back-link">← Все инструменты</a>
             <h1>Конвертер валют</h1>
         </div>
+        <p class="tool-description">Пересчёт сумм между основными валютами.</p>
         <div class="tool-page-card">
-            <p class="tool-description">Пересчёт сумм между основными валютами мира по фиксированному курсу.</p>
-
             <div class="tool-row">
                 <label class="tool-label" for="amount">Сумма</label>
                 <input class="tool-input" type="number" id="amount" value="1" min="0" step="any">
             </div>
-
             <div class="tool-grid-2">
                 <div class="tool-row">
                     <label class="tool-label" for="fromCurrency">Из</label>
                     <select class="tool-select" id="fromCurrency">
                         <option value="RUB">RUB — Российский рубль</option>
-                        <option value="USD">USD — Доллар США</option>
+                        <option value="USD" selected>USD — Доллар США</option>
                         <option value="EUR">EUR — Евро</option>
                         <option value="CNY">CNY — Китайский юань</option>
                         <option value="GBP">GBP — Британский фунт</option>
@@ -89,8 +75,8 @@
                 <div class="tool-row">
                     <label class="tool-label" for="toCurrency">В</label>
                     <select class="tool-select" id="toCurrency">
-                        <option value="USD">USD — Доллар США</option>
                         <option value="RUB" selected>RUB — Российский рубль</option>
+                        <option value="USD">USD — Доллар США</option>
                         <option value="EUR">EUR — Евро</option>
                         <option value="CNY">CNY — Китайский юань</option>
                         <option value="GBP">GBP — Британский фунт</option>
@@ -105,16 +91,13 @@
                     </select>
                 </div>
             </div>
-
             <div class="tool-btn-group">
                 <button class="tool-btn" id="convertBtn">Конвертировать</button>
             </div>
-
             <div class="tool-output" id="resultOutput">
                 <div class="tool-output-label">Результат</div>
-                <span id="resultText">1 RUB = 0,0111 USD</span>
+                <span id="resultText">1 USD = 90,0000 RUB</span>
             </div>
-
             <p style="font-size:0.75rem;color:var(--clr-faint);margin-top:12px;letter-spacing:0.3px;">Курсы указаны приблизительно</p>
         </div>
     </div>
@@ -122,12 +105,50 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты для разработчиков, дизайнеров и SEO-специалистов</p>
+        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты</p>
     </div>
 </footer>
 
+<script src="../nav.js"></script>
 <script>
-const rates = {
+initToolsNav('currency/');
+
+var themeToggle = document.getElementById('themeToggle');
+var html = document.documentElement;
+var saved = localStorage.getItem('theme');
+if (saved) html.setAttribute('data-theme', saved);
+if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    html.setAttribute('data-theme', 'light');
+}
+updateIcon();
+themeToggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'light' ? '' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateIcon();
+});
+function updateIcon() {
+    var isLight = html.getAttribute('data-theme') === 'light';
+    themeToggle.innerHTML = isLight
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+}
+
+var header = document.getElementById('header');
+window.addEventListener('scroll', function() {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+var cursor = document.createElement('div');
+cursor.className = 'cursor-glow';
+document.body.appendChild(cursor);
+document.addEventListener('mousemove', function(e) {
+    cursor.style.transform = 'translate(' + (e.clientX - 400) + 'px, ' + (e.clientY - 400) + 'px)';
+});
+
+// --- Currency Converter Logic ---
+var rates = {
     RUB: 1,
     USD: 90,
     EUR: 98,
@@ -143,31 +164,27 @@ const rates = {
     THB: 2.5
 };
 
-const amountInput = document.getElementById('amount');
-const fromSelect = document.getElementById('fromCurrency');
-const toSelect = document.getElementById('toCurrency');
-const convertBtn = document.getElementById('convertBtn');
-const resultText = document.getElementById('resultText');
+var amountInput = document.getElementById('amount');
+var fromSelect = document.getElementById('fromCurrency');
+var toSelect = document.getElementById('toCurrency');
+var convertBtn = document.getElementById('convertBtn');
+var resultText = document.getElementById('resultText');
 
 function formatNum(n) {
     if (Math.abs(n) < 0.0001 && n !== 0) return n.toExponential(4);
-    if (n >= 1e9) return n.toLocaleString('ru-RU', { maximumFractionDigits: 2 });
     if (n >= 1) {
-        const s = n.toFixed(4).replace(/\.?0+$/, '');
+        var s = n.toFixed(4).replace(/\.?0+$/, '');
         return parseFloat(s).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 4 });
     }
     return n.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 6 });
 }
 
 function convert() {
-    const amount = parseFloat(amountInput.value) || 0;
-    const from = fromSelect.value;
-    const to = toSelect.value;
-    const rubAmount = amount * rates[from];
-    const result = rubAmount / rates[to];
-    const fromName = fromSelect.options[fromSelect.selectedIndex].text;
-    const toName = toSelect.options[toSelect.selectedIndex].text;
-
+    var amount = parseFloat(amountInput.value) || 0;
+    var from = fromSelect.value;
+    var to = toSelect.value;
+    var rubAmount = amount * rates[from];
+    var result = rubAmount / rates[to];
     if (amount === 0) {
         resultText.textContent = '0';
     } else if (from === to) {
@@ -183,55 +200,6 @@ fromSelect.addEventListener('change', convert);
 toSelect.addEventListener('change', convert);
 
 convert();
-
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
-
-const navToggle = document.getElementById('navToggle');
-const navOverlay = document.getElementById('navOverlay');
-navToggle?.addEventListener('click', () => {
-    navOverlay.classList.toggle('open');
-    navToggle.classList.toggle('active');
-    document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
-});
-navOverlay?.addEventListener('click', (e) => {
-    if (e.target === navOverlay) {
-        navOverlay.classList.remove('open');
-        navToggle.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
-
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-const saved = localStorage.getItem('theme');
-if (saved) html.setAttribute('data-theme', saved);
-if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    html.setAttribute('data-theme', 'light');
-}
-updateIcon();
-themeToggle?.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    const next = current === 'light' ? '' : 'light';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-    updateIcon();
-});
-function updateIcon() {
-    const isLight = html.getAttribute('data-theme') === 'light';
-    themeToggle.innerHTML = isLight
-        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
-        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
-}
-
-const cursor = document.createElement('div');
-cursor.className = 'cursor-glow';
-document.body.appendChild(cursor);
-document.addEventListener('mousemove', (e) => {
-    cursor.style.transform = `translate(${e.clientX - 400}px, ${e.clientY - 400}px)`;
-});
 </script>
 </body>
 </html>

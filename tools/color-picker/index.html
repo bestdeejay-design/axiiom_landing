@@ -3,40 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Picker — AXIIOM</title>
+    <title>Color Picker — AXIIOM Tools</title>
     <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
     <link rel="stylesheet" href="../styles.css">
     <style>
         .color-picker-layout {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 220px 1fr;
             gap: 28px;
             align-items: start;
         }
-
         .color-swatch-wrap {
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
-
         .color-swatch {
-            width: 100%;
-            aspect-ratio: 1;
+            width: 200px;
+            height: 200px;
             border-radius: 16px;
             border: 1px solid var(--clr-border);
             transition: background .15s;
         }
-
+        .swatch-hex {
+            font-size: .85rem;
+            color: var(--clr-muted);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
         .color-input-wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
-
         .color-input-wrap input[type="color"] {
             width: 48px;
             height: 48px;
@@ -46,90 +46,55 @@
             cursor: pointer;
             background: none;
         }
-
-        .color-input-wrap input[type="color"]::-webkit-color-swatch-wrapper {
-            padding: 3px;
-        }
-
-        .color-input-wrap input[type="color"]::-webkit-color-swatch {
-            border: none;
-            border-radius: 50%;
-        }
-
-        .color-input-wrap input[type="color"]::-moz-color-swatch {
-            border: none;
-            border-radius: 50%;
-        }
-
+        .color-input-wrap input[type="color"]::-webkit-color-swatch-wrapper { padding: 3px; }
+        .color-input-wrap input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
+        .color-input-wrap input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
         .fields-grid {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
         }
-
         .field-group {
             display: flex;
             flex-direction: column;
             gap: 6px;
         }
-
-        .field-group .tool-label {
-            margin-bottom: 0;
-        }
-
+        .field-group .tool-label { margin-bottom: 0; }
         .field-row {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
         .field-row input[type="range"] {
             flex: 1;
             accent-color: var(--clr-accent);
             height: 4px;
             cursor: pointer;
         }
-
         .field-row .tool-input {
             width: 80px;
             flex-shrink: 0;
             text-align: center;
             padding: 8px 10px;
         }
-
         .field-row .field-suffix {
             font-size: .8rem;
             color: var(--clr-faint);
             min-width: 20px;
         }
-
         .hex-field .tool-input {
             font-family: 'SF Mono', 'Fira Code', monospace;
         }
-
         .format-label {
             font-size: .72rem;
             color: var(--clr-faint);
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
-
-        .swatch-hex {
-            font-size: .9rem;
-            color: var(--clr-muted);
-            font-family: 'SF Mono', 'Fira Code', monospace;
-        }
-
         @media (max-width: 768px) {
-            .color-picker-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .color-swatch {
-                max-width: 200px;
-                margin: 0 auto;
-            }
+            .color-picker-layout { grid-template-columns: 1fr; }
+            .color-swatch { max-width: 200px; margin: 0 auto; }
         }
     </style>
 </head>
@@ -141,7 +106,7 @@
     <div class="container">
         <nav class="nav">
             <a href="/" class="logo">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
                     <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
                     <rect x="20" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
                     <rect x="2" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
@@ -150,13 +115,7 @@
                 </svg>
                 <span>AXIIOM</span>
             </a>
-            <ul class="nav-links nav-links--desktop">
-                <li><a href="/">Главная</a></li>
-                <li><a href="/o-kompanii.html">О компании</a></li>
-                <li><a href="/uslugi.html">Услуги</a></li>
-                <li><a href="/kejsy.html">Кейсы</a></li>
-                <li><a href="/kontakty.html">Контакты</a></li>
-            </ul>
+            <ul class="nav-links nav-links--desktop" id="toolsNav"></ul>
             <div class="nav-actions">
                 <button class="theme-btn" id="themeToggle" aria-label="Сменить тему">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
@@ -170,25 +129,16 @@
 </header>
 
 <div class="nav-overlay" id="navOverlay">
-    <ul class="nav-links">
-        <li><a href="/">Главная</a></li>
-        <li><a href="/o-kompanii.html">О компании</a></li>
-        <li><a href="/uslugi.html">Услуги</a></li>
-        <li><a href="/kejsy.html">Кейсы</a></li>
-        <li><a href="/kontakty.html">Контакты</a></li>
-    </ul>
+    <ul class="nav-links" id="toolsNavMobile"></ul>
 </div>
 
 <section class="tool-page">
     <div class="container">
         <div class="tool-page-header">
-            <a href="../" class="back-link">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-                Назад
-            </a>
+            <a href="../" class="back-link">← Все инструменты</a>
             <h1>Color Picker</h1>
         </div>
-        <p class="tool-description">Выбор цвета и конвертация между HEX, RGB и HSL в реальном времени.</p>
+        <p class="tool-description">Выбор цвета и конвертация между HEX, RGB и HSL.</p>
         <div class="tool-page-card">
             <div class="color-picker-layout">
                 <div class="color-swatch-wrap">
@@ -206,7 +156,6 @@
                             <input class="tool-input" type="text" id="hexInput" value="#6c5ce7" maxlength="7">
                         </div>
                     </div>
-
                     <div class="field-group">
                         <div class="format-label">RGB</div>
                         <div class="field-row">
@@ -225,7 +174,6 @@
                             <input class="tool-input" type="number" id="bInput" min="0" max="255" value="231">
                         </div>
                     </div>
-
                     <div class="field-group">
                         <div class="format-label">HSL</div>
                         <div class="field-row">
@@ -247,7 +195,6 @@
                             <span class="field-suffix">%</span>
                         </div>
                     </div>
-
                     <div class="tool-btn-group">
                         <button class="tool-btn" id="copyHexBtn">Копировать HEX</button>
                     </div>
@@ -259,56 +206,85 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты для разработчиков, дизайнеров и SEO-специалистов</p>
+        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты</p>
     </div>
 </footer>
 
+<script src="../nav.js"></script>
 <script>
-// --- DOM refs ---
-const nativePicker = document.getElementById('nativePicker');
-const swatch = document.getElementById('swatch');
-const swatchHex = document.getElementById('swatchHex');
+initToolsNav('color-picker/');
 
-const hexInput = document.getElementById('hexInput');
+var themeToggle = document.getElementById('themeToggle');
+var html = document.documentElement;
+var saved = localStorage.getItem('theme');
+if (saved) html.setAttribute('data-theme', saved);
+if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    html.setAttribute('data-theme', 'light');
+}
+updateIcon();
+themeToggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'light' ? '' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateIcon();
+});
+function updateIcon() {
+    var isLight = html.getAttribute('data-theme') === 'light';
+    themeToggle.innerHTML = isLight
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+}
 
-const rRange = document.getElementById('rRange');
-const gRange = document.getElementById('gRange');
-const bRange = document.getElementById('bRange');
-const rInput = document.getElementById('rInput');
-const gInput = document.getElementById('gInput');
-const bInput = document.getElementById('bInput');
+var header = document.getElementById('header');
+window.addEventListener('scroll', function() {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
 
-const hRange = document.getElementById('hRange');
-const sRange = document.getElementById('sRange');
-const lRange = document.getElementById('lRange');
-const hInput = document.getElementById('hInput');
-const sInput = document.getElementById('sInput');
-const lInput = document.getElementById('lInput');
+var cursor = document.createElement('div');
+cursor.className = 'cursor-glow';
+document.body.appendChild(cursor);
+document.addEventListener('mousemove', function(e) {
+    cursor.style.transform = 'translate(' + (e.clientX - 400) + 'px, ' + (e.clientY - 400) + 'px)';
+});
 
-const copyBtn = document.getElementById('copyHexBtn');
-
-let updating = false;
-
-// --- Converters ---
+// --- Color Picker Logic ---
+var nativePicker = document.getElementById('nativePicker');
+var swatch = document.getElementById('swatch');
+var swatchHex = document.getElementById('swatchHex');
+var hexInput = document.getElementById('hexInput');
+var rRange = document.getElementById('rRange');
+var gRange = document.getElementById('gRange');
+var bRange = document.getElementById('bRange');
+var rInput = document.getElementById('rInput');
+var gInput = document.getElementById('gInput');
+var bInput = document.getElementById('bInput');
+var hRange = document.getElementById('hRange');
+var sRange = document.getElementById('sRange');
+var lRange = document.getElementById('lRange');
+var hInput = document.getElementById('hInput');
+var sInput = document.getElementById('sInput');
+var lInput = document.getElementById('lInput');
+var copyBtn = document.getElementById('copyHexBtn');
+var updating = false;
 
 function hexToRgb(hex) {
-    const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    var m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     if (!m) return null;
     return [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)];
 }
 
 function rgbToHex(r, g, b) {
-    return '#' + [r, g, b].map(c => Math.round(c).toString(16).padStart(2, '0')).join('');
+    return '#' + [r, g, b].map(function(c) { return Math.round(c).toString(16).padStart(2, '0'); }).join('');
 }
 
 function rgbToHsl(r, g, b) {
     r /= 255; g /= 255; b /= 255;
-    const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
-    let h, s, l = (mx + mn) / 2;
-    if (mx === mn) {
-        h = s = 0;
-    } else {
-        const d = mx - mn;
+    var mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+    var h, s, l = (mx + mn) / 2;
+    if (mx === mn) { h = s = 0; }
+    else {
+        var d = mx - mn;
         s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn);
         switch (mx) {
             case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
@@ -321,11 +297,10 @@ function rgbToHsl(r, g, b) {
 
 function hslToRgb(h, s, l) {
     h /= 360; s /= 100; l /= 100;
-    if (s === 0) {
-        const v = Math.round(l * 255);
-        return [v, v, v];
-    }
-    const hue2rgb = (p, q, t) => {
+    if (s === 0) { var v = Math.round(l * 255); return [v, v, v]; }
+    var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    var p = 2 * l - q;
+    var hue2rgb = function(p, q, t) {
         if (t < 0) t += 1;
         if (t > 1) t -= 1;
         if (t < 1/6) return p + (q - p) * 6 * t;
@@ -333,8 +308,6 @@ function hslToRgb(h, s, l) {
         if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
         return p;
     };
-    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    const p = 2 * l - q;
     return [
         Math.round(hue2rgb(p, q, h + 1/3) * 255),
         Math.round(hue2rgb(p, q, h) * 255),
@@ -347,145 +320,73 @@ function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 function updateUI(r, g, b, skipNative) {
     if (updating) return;
     updating = true;
-
-    const hex = rgbToHex(r, g, b);
-    const [h, s, l] = rgbToHsl(r, g, b);
-
+    var hex = rgbToHex(r, g, b);
+    var hsl = rgbToHsl(r, g, b);
     if (!skipNative) nativePicker.value = hex;
     hexInput.value = hex;
     swatch.style.background = hex;
     swatchHex.textContent = hex;
-
     rRange.value = rInput.value = r;
     gRange.value = gInput.value = g;
     bRange.value = bInput.value = b;
-
-    hRange.value = hInput.value = h;
-    sRange.value = sInput.value = s;
-    lRange.value = lInput.value = l;
-
+    hRange.value = hInput.value = hsl[0];
+    sRange.value = sInput.value = hsl[1];
+    lRange.value = lInput.value = hsl[2];
     updating = false;
 }
 
 function fromHex() {
-    let val = hexInput.value.trim();
+    var val = hexInput.value.trim();
     if (val && !val.startsWith('#')) val = '#' + val;
-    const rgb = hexToRgb(val);
-    if (rgb) {
-        updateUI(rgb[0], rgb[1], rgb[2]);
-    }
+    var rgb = hexToRgb(val);
+    if (rgb) updateUI(rgb[0], rgb[1], rgb[2]);
 }
 
 function fromRgb() {
-    const r = clamp(parseInt(rInput.value) || 0, 0, 255);
-    const g = clamp(parseInt(gInput.value) || 0, 0, 255);
-    const b = clamp(parseInt(bInput.value) || 0, 0, 255);
+    var r = clamp(parseInt(rInput.value) || 0, 0, 255);
+    var g = clamp(parseInt(gInput.value) || 0, 0, 255);
+    var b = clamp(parseInt(bInput.value) || 0, 0, 255);
     updateUI(r, g, b);
 }
 
 function fromRgbRange() {
-    const r = clamp(parseInt(rRange.value) || 0, 0, 255);
-    const g = clamp(parseInt(gRange.value) || 0, 0, 255);
-    const b = clamp(parseInt(bRange.value) || 0, 0, 255);
+    var r = clamp(parseInt(rRange.value) || 0, 0, 255);
+    var g = clamp(parseInt(gRange.value) || 0, 0, 255);
+    var b = clamp(parseInt(bRange.value) || 0, 0, 255);
     updateUI(r, g, b);
 }
 
 function fromHsl() {
-    const h = clamp(parseInt(hInput.value) || 0, 0, 360);
-    const s = clamp(parseInt(sInput.value) || 0, 0, 100);
-    const l = clamp(parseInt(lInput.value) || 0, 0, 100);
-    const [r, g, b] = hslToRgb(h, s, l);
-    updateUI(r, g, b);
+    var h = clamp(parseInt(hInput.value) || 0, 0, 360);
+    var s = clamp(parseInt(sInput.value) || 0, 0, 100);
+    var l = clamp(parseInt(lInput.value) || 0, 0, 100);
+    var rgb = hslToRgb(h, s, l);
+    updateUI(rgb[0], rgb[1], rgb[2]);
 }
 
 function fromHslRange() {
-    const h = clamp(parseInt(hRange.value) || 0, 0, 360);
-    const s = clamp(parseInt(sRange.value) || 0, 0, 100);
-    const l = clamp(parseInt(lRange.value) || 0, 0, 100);
-    const [r, g, b] = hslToRgb(h, s, l);
-    updateUI(r, g, b);
+    var h = clamp(parseInt(hRange.value) || 0, 0, 360);
+    var s = clamp(parseInt(sRange.value) || 0, 0, 100);
+    var l = clamp(parseInt(lRange.value) || 0, 0, 100);
+    var rgb = hslToRgb(h, s, l);
+    updateUI(rgb[0], rgb[1], rgb[2]);
 }
 
-// --- Events ---
-
-nativePicker.addEventListener('input', () => {
-    const rgb = hexToRgb(nativePicker.value);
+nativePicker.addEventListener('input', function() {
+    var rgb = hexToRgb(nativePicker.value);
     if (rgb) updateUI(rgb[0], rgb[1], rgb[2], true);
 });
-
 hexInput.addEventListener('input', fromHex);
+[rInput, gInput, bInput].forEach(function(el) { el.addEventListener('input', fromRgb); });
+[rRange, gRange, bRange].forEach(function(el) { el.addEventListener('input', fromRgbRange); });
+[hInput, sInput, lInput].forEach(function(el) { el.addEventListener('input', fromHsl); });
+[hRange, sRange, lRange].forEach(function(el) { el.addEventListener('input', fromHslRange); });
 
-[rInput, gInput, bInput].forEach(el => el.addEventListener('input', fromRgb));
-[rRange, gRange, bRange].forEach(el => el.addEventListener('input', fromRgbRange));
-
-[hInput, sInput, lInput].forEach(el => el.addEventListener('input', fromHsl));
-[hRange, sRange, lRange].forEach(el => el.addEventListener('input', fromHslRange));
-
-// Copy HEX
-copyBtn.addEventListener('click', async () => {
-    const hex = hexInput.value;
-    try {
-        await navigator.clipboard.writeText(hex);
-    } catch {
-        const ta = document.createElement('textarea');
-        ta.value = hex;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-    }
+copyBtn.addEventListener('click', function() {
+    var hex = hexInput.value;
+    try { navigator.clipboard.writeText(hex); } catch(e) { var ta = document.createElement('textarea'); ta.value = hex; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
     copyBtn.textContent = 'Скопировано!';
-    setTimeout(() => { copyBtn.textContent = 'Копировать HEX'; }, 1500);
-});
-
-// --- Header scroll ---
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
-
-const navToggle = document.getElementById('navToggle');
-const navOverlay = document.getElementById('navOverlay');
-navToggle?.addEventListener('click', () => {
-    navOverlay.classList.toggle('open');
-    navToggle.classList.toggle('active');
-    document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
-});
-navOverlay?.addEventListener('click', (e) => {
-    if (e.target === navOverlay) {
-        navOverlay.classList.remove('open');
-        navToggle.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
-
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-const saved = localStorage.getItem('theme');
-if (saved) html.setAttribute('data-theme', saved);
-if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    html.setAttribute('data-theme', 'light');
-}
-updateIcon();
-themeToggle?.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    const next = current === 'light' ? '' : 'light';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-    updateIcon();
-});
-function updateIcon() {
-    const isLight = html.getAttribute('data-theme') === 'light';
-    themeToggle.innerHTML = isLight
-        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
-        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
-}
-
-const cursor = document.createElement('div');
-cursor.className = 'cursor-glow';
-document.body.appendChild(cursor);
-document.addEventListener('mousemove', (e) => {
-    cursor.style.transform = `translate(${e.clientX - 400}px, ${e.clientY - 400}px)`;
+    setTimeout(function() { copyBtn.textContent = 'Копировать HEX'; }, 1500);
 });
 </script>
 </body>

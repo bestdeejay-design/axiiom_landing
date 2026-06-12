@@ -12,7 +12,7 @@
             border-radius: 12px;
             padding: 20px 24px;
             margin-top: 20px;
-            font-family: arial,sans-serif;
+            font-family: arial, sans-serif;
         }
         [data-theme="light"] .snippet-preview {
             background: #fff;
@@ -36,7 +36,6 @@
             font-weight: 400;
             margin-bottom: 3px;
             cursor: pointer;
-            text-decoration: none;
             display: inline-block;
         }
         .snippet-title:hover {
@@ -65,7 +64,6 @@
         .char-counter.ok { color: var(--clr-faint); }
         .char-counter.good { color: #2ecc71; }
         .char-counter.bad { color: #e74c3c; }
-
         .status-dot {
             display: inline-block;
             width: 8px;
@@ -77,20 +75,14 @@
         .status-dot.good { background: #2ecc71; }
         .status-dot.bad { background: #e74c3c; }
         .status-dot.ok { background: var(--clr-faint); }
-
         .label-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        .label-row .tool-label {
-            margin-bottom: 0;
-        }
-
+        .label-row .tool-label { margin-bottom: 0; }
         @media (max-width: 768px) {
-            .snippet-title {
-                font-size: 16px;
-            }
+            .snippet-title { font-size: 16px; }
         }
     </style>
 </head>
@@ -102,7 +94,7 @@
     <div class="container">
         <nav class="nav">
             <a href="/" class="logo">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
                     <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
                     <rect x="20" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
                     <rect x="2" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
@@ -111,13 +103,7 @@
                 </svg>
                 <span>AXIIOM</span>
             </a>
-            <ul class="nav-links nav-links--desktop">
-                <li><a href="/">Главная</a></li>
-                <li><a href="/o-kompanii.html">О компании</a></li>
-                <li><a href="/uslugi.html">Услуги</a></li>
-                <li><a href="/kejsy.html">Кейсы</a></li>
-                <li><a href="/kontakty.html">Контакты</a></li>
-            </ul>
+            <ul class="nav-links nav-links--desktop" id="toolsNav"></ul>
             <div class="nav-actions">
                 <button class="theme-btn" id="themeToggle" aria-label="Сменить тему">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
@@ -131,28 +117,19 @@
 </header>
 
 <div class="nav-overlay" id="navOverlay">
-    <ul class="nav-links">
-        <li><a href="/">Главная</a></li>
-        <li><a href="/o-kompanii.html">О компании</a></li>
-        <li><a href="/uslugi.html">Услуги</a></li>
-        <li><a href="/kejsy.html">Кейсы</a></li>
-        <li><a href="/kontakty.html">Контакты</a></li>
-    </ul>
+    <ul class="nav-links" id="toolsNavMobile"></ul>
 </div>
 
-<div class="tool-page">
+<section class="tool-page">
     <div class="container">
         <div class="tool-page-header">
-            <a href="../" class="back-link">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
-                Все инструменты
-            </a>
+            <a href="../" class="back-link">← Все инструменты</a>
             <h1>SEO Сниппет</h1>
         </div>
 
-        <div class="tool-page-card">
-            <p class="tool-description">Предпросмотр сниппета вашей страницы в выдаче Google. Введите заголовок, описание и URL — и увидите, как результат будет выглядеть в поиске.</p>
+        <p class="tool-description">Предпросмотр сниппета сайта в выдаче Google.</p>
 
+        <div class="tool-page-card">
             <div class="tool-row">
                 <div class="label-row">
                     <label class="tool-label" for="titleInput">Заголовок (Title)</label>
@@ -177,102 +154,81 @@
             </div>
 
             <div class="snippet-preview" id="snippetPreview">
-                <div class="snippet-breadcrumb" id="snippetBreadcrumb">example.com <span>›</span> Раздел</div>
+                <div class="snippet-breadcrumb" id="snippetBreadcrumb">example.com <span>›</span> Результат</div>
                 <div class="snippet-title" id="snippetTitle">Заголовок страницы</div>
                 <div class="snippet-desc" id="snippetDesc">Описание страницы появится здесь после ввода текста в поля выше.</div>
                 <div class="snippet-url" id="snippetDisplayUrl">example.com/page</div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <footer class="footer">
     <div class="container">
-        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты для разработчиков, дизайнеров и SEO-специалистов</p>
+        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты</p>
     </div>
 </footer>
 
+<script src="../nav.js"></script>
 <script>
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
+initToolsNav('snippet-gen/');
 
-const navToggle = document.getElementById('navToggle');
-const navOverlay = document.getElementById('navOverlay');
-navToggle?.addEventListener('click', () => {
-    navOverlay.classList.toggle('open');
-    navToggle.classList.toggle('active');
-    document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
-});
-document.querySelectorAll('[data-nav]').forEach(link => {
-    link.addEventListener('click', () => {
-        navOverlay.classList.remove('open');
-        navToggle.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-});
-navOverlay?.addEventListener('click', (e) => {
-    if (e.target === navOverlay) {
-        navOverlay.classList.remove('open');
-        navToggle.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
-
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-const saved = localStorage.getItem('theme');
+var themeToggle = document.getElementById('themeToggle');
+var html = document.documentElement;
+var saved = localStorage.getItem('theme');
 if (saved) html.setAttribute('data-theme', saved);
 if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
     html.setAttribute('data-theme', 'light');
 }
 updateIcon();
-themeToggle?.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    const next = current === 'light' ? '' : 'light';
+themeToggle.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'light' ? '' : 'light';
     html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
     updateIcon();
 });
 function updateIcon() {
-    const isLight = html.getAttribute('data-theme') === 'light';
+    var isLight = html.getAttribute('data-theme') === 'light';
     themeToggle.innerHTML = isLight
         ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
         : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
 }
 
-const cursor = document.createElement('div');
+var header = document.getElementById('header');
+window.addEventListener('scroll', function() {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+var cursor = document.createElement('div');
 cursor.className = 'cursor-glow';
 document.body.appendChild(cursor);
-document.addEventListener('mousemove', (e) => {
-    cursor.style.transform = `translate(${e.clientX - 400}px, ${e.clientY - 400}px)`;
+document.addEventListener('mousemove', function(e) {
+    cursor.style.transform = 'translate(' + (e.clientX - 400) + 'px, ' + (e.clientY - 400) + 'px)';
 });
 
-// --- Snippet gen logic ---
-const titleInput = document.getElementById('titleInput');
-const descInput = document.getElementById('descInput');
-const urlInput = document.getElementById('urlInput');
-const snippetTitle = document.getElementById('snippetTitle');
-const snippetDesc = document.getElementById('snippetDesc');
-const snippetBreadcrumb = document.getElementById('snippetBreadcrumb');
-const snippetDisplayUrl = document.getElementById('snippetDisplayUrl');
-const titleCounter = document.getElementById('titleCounter');
-const descCounter = document.getElementById('descCounter');
-const titleDot = document.getElementById('titleDot');
-const descDot = document.getElementById('descDot');
+// Tool-specific JS
+var titleInput = document.getElementById('titleInput');
+var descInput = document.getElementById('descInput');
+var urlInput = document.getElementById('urlInput');
+var snippetTitle = document.getElementById('snippetTitle');
+var snippetDesc = document.getElementById('snippetDesc');
+var snippetBreadcrumb = document.getElementById('snippetBreadcrumb');
+var snippetDisplayUrl = document.getElementById('snippetDisplayUrl');
+var titleCounter = document.getElementById('titleCounter');
+var descCounter = document.getElementById('descCounter');
+var titleDot = document.getElementById('titleDot');
+var descDot = document.getElementById('descDot');
 
-function update() {
-    const title = titleInput.value;
-    const desc = descInput.value;
-    const url = urlInput.value;
+function updateSnippet() {
+    var title = titleInput.value;
+    var desc = descInput.value;
+    var url = urlInput.value;
 
-    // Title
-    const titleDisplay = title.length > 60 ? title.slice(0, 57) + '...' : title || 'Заголовок страницы';
+    var titleDisplay = title.length > 60 ? title.slice(0, 57) + '...' : title || 'Заголовок страницы';
     snippetTitle.textContent = titleDisplay;
 
-    // Title counter & status
-    const tLen = title.length;
+    var tLen = title.length;
     titleCounter.textContent = tLen + ' / 60';
     titleCounter.className = 'char-counter';
     titleDot.className = 'status-dot';
@@ -287,12 +243,10 @@ function update() {
         titleDot.className += ' bad';
     }
 
-    // Description
-    const descDisplay = desc.length > 160 ? desc.slice(0, 157) + '...' : desc || 'Описание страницы появится здесь после ввода текста в поля выше.';
+    var descDisplay = desc.length > 160 ? desc.slice(0, 157) + '...' : desc || 'Описание страницы появится здесь после ввода текста в поля выше.';
     snippetDesc.textContent = descDisplay;
 
-    // Description counter & status
-    const dLen = desc.length;
+    var dLen = desc.length;
     descCounter.textContent = dLen + ' / 160';
     descCounter.className = 'char-counter';
     descDot.className = 'status-dot';
@@ -307,26 +261,24 @@ function update() {
         descDot.className += ' bad';
     }
 
-    // URL
-    const displayUrl = url || 'example.com/page';
+    var displayUrl = url || 'example.com/page';
     snippetDisplayUrl.textContent = displayUrl;
 
-    // Breadcrumb
-    const parts = displayUrl.split('/').filter(Boolean);
+    var parts = displayUrl.split('/').filter(Boolean);
     if (parts.length <= 1) {
         snippetBreadcrumb.innerHTML = displayUrl + ' <span>›</span> Результат';
     } else {
-        const domain = parts[0];
-        const rest = parts.slice(1).join(' › ');
+        var domain = parts[0];
+        var rest = parts.slice(1).join(' › ');
         snippetBreadcrumb.innerHTML = domain + ' <span>›</span> ' + rest;
     }
 }
 
-titleInput.addEventListener('input', update);
-descInput.addEventListener('input', update);
-urlInput.addEventListener('input', update);
+titleInput.addEventListener('input', updateSnippet);
+descInput.addEventListener('input', updateSnippet);
+urlInput.addEventListener('input', updateSnippet);
 
-update();
+updateSnippet();
 </script>
 </body>
 </html>
