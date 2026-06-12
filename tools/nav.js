@@ -45,6 +45,27 @@ function initToolsNav(currentPath) {
   var desktopNav = document.getElementById('toolsNav');
   var mobileNav = document.getElementById('toolsNavMobile');
 
+  if (mobileNav) {
+    var extraLinks = [
+      { name: 'На главную axiiom.ru', href: '/' },
+      { name: 'Все инструменты', href: '/tools/' },
+      { name: 'New Version →', href: 'https://bestdeejay-design.github.io/agents/' }
+    ];
+    extraLinks.forEach(function(e) {
+      var a = document.createElement('a');
+      a.href = e.href;
+      a.textContent = e.name;
+      var li = document.createElement('li');
+      li.className = 'nav-extra-link';
+      li.appendChild(a);
+      mobileNav.appendChild(li);
+    });
+    // Separator
+    var sep = document.createElement('li');
+    sep.className = 'nav-separator';
+    mobileNav.appendChild(sep);
+  }
+
   TOOLS.forEach(function(t) {
     var isActive = t.path === currentPath;
     var link = document.createElement('a');

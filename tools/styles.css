@@ -945,6 +945,19 @@ a.logo:hover::after { width: 100%; }
     .nav-overlay.open .nav-links li:nth-child(11) { transition-delay: .33s; }
     .nav-overlay.open .nav-links li:nth-child(12) { transition-delay: .36s; }
 
+    .nav-links .nav-extra-link a {
+        font-size: .85rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--clr-accent);
+        opacity: .8;
+    }
+    .nav-links .nav-separator {
+        width: 40px;
+        height: 1px;
+        background: var(--clr-border);
+        margin: 8px auto;
+    }
     .nav-links a {
         font-size: 1.2rem;
         letter-spacing: 1px;
