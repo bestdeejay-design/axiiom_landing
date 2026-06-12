@@ -79,9 +79,15 @@
             
         </div>
 
-        <p class="tool-description">Предпросмотр сниппета сайта в выдаче Google.</p>
+        <p class="tool-description">Предпросмотр сниппета в выдаче Google и превью ссылок для соцсетей и мессенджеров.</p>
 
         <div class="tool-page-card">
+            <div class="snippet-tabs" id="snippetTabs">
+                <button class="snippet-tab active" data-tab="seo">Сниппет Google</button>
+                <button class="snippet-tab" data-tab="link">Предпросмотр ссылки</button>
+            </div>
+
+            <div class="snippet-tab-content active" id="tabSeo">
             <div class="tool-row">
                 <div class="label-row">
                     <label class="tool-label" for="titleInput">Заголовок (Title)</label>
@@ -111,6 +117,36 @@
                 <div class="snippet-desc" id="snippetDesc">Описание страницы появится здесь после ввода текста в поля выше.</div>
                 <div class="snippet-url" id="snippetDisplayUrl">example.com/page</div>
             </div>
+            </div>
+
+            <!-- Tab 2: Link Preview -->
+            <div class="snippet-tab-content" id="tabLink">
+            <div class="tool-row">
+                <label class="tool-label" for="linkUrl">Вставьте ссылку</label>
+                <div class="input-btn-row">
+                    <input class="tool-input" type="text" id="linkUrl" placeholder="https://axiiom.ru/tools/password-gen/">
+                    <button class="link-load-btn" id="linkLoadBtn">Загрузить</button>
+                </div>
+                <div class="link-status" id="linkStatus"></div>
+            </div>
+
+            <div class="link-preview-card" id="linkPreviewCard">
+                <div class="link-preview-img-wrap" id="linkPreviewImgWrap">
+                    <img id="linkPreviewImg" src="" alt="">
+                </div>
+                <div class="link-preview-body">
+                    <div class="link-preview-domain" id="linkPreviewDomain"></div>
+                    <div class="link-preview-title" id="linkPreviewTitle"></div>
+                    <div class="link-preview-desc" id="linkPreviewDesc"></div>
+                </div>
+            </div>
+
+            <details class="link-og-details">
+                <summary>Найденные OG-теги</summary>
+                <pre class="link-og-raw" id="linkOgRaw"></pre>
+            </details>
+            </div>
+
         </div>
     </div>
 </section>
@@ -256,6 +292,81 @@ descInput.addEventListener('input', updateSnippet);
 urlInput.addEventListener('input', updateSnippet);
 
 updateSnippet();
+
+// --- Tab switching ---
+var snippetTabs = document.getElementById('snippetTabs');
+snippetTabs.querySelectorAll('.snippet-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        snippetTabs.querySelectorAll('.snippet-tab').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        var target = tab.getAttribute('data-tab');
+        document.querySelectorAll('.snippet-tab-content').forEach(function(c) { c.classList.remove('active'); });
+        if (target === 'seo') document.getElementById('tabSeo').classList.add('active');
+        if (target === 'link') document.getElementById('tabLink').classList.add('active');
+    });
+});
+
+// --- Link preview ---
+var linkUrl = document.getElementById('linkUrl');
+var linkLoadBtn = document.getElementById('linkLoadBtn');
+var linkStatus = document.getElementById('linkStatus');
+var linkPreviewTitle = document.getElementById('linkPreviewTitle');
+var linkPreviewDesc = document.getElementById('linkPreviewDesc');
+var linkPreviewImg = document.getElementById('linkPreviewImg');
+var linkPreviewImgWrap = document.getElementById('linkPreviewImgWrap');
+var linkPreviewDomain = document.getElementById('linkPreviewDomain');
+var linkOgRaw = document.getElementById('linkOgRaw');
+
+function showLinkStatus(msg, ok) {
+    linkStatus.textContent = msg;
+    linkStatus.style.color = ok ? 'var(--clr-accent)' : '#e74c3c';
+}
+
+linkLoadBtn.addEventListener('click', function() {
+    var url = linkUrl.value.trim();
+    if (!url) { showLinkStatus('Введите URL', false); return; }
+    showLinkStatus('Загрузка...', true);
+    fetch(url)
+        .then(function(resp) { return resp.text(); })
+        .then(function(text) {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(text, 'text/html');
+            var title = doc.querySelector('meta[property=\"og:title\"]');
+            var desc = doc.querySelector('meta[property=\"og:description\"]');
+            var image = doc.querySelector('meta[property=\"og:image\"]');
+            title = title ? title.getAttribute('content') : '';
+            desc = desc ? desc.getAttribute('content') : '';
+            image = image ? image.getAttribute('content') : '';
+            if (!title) {
+                var t = doc.querySelector('title');
+                title = t ? t.textContent : '';
+            }
+            if (!desc) {
+                var d = doc.querySelector('meta[name=\"description\"]');
+                desc = d ? d.getAttribute('content') : '';
+            }
+            try { linkPreviewDomain.textContent = new URL(url).hostname; } catch(e) {}
+            linkPreviewTitle.textContent = title || '(не найден)';
+            linkPreviewDesc.textContent = desc || '(не найден)';
+            if (image) {
+                linkPreviewImg.src = image;
+                linkPreviewImgWrap.classList.add('has-image');
+            } else {
+                linkPreviewImg.src = '';
+                linkPreviewImgWrap.classList.remove('has-image');
+            }
+            linkOgRaw.textContent = JSON.stringify({ ogTitle: title || '', ogDescription: desc || '', ogImage: image || '' }, null, 2);
+            showLinkStatus('Готово', true);
+        })
+        .catch(function() {
+            showLinkStatus('Не удалось загрузить — проверьте URL или попробуйте другой домен (междоменные запросы заблокированы)', false);
+        });
+});
+
+// Load on Enter
+linkUrl.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') linkLoadBtn.click();
+});
 </script>
 </body>
 </html>
