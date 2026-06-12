@@ -367,6 +367,13 @@ a.logo:hover::after { width: 100%; }
 
 @keyframes rotateSlow { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
+.badge-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
 .badge {
     display: inline-block;
     padding: 6px 18px;
@@ -376,7 +383,6 @@ a.logo:hover::after { width: 100%; }
     color: var(--clr-muted);
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    margin-bottom: 24px;
     backdrop-filter: blur(4px);
 }
 
