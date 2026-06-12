@@ -542,7 +542,7 @@ a.logo:hover::after { width: 100%; }
     font-size: .7rem;
     letter-spacing: .5px;
     color: #fff;
-    background: var(--clr-heading);
+    background: #1a1a2e;
     padding: 4px 10px;
     border-radius: 6px;
     opacity: 0;
@@ -557,7 +557,7 @@ a.logo:hover::after { width: 100%; }
     left: 50%;
     transform: translateX(-50%);
     border: 4px solid transparent;
-    border-top-color: var(--clr-heading);
+    border-top-color: #1a1a2e;
 }
 
 .share-tooltip.show {
