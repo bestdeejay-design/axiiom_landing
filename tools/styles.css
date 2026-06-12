@@ -496,6 +496,66 @@ a.logo:hover::after { width: 100%; }
     font-weight: 600;
     color: var(--clr-heading);
     letter-spacing: -.02em;
+    margin-right: auto;
+}
+
+/* Share button */
+.share-btn {
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid var(--clr-border);
+    background: transparent;
+    color: var(--clr-muted);
+    cursor: pointer;
+    transition: border-color .2s, color .2s, background .2s;
+}
+
+.share-btn:hover {
+    border-color: var(--clr-border-hover);
+    color: var(--clr-heading);
+    background: var(--clr-surface);
+}
+
+.share-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.share-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: .7rem;
+    letter-spacing: .5px;
+    color: #fff;
+    background: var(--clr-heading);
+    padding: 4px 10px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+}
+
+.share-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--clr-heading);
+}
+
+.share-tooltip.show {
+    opacity: 1;
 }
 
 .back-link {

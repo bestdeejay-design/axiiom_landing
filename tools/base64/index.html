@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base64 — AXIIOM Tools</title>
+    <title>Base64 кодирование и декодирование онлайн — AXIIOM Tools</title>
+    <meta name="description" content="Бесплатный онлайн инструмент для Base64 кодирования и декодирования текста. Поддержка UTF-8, возможность копирования результата.">
+    <link rel="canonical" href="https://axiiom.ru/tools/base64/">
     <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://axiiom.ru/tools/base64/">
+    <meta property="og:title" content="Base64 кодирование/декодирование онлайн — AXIIOM Tools">
+    <meta property="og:description" content="Кодируйте и декодируйте текст в Base64 онлайн. Поддержка UTF-8, быстрая обработка, удобный интерфейс.">
+    <meta property="og:image" content="https://axiiom.ru/images/axiiom_og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="ru_RU">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://axiiom.ru/tools/base64/">
+    <meta name="twitter:title" content="Base64 кодирование/декодирование онлайн — AXIIOM Tools">
+    <meta name="twitter:description" content="Кодируйте и декодируйте текст в Base64 онлайн. Поддержка UTF-8, быстрая обработка, удобный интерфейс.">
+    <meta name="twitter:image" content="https://axiiom.ru/images/axiiom_og.png">
+
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
@@ -48,6 +68,14 @@
         <div class="tool-page-header">
             <a href="../" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg> Все инструменты</a>
             <h1>Base64</h1>
+            <button class="share-btn" onclick="copyPageUrl(this)" aria-label="Поделиться" title="Поделиться">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+                <span class="share-tooltip">Ссылка скопирована</span>
+            </button>
         </div>
         <div class="tool-page-card">
             <p class="tool-description">Кодирование и декодирование строк в формат Base64.</p>
@@ -84,6 +112,14 @@
 </footer>
 
 <script src="../nav.js"></script>
+function copyPageUrl(btn) {
+    var url = window.location.href;
+    navigator.clipboard.writeText(url).then(function() {
+        var tip = btn.querySelector('.share-tooltip');
+        tip.classList.add('show');
+        setTimeout(function() { tip.classList.remove('show'); }, 2000);
+    });
+}
 <script>
 initToolsNav('base64/');
 

@@ -3,87 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор дат — AXIIOM Tools</title>
+    <title>Калькулятор дат онлайн — разница между датами — AXIIOM Tools</title>
+    <meta name="description" content="Бесплатный онлайн калькулятор дат. Вычислите разницу между двумя датами, прибавьте или отнимите дни от любой даты.">
+    <link rel="canonical" href="https://axiiom.ru/tools/date-calc/">
     <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://axiiom.ru/tools/date-calc/">
+    <meta property="og:title" content="Калькулятор дат онлайн — AXIIOM Tools">
+    <meta property="og:description" content="Расчёт разницы между датами в днях, прибавление и вычитание дней. Удобный онлайн-инструмент для работы с датами.">
+    <meta property="og:image" content="https://axiiom.ru/images/axiiom_og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="ru_RU">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://axiiom.ru/tools/date-calc/">
+    <meta name="twitter:title" content="Калькулятор дат онлайн — AXIIOM Tools">
+    <meta name="twitter:description" content="Расчёт разницы между датами в днях, прибавление и вычитание дней. Удобный онлайн-инструмент для работы с датами.">
+    <meta name="twitter:image" content="https://axiiom.ru/images/axiiom_og.png">
+
     <link rel="stylesheet" href="../styles.css">
-    <style>
-        .date-mode { margin-bottom: 28px; }
-        .date-mode:last-child { margin-bottom: 0; }
-        .date-mode h2 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--clr-heading);
-            margin-bottom: 16px;
-            letter-spacing: -.01em;
-        }
-        .calc-form {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        .calc-form .field-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .row-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-        .result-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-            margin-top: 16px;
-        }
-        .result-item {
-            background: rgba(255,255,255,.02);
-            border: 1px solid var(--clr-border);
-            border-radius: 10px;
-            padding: 12px;
-            text-align: center;
-        }
-        .result-item .val {
-            display: block;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--clr-heading);
-            font-variant-numeric: tabular-nums;
-        }
-        .result-item .lbl {
-            display: block;
-            font-size: .7rem;
-            color: var(--clr-faint);
-            margin-top: 2px;
-            letter-spacing: .5px;
-        }
-        .result-divider {
-            margin: 14px 0;
-            border: none;
-            border-top: 1px solid var(--clr-border);
-        }
-        .result-sub {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .result-sub .val {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--clr-heading);
-        }
-        .result-sub .lbl {
-            font-size: .7rem;
-            color: var(--clr-faint);
-            letter-spacing: .5px;
-        }
-        .result-sub > div { text-align: center; }
-        @media (max-width: 768px) {
-            .row-2 { grid-template-columns: 1fr; }
-        }
-    </style>
 </head>
 <body>
 <div class="noise"></div>
@@ -126,6 +68,14 @@
         <div class="tool-page-header">
             <a href="../" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg> Все инструменты</a>
             <h1>Калькулятор дат</h1>
+            <button class="share-btn" onclick="copyPageUrl(this)" aria-label="Поделиться" title="Поделиться">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+                <span class="share-tooltip">Ссылка скопирована</span>
+            </button>
         </div>
         <p class="tool-description">Расчёт разницы между датами, прибавление и вычитание дней.</p>
         <div class="tool-page-card">
@@ -199,6 +149,14 @@
 </footer>
 
 <script src="../nav.js"></script>
+function copyPageUrl(btn) {
+    var url = window.location.href;
+    navigator.clipboard.writeText(url).then(function() {
+        var tip = btn.querySelector('.share-tooltip');
+        tip.classList.add('show');
+        setTimeout(function() { tip.classList.remove('show'); }, 2000);
+    });
+}
 <script>
 initToolsNav('date-calc/');
 

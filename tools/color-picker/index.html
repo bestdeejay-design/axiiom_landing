@@ -3,100 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Picker — AXIIOM Tools</title>
+    <title>Color Picker онлайн — подбор цвета, HEX RGB HSL — AXIIOM Tools</title>
+    <meta name="description" content="Бесплатный онлайн Color Picker. Выбирайте цвет и мгновенно получайте его HEX, RGB и HSL значения. Удобный подбор цветов.">
+    <link rel="canonical" href="https://axiiom.ru/tools/color-picker/">
     <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://axiiom.ru/tools/color-picker/">
+    <meta property="og:title" content="Color Picker онлайн — подбор цвета HEX RGB HSL — AXIIOM Tools">
+    <meta property="og:description" content="Интерактивный подбор цвета с отображением HEX, RGB и HSL. Удобный интерфейс, копирование значения в один клик.">
+    <meta property="og:image" content="https://axiiom.ru/images/axiiom_og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="ru_RU">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://axiiom.ru/tools/color-picker/">
+    <meta name="twitter:title" content="Color Picker онлайн — подбор цвета HEX RGB HSL — AXIIOM Tools">
+    <meta name="twitter:description" content="Интерактивный подбор цвета с отображением HEX, RGB и HSL. Удобный интерфейс, копирование значения в один клик.">
+    <meta name="twitter:image" content="https://axiiom.ru/images/axiiom_og.png">
+
     <link rel="stylesheet" href="../styles.css">
-    <style>
-        .color-picker-layout {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            gap: 28px;
-            align-items: start;
-        }
-        .color-swatch-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-        }
-        .color-swatch {
-            width: 200px;
-            height: 200px;
-            border-radius: 16px;
-            border: 1px solid var(--clr-border);
-            transition: background .15s;
-        }
-        .swatch-hex {
-            font-size: .85rem;
-            color: var(--clr-muted);
-            font-family: 'SF Mono', 'Fira Code', monospace;
-        }
-        .color-input-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-        .color-input-wrap input[type="color"] {
-            width: 48px;
-            height: 48px;
-            padding: 0;
-            border: 1px solid var(--clr-border);
-            border-radius: 50%;
-            cursor: pointer;
-            background: none;
-        }
-        .color-input-wrap input[type="color"]::-webkit-color-swatch-wrapper { padding: 3px; }
-        .color-input-wrap input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
-        .color-input-wrap input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
-        .fields-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .field-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .field-group .tool-label { margin-bottom: 0; }
-        .field-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .field-row input[type="range"] {
-            flex: 1;
-            accent-color: var(--clr-accent);
-            height: 4px;
-            cursor: pointer;
-        }
-        .field-row .tool-input {
-            width: 80px;
-            flex-shrink: 0;
-            text-align: center;
-            padding: 8px 10px;
-        }
-        .field-row .field-suffix {
-            font-size: .8rem;
-            color: var(--clr-faint);
-            min-width: 20px;
-        }
-        .hex-field .tool-input {
-            font-family: 'SF Mono', 'Fira Code', monospace;
-        }
-        .format-label {
-            font-size: .72rem;
-            color: var(--clr-faint);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 2px;
-        }
-        @media (max-width: 768px) {
-            .color-picker-layout { grid-template-columns: 1fr; }
-            .color-swatch { max-width: 200px; margin: 0 auto; }
-        }
-    </style>
 </head>
 <body>
 <div class="noise"></div>
@@ -139,6 +68,14 @@
         <div class="tool-page-header">
             <a href="../" class="back-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg> Все инструменты</a>
             <h1>Color Picker</h1>
+            <button class="share-btn" onclick="copyPageUrl(this)" aria-label="Поделиться" title="Поделиться">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+                <span class="share-tooltip">Ссылка скопирована</span>
+            </button>
         </div>
         <p class="tool-description">Выбор цвета и конвертация между HEX, RGB и HSL.</p>
         <div class="tool-page-card">
@@ -214,6 +151,14 @@
 </footer>
 
 <script src="../nav.js"></script>
+function copyPageUrl(btn) {
+    var url = window.location.href;
+    navigator.clipboard.writeText(url).then(function() {
+        var tip = btn.querySelector('.share-tooltip');
+        tip.classList.add('show');
+        setTimeout(function() { tip.classList.remove('show'); }, 2000);
+    });
+}
 <script>
 initToolsNav('color-picker/');
 
