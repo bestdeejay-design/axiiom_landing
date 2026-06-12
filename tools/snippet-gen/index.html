@@ -374,21 +374,23 @@ linkLoadBtn.addEventListener('click', function() {
     fetch(url, { cache: 'no-store' })
         .then(function(resp) { return resp.text(); })
         .then(function(text) {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(text, 'text/html');
-            var title = doc.querySelector('meta[property=\"og:title\"]');
-            var desc = doc.querySelector('meta[property=\"og:description\"]');
-            var image = doc.querySelector('meta[property=\"og:image\"]');
-            title = title ? title.getAttribute('content') : '';
-            desc = desc ? desc.getAttribute('content') : '';
-            image = image ? image.getAttribute('content') : '';
+            function getMeta(html, name) {
+                var re = new RegExp('<meta[^>]+(?:property|name)=[\"\\\']' + name + '[\"\\\'][^>]+content=[\"\\\']([^\"\\\']*)[\"\\\']', 'i');
+                var m = html.match(re);
+                if (m) return m[1];
+                re = new RegExp('<meta[^>]+content=[\"\\\']([^\"\\\']*)[\"\\\'][^>]+(?:property|name)=[\"\\\']' + name + '[\"\\\']', 'i');
+                m = html.match(re);
+                return m ? m[1] : '';
+            }
+            var title = getMeta(text, 'og:title');
+            var desc = getMeta(text, 'og:description');
+            var image = getMeta(text, 'og:image');
             if (!title) {
-                var t = doc.querySelector('title');
-                title = t ? t.textContent : '';
+                var tm = text.match(/<title>([^<]*)<\/title>/i);
+                title = tm ? tm[1].trim() : '';
             }
             if (!desc) {
-                var d = doc.querySelector('meta[name=\"description\"]');
-                desc = d ? d.getAttribute('content') : '';
+                desc = getMeta(text, 'description');
             }
             var domain = '';
             try { domain = new URL(url).hostname; } catch(e) {}
