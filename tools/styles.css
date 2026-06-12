@@ -733,51 +733,54 @@ a.logo:hover::after { width: 100%; }
 }
 
 .password-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  position: relative;
   background: rgba(255,255,255,.02);
   border: 1px solid var(--clr-border);
   border-radius: 10px;
   padding: 10px 14px;
-  transition: border-color .2s;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  user-select: none;
 }
 
 .password-item:hover {
   border-color: var(--clr-border-hover);
+  background: rgba(255,255,255,.04);
+}
+
+.password-item:active {
+  transform: scale(.99);
 }
 
 .password-code {
-  flex: 1;
+  display: block;
   font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
   font-size: .9rem;
   letter-spacing: .3px;
   color: var(--clr-heading);
   word-break: break-all;
   user-select: all;
+  pointer-events: none;
 }
 
-.pw-copy-btn {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  border: 1px solid var(--clr-border);
-  background: transparent;
-  color: var(--clr-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .2s, border-color .2s, color .2s;
-  padding: 0;
+.password-copied-hint {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  font-size: .7rem;
+  letter-spacing: .5px;
+  color: var(--clr-accent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
 }
 
-.pw-copy-btn:hover {
-  background: var(--clr-surface);
-  border-color: var(--clr-border-hover);
-  color: var(--clr-heading);
+.password-copied-hint.show {
+  opacity: 1;
 }
+
+.pw-copy-btn { display: none; }
 
 /* Range/strength indicator */
 .strength-bar {

@@ -302,19 +302,31 @@ function generatePasswords() {
     for (var j = 0; j < passwords.length; j++) {
         html += '<div class="password-item" data-pw="' + passwords[j].replace(/"/g, '&quot;') + '">';
         html += '<code class="password-code">' + passwords[j] + '</code>';
-        html += '<button class="pw-copy-btn" title="Копировать">';
-        html += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
-        html += '</button></div>';
+        html += '<span class="password-copied-hint">Скопировано</span>';
+        html += '</div>';
     }
     passwordList.innerHTML = html;
 
-    // Bind individual copy buttons
-    passwordList.querySelectorAll('.pw-copy-btn').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            var item = this.closest('.password-item');
-            var text = item.getAttribute('data-pw');
-            copyText(text, this);
+    // Click on row = copy
+    passwordList.querySelectorAll('.password-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            var text = this.getAttribute('data-pw');
+            var hint = this.querySelector('.password-copied-hint');
+            navigator.clipboard.writeText(text).then(function() {
+                hint.classList.add('show');
+                setTimeout(function() { hint.classList.remove('show'); }, 1200);
+            }).catch(function() {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                hint.classList.add('show');
+                setTimeout(function() { hint.classList.remove('show'); }, 1200);
+            });
         });
     });
 
