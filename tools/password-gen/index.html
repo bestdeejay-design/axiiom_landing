@@ -55,7 +55,12 @@
             <p class="tool-description">Создание надёжных паролей с настраиваемой длиной и набором символов.</p>
 
             <div class="tool-row">
-                <div class="tool-output password-display" id="passwordDisplay">…………</div>
+                <label class="tool-label" for="countSlider">Количество паролей: <strong id="countDisplay">5</strong></label>
+                <input type="range" class="tool-range" id="countSlider" min="1" max="20" value="5">
+            </div>
+
+            <div class="tool-row">
+                <div class="password-list" id="passwordList"></div>
             </div>
 
             <div class="tool-btn-group">
@@ -63,9 +68,9 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                     Сгенерировать
                 </button>
-                <button class="tool-btn-secondary copy-btn" id="copyBtn">
+                <button class="tool-btn-secondary" id="copyAllBtn">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                    Копировать
+                    Копировать все
                 </button>
             </div>
 
@@ -102,7 +107,34 @@
                     </label>
                     <label class="checkbox-label">
                         <input type="checkbox" id="chkSpecial">
-                        Спецсимволы (!@#$%^&amp;*)
+                        Спецсимволы (~!@#$%^&amp;*()+)
+                    </label>
+                </div>
+            </div>
+
+            <div class="tool-row">
+                <label class="tool-label">Разделитель</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="radio" name="separator" value="" checked>
+                        Без разделителя
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="radio" name="separator" value="-">
+                        Дефис (-)
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="radio" name="separator" value="_">
+                        Подчёркивание (_)
+                    </label>
+                </div>
+            </div>
+
+            <div class="tool-row">
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="chkNoAmbiguous">
+                        Исключить неоднозначные (<span style="font-family:monospace">Il1oO0оОsS5</span>)
                     </label>
                 </div>
             </div>
@@ -157,38 +189,62 @@ document.addEventListener('mousemove', function(e) {
 var UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var LOWER = 'abcdefghijklmnopqrstuvwxyz';
 var DIGITS = '0123456789';
-var SPECIAL = '!@#$%^&*';
+var SPECIAL = '~!@#$%^&*()+';
+var AMBIGUOUS = 'Il1oO0оОsS5';
 
-var passwordDisplay = document.getElementById('passwordDisplay');
+function removeAmbiguous(s) {
+    var r = '';
+    for (var i = 0; i < s.length; i++) {
+        if (AMBIGUOUS.indexOf(s[i]) === -1) r += s[i];
+    }
+    return r;
+}
+
+var passwordList = document.getElementById('passwordList');
 var lengthSlider = document.getElementById('lengthSlider');
 var lengthDisplay = document.getElementById('lengthDisplay');
+var countSlider = document.getElementById('countSlider');
+var countDisplay = document.getElementById('countDisplay');
 var chkUpper = document.getElementById('chkUpper');
 var chkLower = document.getElementById('chkLower');
 var chkDigits = document.getElementById('chkDigits');
 var chkSpecial = document.getElementById('chkSpecial');
+var chkNoAmbiguous = document.getElementById('chkNoAmbiguous');
 var strengthText = document.getElementById('strengthText');
 var strengthBar = document.getElementById('strengthBar');
+var copyAllBtn = document.getElementById('copyAllBtn');
 
-function generatePassword() {
+function getSelectedSeparator() {
+    var radios = document.querySelectorAll('input[name="separator"]');
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) return radios[i].value;
+    }
+    return '';
+}
+
+function makePassword() {
     var chars = '';
     if (chkUpper.checked) chars += UPPER;
     if (chkLower.checked) chars += LOWER;
     if (chkDigits.checked) chars += DIGITS;
     if (chkSpecial.checked) chars += SPECIAL;
 
-    if (chars.length === 0) {
-        passwordDisplay.textContent = '…………';
-        updateStrength(0, 0);
-        return;
-    }
+    if (chkNoAmbiguous.checked) chars = removeAmbiguous(chars);
+
+    if (chars.length === 0) return null;
 
     var length = parseInt(lengthSlider.value, 10);
+    var sep = getSelectedSeparator();
 
     var sets = [];
-    if (chkUpper.checked) sets.push(UPPER);
-    if (chkLower.checked) sets.push(LOWER);
-    if (chkDigits.checked) sets.push(DIGITS);
+    if (chkUpper.checked) sets.push(chkNoAmbiguous.checked ? removeAmbiguous(UPPER) : UPPER);
+    if (chkLower.checked) sets.push(chkNoAmbiguous.checked ? removeAmbiguous(LOWER) : LOWER);
+    if (chkDigits.checked) sets.push(chkNoAmbiguous.checked ? removeAmbiguous(DIGITS) : DIGITS);
     if (chkSpecial.checked) sets.push(SPECIAL);
+
+    // Filter empty sets
+    sets = sets.filter(function(s) { return s.length > 0; });
+    if (sets.length === 0 || chars.length === 0) return null;
 
     var password = '';
     for (var i = 0; i < sets.length; i++) {
@@ -198,6 +254,7 @@ function generatePassword() {
         password += chars.charAt(Math.floor(Math.random() * chars.length));
     }
 
+    // Shuffle
     var arr = password.split('');
     for (var k = arr.length - 1; k > 0; k--) {
         var m = Math.floor(Math.random() * (k + 1));
@@ -205,8 +262,64 @@ function generatePassword() {
         arr[k] = arr[m];
         arr[m] = tmp;
     }
-    passwordDisplay.textContent = arr.join('');
-    updateStrength(length, sets.length);
+
+    var result = arr.join('');
+
+    // Apply separator: insert every 4 chars
+    if (sep) {
+        var grouped = '';
+        for (var p = 0; p < result.length; p++) {
+            if (p > 0 && p % 4 === 0) grouped += sep;
+            grouped += result[p];
+        }
+        result = grouped;
+    }
+
+    return result;
+}
+
+function generatePasswords() {
+    var count = parseInt(countSlider.value, 10);
+    var passwords = [];
+    var variety = 0;
+    if (chkUpper.checked) variety++;
+    if (chkLower.checked) variety++;
+    if (chkDigits.checked) variety++;
+    if (chkSpecial.checked) variety++;
+
+    for (var i = 0; i < count; i++) {
+        var pw = makePassword();
+        if (pw) passwords.push(pw);
+    }
+
+    if (passwords.length === 0) {
+        passwordList.innerHTML = '<div class="tool-output" style="text-align:center;color:var(--clr-faint)">Выберите хотя бы один набор символов</div>';
+        updateStrength(0, 0);
+        return;
+    }
+
+    var html = '';
+    for (var j = 0; j < passwords.length; j++) {
+        html += '<div class="password-item" data-pw="' + passwords[j].replace(/"/g, '&quot;') + '">';
+        html += '<code class="password-code">' + passwords[j] + '</code>';
+        html += '<button class="pw-copy-btn" title="Копировать">';
+        html += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+        html += '</button></div>';
+    }
+    passwordList.innerHTML = html;
+
+    // Bind individual copy buttons
+    passwordList.querySelectorAll('.pw-copy-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var item = this.closest('.password-item');
+            var text = item.getAttribute('data-pw');
+            copyText(text, this);
+        });
+    });
+
+    var pLen = passwords[0] ? (getSelectedSeparator() ? passwords[0].replace(new RegExp(getSelectedSeparator() === '-' ? '\\-' : '\\_', 'g'), '').length : passwords[0].length) : 0;
+    updateStrength(pLen, variety);
 }
 
 function updateStrength(length, variety) {
@@ -251,25 +364,11 @@ function updateStrength(length, variety) {
     strengthText.textContent = label;
 }
 
-lengthSlider.addEventListener('input', function() {
-    lengthDisplay.textContent = this.value;
-    generatePassword();
-});
-
-chkUpper.addEventListener('change', generatePassword);
-chkLower.addEventListener('change', generatePassword);
-chkDigits.addEventListener('change', generatePassword);
-chkSpecial.addEventListener('change', generatePassword);
-
-document.getElementById('generateBtn').addEventListener('click', generatePassword);
-
-document.getElementById('copyBtn').addEventListener('click', function() {
-    var text = passwordDisplay.textContent;
-    if (!text || text === '…………') return;
-    var btn = this;
+function copyText(text, btn) {
     navigator.clipboard.writeText(text).then(function() {
-        btn.classList.add('copied');
-        setTimeout(function() { btn.classList.remove('copied'); }, 1800);
+        var orig = btn.innerHTML;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+        setTimeout(function() { btn.innerHTML = orig; }, 1500);
     }).catch(function() {
         var ta = document.createElement('textarea');
         ta.value = text;
@@ -279,12 +378,47 @@ document.getElementById('copyBtn').addEventListener('click', function() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        btn.classList.add('copied');
-        setTimeout(function() { btn.classList.remove('copied'); }, 1800);
+        var orig = btn.innerHTML;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>';
+        setTimeout(function() { btn.innerHTML = orig; }, 1500);
     });
+}
+
+// Event listeners
+lengthSlider.addEventListener('input', function() {
+    lengthDisplay.textContent = this.value;
+    generatePasswords();
 });
 
-generatePassword();
+countSlider.addEventListener('input', function() {
+    countDisplay.textContent = this.value;
+    generatePasswords();
+});
+
+chkUpper.addEventListener('change', generatePasswords);
+chkLower.addEventListener('change', generatePasswords);
+chkDigits.addEventListener('change', generatePasswords);
+chkSpecial.addEventListener('change', generatePasswords);
+chkNoAmbiguous.addEventListener('change', generatePasswords);
+
+document.querySelectorAll('input[name="separator"]').forEach(function(r) {
+    r.addEventListener('change', generatePasswords);
+});
+
+document.getElementById('generateBtn').addEventListener('click', generatePasswords);
+
+copyAllBtn.addEventListener('click', function() {
+    var items = passwordList.querySelectorAll('.password-item');
+    if (items.length === 0) return;
+    var texts = [];
+    items.forEach(function(item) {
+        texts.push(item.getAttribute('data-pw'));
+    });
+    var text = texts.join('\n');
+    copyText(text, this);
+});
+
+generatePasswords();
 </script>
 </body>
 </html>
