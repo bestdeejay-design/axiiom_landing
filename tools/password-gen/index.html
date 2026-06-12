@@ -113,18 +113,18 @@
             </div>
 
             <div class="tool-row">
-                <label class="tool-label">Разделитель</label>
+                <label class="tool-label">Разделители</label>
                 <div class="checkbox-group">
                     <label class="checkbox-label">
-                        <input type="radio" name="separator" value="" checked>
+                        <input type="checkbox" id="sepNone" checked>
                         Без разделителя
                     </label>
                     <label class="checkbox-label">
-                        <input type="radio" name="separator" value="-">
+                        <input type="checkbox" id="sepHyphen">
                         Дефис (-)
                     </label>
                     <label class="checkbox-label">
-                        <input type="radio" name="separator" value="_">
+                        <input type="checkbox" id="sepUnderscore">
                         Подчёркивание (_)
                     </label>
                 </div>
@@ -210,17 +210,47 @@ var chkLower = document.getElementById('chkLower');
 var chkDigits = document.getElementById('chkDigits');
 var chkSpecial = document.getElementById('chkSpecial');
 var chkNoAmbiguous = document.getElementById('chkNoAmbiguous');
+var sepNone = document.getElementById('sepNone');
+var sepHyphen = document.getElementById('sepHyphen');
+var sepUnderscore = document.getElementById('sepUnderscore');
 var strengthText = document.getElementById('strengthText');
 var strengthBar = document.getElementById('strengthBar');
 var copyAllBtn = document.getElementById('copyAllBtn');
 
-function getSelectedSeparator() {
-    var radios = document.querySelectorAll('input[name="separator"]');
-    for (var i = 0; i < radios.length; i++) {
-        if (radios[i].checked) return radios[i].value;
-    }
-    return '';
+function getSeparators() {
+    if (sepNone.checked) return [];
+    var s = [];
+    if (sepHyphen.checked) s.push('-');
+    if (sepUnderscore.checked) s.push('_');
+    return s;
 }
+
+// Separator checkbox logic
+sepNone.addEventListener('change', function() {
+    if (this.checked) {
+        sepHyphen.checked = false;
+        sepUnderscore.checked = false;
+        generatePasswords();
+    }
+});
+
+sepHyphen.addEventListener('change', function() {
+    if (this.checked || sepUnderscore.checked) {
+        sepNone.checked = false;
+    } else {
+        sepNone.checked = true;
+    }
+    generatePasswords();
+});
+
+sepUnderscore.addEventListener('change', function() {
+    if (this.checked || sepHyphen.checked) {
+        sepNone.checked = false;
+    } else {
+        sepNone.checked = true;
+    }
+    generatePasswords();
+});
 
 function makePassword() {
     var chars = '';
@@ -234,7 +264,7 @@ function makePassword() {
     if (chars.length === 0) return null;
 
     var length = parseInt(lengthSlider.value, 10);
-    var sep = getSelectedSeparator();
+    var seps = getSeparators();
 
     var sets = [];
     if (chkUpper.checked) sets.push(chkNoAmbiguous.checked ? removeAmbiguous(UPPER) : UPPER);
@@ -265,11 +295,13 @@ function makePassword() {
 
     var result = arr.join('');
 
-    // Apply separator: insert every 4 chars
-    if (sep) {
+    // Apply separators: insert every 4 chars
+    if (seps.length > 0) {
         var grouped = '';
         for (var p = 0; p < result.length; p++) {
-            if (p > 0 && p % 4 === 0) grouped += sep;
+            if (p > 0 && p % 4 === 0) {
+                grouped += seps[Math.floor(Math.random() * seps.length)];
+            }
             grouped += result[p];
         }
         result = grouped;
@@ -330,7 +362,7 @@ function generatePasswords() {
         });
     });
 
-    var pLen = passwords[0] ? (getSelectedSeparator() ? passwords[0].replace(new RegExp(getSelectedSeparator() === '-' ? '\\-' : '\\_', 'g'), '').length : passwords[0].length) : 0;
+    var pLen = passwords[0] ? (getSeparators().length > 0 ? passwords[0].replace(/[-_]/g, '').length : passwords[0].length) : 0;
     updateStrength(pLen, variety);
 }
 
