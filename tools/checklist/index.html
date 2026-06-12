@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чек-листы — AXIIOM Tools</title>
+    <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
+    <link rel="stylesheet" href="/tools/styles.css">
+    <style>
+        .template-btn.active {
+            background: var(--clr-heading) !important;
+            color: var(--clr-bg) !important;
+            border-color: var(--clr-heading) !important;
+        }
+        .template-btn.active:hover { opacity: .8; }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 20px;
+        }
+
+        .checklist-items .checkbox-label {
+            padding: 10px 14px;
+            transition: opacity .25s, text-decoration-color .25s, border-color .25s;
+            text-decoration: none;
+            text-decoration-color: transparent;
+        }
+
+        .checklist-items .checkbox-label.checked {
+            text-decoration: line-through;
+            text-decoration-color: var(--clr-muted);
+            opacity: .55;
+        }
+
+        .progress-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding: 16px 0 0;
+            border-top: 1px solid var(--clr-border);
+        }
+
+        .progress-track {
+            flex: 1;
+            height: 6px;
+            background: var(--clr-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--clr-accent);
+            border-radius: 4px;
+            transition: width .35s ease;
+        }
+
+        .progress-text {
+            font-size: .8rem;
+            color: var(--clr-muted);
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .checklist-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--clr-faint);
+            font-size: .9rem;
+        }
+
+        [data-theme="light"] .checklist-items .checkbox-label.checked {
+            opacity: .5;
+        }
+    </style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="grid-overlay"></div>
+
+<header class="header" id="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="20" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="2" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="20" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="27" cy="27" r="3" fill="currentColor" opacity=".8"/>
+                </svg>
+                <span>AXIIOM</span>
+            </a>
+            <ul class="nav-links nav-links--desktop">
+                <li><a href="/">Главная</a></li>
+                <li><a href="/o-kompanii.html">О компании</a></li>
+                <li><a href="/uslugi.html">Услуги</a></li>
+                <li><a href="/kejsy.html">Кейсы</a></li>
+                <li><a href="/kontakty.html">Контакты</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-btn" id="themeToggle" aria-label="Сменить тему">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                </button>
+                <button class="nav-toggle" id="navToggle" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="nav-overlay" id="navOverlay">
+    <ul class="nav-links">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/o-kompanii.html">О компании</a></li>
+        <li><a href="/uslugi.html">Услуги</a></li>
+        <li><a href="/kejsy.html">Кейсы</a></li>
+        <li><a href="/kontakty.html">Контакты</a></li>
+    </ul>
+</div>
+
+<section class="hero tools-hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-bg-svg">
+                <svg width="800" height="600" viewBox="0 0 800 600" fill="none">
+                    <circle cx="400" cy="300" r="280" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                    <circle cx="400" cy="300" r="200" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <circle cx="400" cy="300" r="120" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                    <line x1="50" y1="300" x2="750" y2="300" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                    <line x1="400" y1="20" x2="400" y2="580" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                    <path d="M200 300 L400 100 L600 300 L400 500 Z" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none"/>
+                    <circle cx="400" cy="300" r="4" fill="rgba(255,255,255,0.1)"/>
+                </svg>
+            </div>
+            <p class="badge">AXIIOM Tools</p>
+            <h1>Чек-листы</h1>
+            <p class="hero-desc">Шаблоны чек-листов для запуска сайта, SEO-аудита, разработки и дизайна. Отмечайте выполненные пункты и следите за прогрессом.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="tool-page-card" style="text-align:left">
+            <a href="/tools/" class="back-link" style="margin-bottom:20px;display:inline-flex">← Назад к инструментам</a>
+            <div class="tool-page-header" style="margin-bottom:16px">
+                <h1>Шаблоны чек-листов</h1>
+            </div>
+            <p class="tool-description">Выберите шаблон и отмечайте выполненные пункты. Прогресс сохраняется до закрытия страницы.</p>
+
+            <div class="tool-btn-group" id="templateTabs"></div>
+
+            <div class="checklist-items" id="checklistContainer"></div>
+
+            <div class="progress-section" id="progressSection">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">0 из 0 выполнено</span>
+                <button class="tool-btn-secondary" id="resetBtn" style="flex-shrink:0">Сбросить все</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты для разработчиков, дизайнеров и SEO-специалистов</p>
+    </div>
+</footer>
+
+<script>
+const TEMPLATES = [
+    {
+        id: 'launch',
+        name: 'Запуск сайта',
+        items: [
+            'Домен подключён и настроен',
+            'Хостинг активирован',
+            'SSL-сертификат установлен',
+            'База данных создана',
+            'CMS установлена и настроена',
+            'Все страницы созданы',
+            'Мета-теги заполнены',
+            'Sitemap.xml создан',
+            'robots.txt настроен',
+            'Аналитика подключена',
+            'Формы отправки работают',
+            'Сайт протестирован на мобильных',
+            'Скорость загрузки проверена',
+            '404 страница настроена',
+            'Резервное копирование настроено'
+        ]
+    },
+    {
+        id: 'seo',
+        name: 'SEO-аудит',
+        items: [
+            'Проверен robots.txt',
+            'Проверен sitemap.xml',
+            'Проверены заголовки H1-H3',
+            'Проверены meta-descriptions',
+            'Проверены изображения (alt-теги)',
+            'Проверена скорость загрузки',
+            'Проверена мобильная версия',
+            'Проверены битые ссылки',
+            'Проверена структура URL',
+            'Проверен SSL/HTTPS',
+            'Проверены канонические URL',
+            'Проверена разметка Schema.org'
+        ]
+    },
+    {
+        id: 'dev',
+        name: 'Разработка',
+        items: [
+            'Настроен репозиторий Git',
+            'Создана ветка разработки',
+            'Настроен CI/CD',
+            'Написаны unit-тесты',
+            'Проведён code review',
+            'Проверена безопасность',
+            'Составлена документация',
+            'Протестировано на всех браузерах',
+            'Произведён деплой на staging',
+            'Получено approval заказчика'
+        ]
+    },
+    {
+        id: 'design',
+        name: 'Дизайн',
+        items: [
+            'Собран референсы',
+            'Создана структура страниц',
+            'Создан прототип',
+            'Утверждён прототип',
+            'Создан визуальный дизайн',
+            'Подготовлен UI-kit',
+            'Настроена типографика',
+            'Выбрана цветовая палитра',
+            'Подготовлены мокапы всех экранов',
+            'Адаптивный дизайн готов',
+            'Дизайн передан в разработку'
+        ]
+    }
+];
+
+const STORAGE_KEY = 'axiiom_checklist_state';
+
+let activeTemplateId = null;
+
+function getState() {
+    try {
+        return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || {};
+    } catch { return {}; }
+}
+
+function saveState(state) {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function getChecked(templateId) {
+    const state = getState();
+    return state[templateId] || [];
+}
+
+function setChecked(templateId, indices) {
+    const state = getState();
+    state[templateId] = indices;
+    saveState(state);
+}
+
+function initTabs() {
+    const container = document.getElementById('templateTabs');
+    container.innerHTML = '';
+    TEMPLATES.forEach(function(t, i) {
+        const btn = document.createElement('button');
+        btn.className = 'template-btn' + (i === 0 ? ' tool-btn active' : ' tool-btn-secondary');
+        btn.textContent = t.name;
+        btn.dataset.templateId = t.id;
+        btn.addEventListener('click', function() { switchTemplate(t.id); });
+        container.appendChild(btn);
+    });
+}
+
+function switchTemplate(templateId) {
+    activeTemplateId = templateId;
+
+    document.querySelectorAll('.template-btn').forEach(function(btn) {
+        const isActive = btn.dataset.templateId === templateId;
+        btn.className = 'template-btn' + (isActive ? ' tool-btn active' : ' tool-btn-secondary');
+    });
+
+    renderChecklist(templateId);
+}
+
+function renderChecklist(templateId) {
+    const template = TEMPLATES.find(function(t) { return t.id === templateId; });
+    if (!template) return;
+
+    const container = document.getElementById('checklistContainer');
+    const checked = getChecked(templateId);
+
+    container.innerHTML = '';
+
+    template.items.forEach(function(item, i) {
+        const label = document.createElement('label');
+        label.className = 'checkbox-label' + (checked.indexOf(i) !== -1 ? ' checked' : '');
+
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = checked.indexOf(i) !== -1;
+        cb.dataset.index = i;
+
+        cb.addEventListener('change', function() {
+            onCheckChange(templateId, i, cb.checked);
+        });
+
+        label.appendChild(cb);
+        label.appendChild(document.createTextNode(' ' + item));
+
+        container.appendChild(label);
+    });
+
+    updateProgress(templateId);
+}
+
+function onCheckChange(templateId, index, checked) {
+    const current = getChecked(templateId);
+    const idx = current.indexOf(index);
+
+    if (checked && idx === -1) {
+        current.push(index);
+        current.sort(function(a, b) { return a - b; });
+    } else if (!checked && idx !== -1) {
+        current.splice(idx, 1);
+    }
+
+    setChecked(templateId, current);
+    renderChecklist(templateId);
+}
+
+function updateProgress(templateId) {
+    const template = TEMPLATES.find(function(t) { return t.id === templateId; });
+    if (!template) return;
+
+    const checked = getChecked(templateId);
+    const total = template.items.length;
+    const done = checked.length;
+    const pct = total > 0 ? (done / total) * 100 : 0;
+
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = done + ' из ' + total + ' выполнено';
+}
+
+function resetChecked() {
+    if (!activeTemplateId) return;
+    const template = TEMPLATES.find(function(t) { return t.id === activeTemplateId; });
+    if (!template) return;
+    if (template.items.length === 0) return;
+    if (!confirm('Сбросить все отметки в шаблоне "' + template.name + '"?')) return;
+
+    setChecked(activeTemplateId, []);
+    renderChecklist(activeTemplateId);
+}
+
+(function init() {
+    initTabs();
+    switchTemplate(TEMPLATES[0].id);
+    document.getElementById('resetBtn').addEventListener('click', resetChecked);
+})();
+
+/* === Header scroll === */
+(function() {
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+})();
+
+/* === Mobile nav === */
+(function() {
+    const navToggle = document.getElementById('navToggle');
+    const navOverlay = document.getElementById('navOverlay');
+    navToggle.addEventListener('click', function() {
+        navOverlay.classList.toggle('open');
+        navToggle.classList.toggle('active');
+        document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
+    });
+    navOverlay.addEventListener('click', function(e) {
+        if (e.target === navOverlay) {
+            navOverlay.classList.remove('open');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+})();
+
+/* === Theme === */
+(function() {
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved) html.setAttribute('data-theme', saved);
+    if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        html.setAttribute('data-theme', 'light');
+    }
+    updateIcon();
+    themeToggle.addEventListener('click', function() {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'light' ? '' : 'light';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateIcon();
+    });
+    function updateIcon() {
+        const isLight = html.getAttribute('data-theme') === 'light';
+        themeToggle.innerHTML = isLight
+            ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+            : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+    }
+})();
+
+/* === Cursor glow === */
+(function() {
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor-glow';
+    document.body.appendChild(cursor);
+    document.addEventListener('mousemove', function(e) {
+        cursor.style.transform = 'translate(' + (e.clientX - 400) + 'px, ' + (e.clientY - 400) + 'px)';
+    });
+})();
+</script>
+</body>
+</html>

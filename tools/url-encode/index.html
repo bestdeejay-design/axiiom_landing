@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Encode / Decode — AXIIOM Tools</title>
+    <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="grid-overlay"></div>
+
+<header class="header" id="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="20" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="2" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="20" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="27" cy="27" r="3" fill="currentColor" opacity=".8"/>
+                </svg>
+                <span>AXIIOM</span>
+            </a>
+            <ul class="nav-links nav-links--desktop">
+                <li><a href="/">Главная</a></li>
+                <li><a href="/o-kompanii.html">О компании</a></li>
+                <li><a href="/uslugi.html">Услуги</a></li>
+                <li><a href="/kejsy.html">Кейсы</a></li>
+                <li><a href="/kontakty.html">Контакты</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-btn" id="themeToggle" aria-label="Сменить тему">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                </button>
+                <button class="nav-toggle" id="navToggle" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="nav-overlay" id="navOverlay">
+    <ul class="nav-links">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/o-kompanii.html">О компании</a></li>
+        <li><a href="/uslugi.html">Услуги</a></li>
+        <li><a href="/kejsy.html">Кейсы</a></li>
+        <li><a href="/kontakty.html">Контакты</a></li>
+    </ul>
+</div>
+
+<section class="tool-page">
+    <div class="container">
+        <div class="tool-page-header">
+            <a href="../" class="back-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                Назад к инструментам
+            </a>
+            <h1>URL Encode / Decode</h1>
+        </div>
+
+        <div class="tool-page-card">
+            <p class="tool-description">Кодирование и декодирование URL-строк. Преобразует спецсимволы в процентное представление и обратно.</p>
+
+            <div class="tool-row">
+                <label class="tool-label" for="input">Строка для преобразования</label>
+                <textarea class="tool-textarea" id="input" placeholder="Введите строку для кодирования или декодирования..." rows="4"></textarea>
+            </div>
+
+            <div class="tool-btn-group">
+                <button class="tool-btn" id="encodeBtn">Закодировать (Encode)</button>
+                <button class="tool-btn-secondary" id="decodeBtn">Декодировать (Decode)</button>
+            </div>
+
+            <div class="tool-row">
+                <div class="tool-output-label">Результат</div>
+                <div class="tool-output" id="output"></div>
+            </div>
+
+            <button class="tool-btn-secondary copy-btn" id="copyBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                Копировать
+            </button>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> &copy; 2026 — Бесплатные онлайн-инструменты для разработчиков, дизайнеров и SEO-специалистов</p>
+    </div>
+</footer>
+
+<script>
+const input = document.getElementById('input');
+const output = document.getElementById('output');
+const encodeBtn = document.getElementById('encodeBtn');
+const decodeBtn = document.getElementById('decodeBtn');
+const copyBtn = document.getElementById('copyBtn');
+
+encodeBtn.addEventListener('click', () => {
+    try {
+        output.textContent = encodeURIComponent(input.value);
+    } catch (e) {
+        output.textContent = 'Ошибка кодирования';
+    }
+});
+
+decodeBtn.addEventListener('click', () => {
+    try {
+        output.textContent = decodeURIComponent(input.value);
+    } catch (e) {
+        output.textContent = 'Ошибка декодирования — проверьте строку';
+    }
+});
+
+copyBtn.addEventListener('click', () => {
+    if (!output.textContent) return;
+    navigator.clipboard.writeText(output.textContent).then(() => {
+        copyBtn.classList.add('copied');
+        setTimeout(() => copyBtn.classList.remove('copied'), 1500);
+    }).catch(() => {
+        const range = document.createRange();
+        range.selectNodeContents(output);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    });
+});
+
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+const navToggle = document.getElementById('navToggle');
+const navOverlay = document.getElementById('navOverlay');
+navToggle?.addEventListener('click', () => {
+    navOverlay.classList.toggle('open');
+    navToggle.classList.toggle('active');
+    document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
+});
+navOverlay?.addEventListener('click', (e) => {
+    if (e.target === navOverlay) {
+        navOverlay.classList.remove('open');
+        navToggle.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+const saved = localStorage.getItem('theme');
+if (saved) html.setAttribute('data-theme', saved);
+if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    html.setAttribute('data-theme', 'light');
+}
+updateIcon();
+themeToggle?.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? '' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateIcon();
+});
+function updateIcon() {
+    const isLight = html.getAttribute('data-theme') === 'light';
+    themeToggle.innerHTML = isLight
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+}
+
+const cursor = document.createElement('div');
+cursor.className = 'cursor-glow';
+document.body.appendChild(cursor);
+document.addEventListener('mousemove', (e) => {
+    cursor.style.transform = `translate(${e.clientX - 400}px, ${e.clientY - 400}px)`;
+});
+</script>
+</body>
+</html>

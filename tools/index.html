@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструменты — AXIIOM</title>
+    <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="grid-overlay"></div>
+
+<header class="header" id="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="20" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="2" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="20" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="27" cy="27" r="3" fill="currentColor" opacity=".8"/>
+                </svg>
+                <span>AXIIOM</span>
+            </a>
+            <ul class="nav-links nav-links--desktop">
+                <li><a href="/">Главная</a></li>
+                <li><a href="/o-kompanii.html">О компании</a></li>
+                <li><a href="/uslugi.html">Услуги</a></li>
+                <li><a href="/kejsy.html">Кейсы</a></li>
+                <li><a href="/kontakty.html">Контакты</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-btn" id="themeToggle" aria-label="Сменить тему">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                </button>
+                <button class="nav-toggle" id="navToggle" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="nav-overlay" id="navOverlay">
+    <ul class="nav-links">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/o-kompanii.html">О компании</a></li>
+        <li><a href="/uslugi.html">Услуги</a></li>
+        <li><a href="/kejsy.html">Кейсы</a></li>
+        <li><a href="/kontakty.html">Контакты</a></li>
+    </ul>
+</div>
+
+<section class="hero tools-hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-bg-svg">
+                <svg width="800" height="600" viewBox="0 0 800 600" fill="none">
+                    <circle cx="400" cy="300" r="280" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                    <circle cx="400" cy="300" r="200" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <circle cx="400" cy="300" r="120" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                    <line x1="50" y1="300" x2="750" y2="300" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                    <line x1="400" y1="20" x2="400" y2="580" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                    <path d="M200 300 L400 100 L600 300 L400 500 Z" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none"/>
+                    <circle cx="400" cy="300" r="4" fill="rgba(255,255,255,0.1)"/>
+                </svg>
+            </div>
+            <p class="badge">AXIIOM Tools</p>
+            <h1>Полезные инструменты</h1>
+            <p class="hero-desc">Набор бесплатных онлайн-инструментов для разработки, дизайна, SEO и повседневных задач. Просто, быстро, без регистрации.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="tools-grid">
+            <a href="char-counter/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+                </div>
+                <h3>Счётчик символов</h3>
+                <p>Подсчёт символов, слов, предложений. Анализ текста в реальном времени.</p>
+                <span class="tool-meta">Текст</span>
+            </a>
+            <a href="password-gen/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                </div>
+                <h3>Генератор паролей</h3>
+                <p>Создание надёжных паролей с настраиваемой длиной и набором символов.</p>
+                <span class="tool-meta">Безопасность</span>
+            </a>
+            <a href="translit/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                </div>
+                <h3>Транслитератор</h3>
+                <p>Преобразование русского текста в латиницу по ГОСТ и другим стандартам.</p>
+                <span class="tool-meta">Текст</span>
+            </a>
+            <a href="base64/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M3 16v5h5"/><path d="M21 16v5h-5"/><path d="M12 8l-4 8h8z"/></svg>
+                </div>
+                <h3>Base64</h3>
+                <p>Кодирование и декодирование строк и файлов в формат Base64.</p>
+                <span class="tool-meta">Разработка</span>
+            </a>
+            <a href="url-encode/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+                </div>
+                <h3>URL Encode</h3>
+                <p>Кодирование и декодирование URL-строк, экранирование спецсимволов.</p>
+                <span class="tool-meta">Разработка</span>
+            </a>
+            <a href="lorem-ipsum/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <h3>Lorem Ipsum</h3>
+                <p>Генерация текста-заполнителя для макетов, прототипов и вёрстки.</p>
+                <span class="tool-meta">Дизайн</span>
+            </a>
+            <a href="color-picker/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg>
+                </div>
+                <h3>Color Picker</h3>
+                <p>Выбор цвета, конвертация HEX/RGB/HSL, просмотр палитры.</p>
+                <span class="tool-meta">Дизайн</span>
+            </a>
+            <a href="currency/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                </div>
+                <h3>Конвертер валют</h3>
+                <p>Пересчёт сумм между основными валютами по актуальному курсу.</p>
+                <span class="tool-meta">Финансы</span>
+            </a>
+            <a href="date-calc/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <h3>Калькулятор дат</h3>
+                <p>Разница между датами, прибавление/вычитание дней, расчёт возраста.</p>
+                <span class="tool-meta">Утилиты</span>
+            </a>
+            <a href="unit-converter/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/></svg>
+                </div>
+                <h3>Конвертер единиц</h3>
+                <p>Перевод длины, веса, температуры, объёма, скорости и других величин.</p>
+                <span class="tool-meta">Утилиты</span>
+            </a>
+            <a href="snippet-gen/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                </div>
+                <h3>SEO Сниппет</h3>
+                <p>Предпросмотр сниппета в выдаче Google, проверка title и description.</p>
+                <span class="tool-meta">SEO</span>
+            </a>
+            <a href="checklist/" class="tool-card reveal">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <h3>Чек-листы</h3>
+                <p>Шаблоны чек-листов для запуска сайта, SEO-аудита и разработки.</p>
+                <span class="tool-meta">Шаблоны</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты для разработчиков, дизайнеров и SEO-специалистов</p>
+    </div>
+</footer>
+
+<script>
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+const navToggle = document.getElementById('navToggle');
+const navOverlay = document.getElementById('navOverlay');
+navToggle?.addEventListener('click', () => {
+    navOverlay.classList.toggle('open');
+    navToggle.classList.toggle('active');
+    document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('[data-nav]').forEach(link => {
+    link.addEventListener('click', () => {
+        navOverlay.classList.remove('open');
+        navToggle.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+});
+navOverlay?.addEventListener('click', (e) => {
+    if (e.target === navOverlay) {
+        navOverlay.classList.remove('open');
+        navToggle.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+const saved = localStorage.getItem('theme');
+if (saved) html.setAttribute('data-theme', saved);
+if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    html.setAttribute('data-theme', 'light');
+}
+updateIcon();
+themeToggle?.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? '' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateIcon();
+});
+function updateIcon() {
+    const isLight = html.getAttribute('data-theme') === 'light';
+    themeToggle.innerHTML = isLight
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+}
+
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15 });
+reveals.forEach(r => observer.observe(r));
+
+const cursor = document.createElement('div');
+cursor.className = 'cursor-glow';
+document.body.appendChild(cursor);
+document.addEventListener('mousemove', (e) => {
+    cursor.style.transform = `translate(${e.clientX - 400}px, ${e.clientY - 400}px)`;
+});
+
+document.querySelectorAll('.tool-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rx = ((y - cy) / cy) * -12;
+        const ry = ((x - cx) / cx) * 12;
+        card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+    });
+});
+</script>
+</body>
+</html>

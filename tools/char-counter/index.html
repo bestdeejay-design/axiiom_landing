@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Счётчик символов — AXIIOM Tools</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/tools/styles.css">
+<style>
+  :root {
+    --accent: #00c9b7;
+    --accent-dim: #009e90;
+    --bg: #f5f6fa;
+    --surface: #ffffff;
+    --surface2: #eef0f5;
+    --text: #1a1d24;
+    --text-muted: #6b7080;
+    --border: #dde0e8;
+    --radius: 12px;
+    --glow-color: rgba(0, 201, 183, 0.08);
+  }
+  .dark {
+    --bg: #0b0d10;
+    --surface: #13161c;
+    --surface2: #1a1f28;
+    --text: #e4e7ed;
+    --text-muted: #8a8f9c;
+    --border: #232834;
+    --glow-color: rgba(0, 201, 183, 0.05);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 17px;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: background 0.3s, color 0.3s;
+  }
+  p, li, td, th { overflow-wrap: break-word; word-break: break-word; }
+
+  /* Cursor glow */
+  #cursorGlow {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+  #cursorGlow.visible { opacity: 1; }
+
+  /* Theme toggle */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: background 0.3s, border-color 0.3s;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .theme-toggle:hover { border-color: var(--accent-dim); }
+  .theme-toggle span {
+    padding: 4px 12px;
+    border-radius: 100px;
+    transition: 0.25s ease;
+  }
+  .theme-toggle .active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* Header */
+  .top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: rgba(245, 246, 250, 0.76);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s, border-color 0.3s, transform 0.3s ease;
+  }
+  .dark .top-header {
+    background: rgba(11, 13, 16, 0.72);
+  }
+  .top-header.hidden {
+    transform: translateY(-100%);
+  }
+  body.menu-open { overflow: hidden; }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 16px;
+  }
+  .header-logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .header-logo span { color: var(--accent); }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: auto;
+  }
+  .header-nav a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: 0.2s;
+    white-space: nowrap;
+  }
+  .header-nav a:hover {
+    color: var(--text);
+    background: rgba(128,128,128,0.08);
+  }
+  .header-nav a.active {
+    color: var(--accent);
+    background: rgba(0,201,183,0.1);
+  }
+
+  .top-header .theme-toggle {
+    position: static;
+    flex-shrink: 0;
+  }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: var(--text);
+    margin-left: auto;
+  }
+  .hamburger svg { display: block; }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 199;
+    background: rgba(245, 246, 250, 0.94);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    padding: 24px;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .dark .mobile-menu {
+    background: rgba(11, 13, 16, 0.92);
+  }
+  .mobile-menu.open {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .mobile-menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-menu a {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    padding: 14px 16px;
+    border-radius: 12px;
+    transition: 0.2s;
+  }
+  .mobile-menu a:active {
+    background: rgba(128,128,128,0.1);
+    color: var(--accent);
+  }
+  .mobile-menu .theme-toggle {
+    position: static;
+    margin-top: 24px;
+    align-self: flex-start;
+  }
+
+  /* Main layout */
+  .tool-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+  .tool-page-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .tool-page-card h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .tool-page-card p {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  /* Back link */
+  .tool-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+  .tool-back:hover {
+    color: var(--accent);
+  }
+
+  /* Textarea */
+  .tool-textarea {
+    width: 100%;
+    min-height: 220px;
+    padding: 16px 18px;
+    font-size: 16px;
+    font-family: inherit;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.25s, background 0.3s;
+  }
+  .tool-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0,201,183,0.12);
+  }
+
+  /* Tool buttons */
+  .tool-btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .tool-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.15s;
+  }
+  .tool-btn:hover {
+    background: var(--accent-dim);
+  }
+  .tool-btn:active {
+    transform: scale(0.97);
+  }
+  .tool-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .tool-btn-secondary:hover {
+    border-color: var(--accent-dim);
+    background: var(--surface);
+  }
+
+  /* Stats row */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .stat-item {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .stat-item .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .stat-item .stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Footer */
+  .tool-footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 64px;
+  }
+
+  @media (max-width: 640px) {
+    .tool-page { padding: 24px 16px 60px; }
+    .tool-page-card { padding: 20px; }
+    .header-inner { padding: 0 12px; }
+    .header-nav { display: none; }
+    .top-header .theme-toggle { display: none; }
+    .hamburger { display: flex; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-item { padding: 12px; }
+    .stat-item .stat-value { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursorGlow"></div>
+
+<header class="top-header" id="topHeader">
+  <div class="header-inner">
+    <a href="/" class="header-logo">AXIIOM <span>Tools</span></a>
+    <nav class="header-nav">
+      <a href="/">Главная</a>
+      <a href="/o-kompanii.html">О компании</a>
+      <a href="/uslugi.html">Услуги</a>
+      <a href="/kejsy.html">Кейсы</a>
+      <a href="/kontakty.html">Контакты</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span data-theme="dark">Dark</span>
+      <span class="active" data-theme="light">Light</span>
+    </button>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Меню">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <a href="/" onclick="closeMenu()">Главная</a>
+    <a href="/o-kompanii.html" onclick="closeMenu()">О компании</a>
+    <a href="/uslugi.html" onclick="closeMenu()">Услуги</a>
+    <a href="/kejsy.html" onclick="closeMenu()">Кейсы</a>
+    <a href="/kontakty.html" onclick="closeMenu()">Контакты</a>
+  </nav>
+  <button class="theme-toggle" onclick="toggleTheme(); closeMenu()">
+    <span data-theme="dark">Dark</span>
+    <span class="active" data-theme="light">Light</span>
+  </button>
+</div>
+
+<main class="tool-page">
+
+  <a href="/tools/" class="tool-back">← Назад к инструментам</a>
+
+  <div class="tool-page-card">
+    <h2>Счётчик символов</h2>
+    <p>Введите или вставьте текст в поле ниже — статистика обновится мгновенно.</p>
+
+    <textarea class="tool-textarea" id="textInput" placeholder="Введите текст..." rows="8"></textarea>
+
+    <div class="tool-btn-row">
+      <button class="tool-btn" onclick="clearText()">Очистить</button>
+      <button class="tool-btn-secondary" onclick="copyText()">Копировать</button>
+    </div>
+
+    <div class="stat-row" id="statsRow">
+      <div class="stat-item">
+        <div class="stat-label">Символов (с пробелами)</div>
+        <div class="stat-value" id="statChars">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Символов (без пробелов)</div>
+        <div class="stat-value" id="statCharsNoSpace">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Слов</div>
+        <div class="stat-value" id="statWords">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Предложений</div>
+        <div class="stat-value" id="statSentences">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Абзацев</div>
+        <div class="stat-value" id="statParagraphs">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Цифр</div>
+        <div class="stat-value" id="statNumbers">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Средняя длина слова</div>
+        <div class="stat-value" id="statAvgWordLength">0</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="tool-footer">
+  ООО «Аксиома» · ИНН 7842223709 · г. Санкт-Петербург, Думская ул., 4<br>
+  © 2026 — AXIIOM Tools
+</footer>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.classList.toggle('dark');
+  document.querySelectorAll('.theme-toggle span').forEach(function(el) {
+    el.classList.toggle('active', isDark ? el.dataset.theme === 'dark' : el.dataset.theme === 'light');
+  });
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+var saved = localStorage.getItem('theme');
+var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+if (saved === 'dark' || (!saved && prefersDark)) {
+  document.documentElement.classList.add('dark');
+  document.querySelectorAll('.theme-toggle span').forEach(function(el) {
+    el.classList.toggle('active', el.dataset.theme === 'dark');
+  });
+}
+
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.body.classList.toggle('menu-open');
+}
+
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.classList.remove('menu-open');
+}
+
+/* Cursor glow */
+var glow = document.getElementById('cursorGlow');
+var glowTimeout;
+
+document.addEventListener('mousemove', function(e) {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+  glow.classList.add('visible');
+  clearTimeout(glowTimeout);
+  glowTimeout = setTimeout(function() {
+    glow.classList.remove('visible');
+  }, 2000);
+});
+
+document.addEventListener('mouseleave', function() {
+  glow.classList.remove('visible');
+});
+
+/* Scroll header hide/show */
+var lastScrollY = 0;
+var header = document.getElementById('topHeader');
+
+window.addEventListener('scroll', function() {
+  var currentY = window.scrollY;
+  if (currentY > lastScrollY && currentY > 80) {
+    header.classList.add('hidden');
+  } else {
+    header.classList.remove('hidden');
+  }
+  lastScrollY = currentY;
+});
+
+/* Char counter logic */
+var input = document.getElementById('textInput');
+
+function updateStats() {
+  var text = input.value;
+
+  document.getElementById('statChars').textContent = text.length;
+
+  document.getElementById('statCharsNoSpace').textContent = text.replace(/\s/g, '').length;
+
+  var words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  document.getElementById('statWords').textContent = words;
+
+  var sentences = text ? (text.match(/[.!?…]+/g) || []).length : 0;
+  if (text.trim() && !/[.!?…]/.test(text.trim().slice(-1))) sentences = Math.max(1, sentences);
+  document.getElementById('statSentences').textContent = sentences;
+
+  var paragraphs = text ? text.split(/\n\s*\n/).filter(function(b) { return b.trim().length > 0; }).length : 0;
+  if (text.trim() && paragraphs === 0 && text.includes('\n')) paragraphs = 1;
+  if (text.trim() && !text.includes('\n')) paragraphs = text.trim() ? 1 : 0;
+  document.getElementById('statParagraphs').textContent = paragraphs;
+
+  var digits = (text.match(/\d/g) || []).length;
+  document.getElementById('statNumbers').textContent = digits;
+
+  var avgLen = 0;
+  if (words > 0) {
+    var totalChars = text.trim().split(/\s+/).reduce(function(sum, w) { return sum + w.length; }, 0);
+    avgLen = (totalChars / words).toFixed(1);
+  }
+  document.getElementById('statAvgWordLength').textContent = avgLen;
+}
+
+input.addEventListener('input', updateStats);
+
+function clearText() {
+  input.value = '';
+  updateStats();
+  input.focus();
+}
+
+function copyText() {
+  if (input.value) {
+    navigator.clipboard.writeText(input.value).then(function() {
+      var btn = document.querySelector('.tool-btn-secondary');
+      var orig = btn.textContent;
+      btn.textContent = 'Скопировано!';
+      setTimeout(function() { btn.textContent = orig; }, 1500);
+    }).catch(function() {
+      input.select();
+      document.execCommand('copy');
+    });
+  }
+}
+
+updateStats();
+</script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Сниппет — AXIIOM Tools</title>
+    <link rel="icon" type="image/svg+xml" href="/images/axiiom3230-3932-4834-b432-373532376430__fav.svg">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .snippet-preview {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-top: 20px;
+            font-family: arial,sans-serif;
+        }
+        [data-theme="light"] .snippet-preview {
+            background: #fff;
+        }
+        .snippet-breadcrumb {
+            color: #1a0dab;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .snippet-breadcrumb span {
+            color: #545454;
+        }
+        .snippet-title {
+            color: #1a0dab;
+            font-size: 18px;
+            line-height: 1.3;
+            font-weight: 400;
+            margin-bottom: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .snippet-title:hover {
+            text-decoration: underline;
+        }
+        .snippet-desc {
+            color: #545454;
+            font-size: 14px;
+            line-height: 1.58;
+            word-wrap: break-word;
+        }
+        .snippet-url {
+            color: #006621;
+            font-size: 14px;
+            line-height: 1.58;
+            margin-top: 1px;
+            word-break: break-all;
+        }
+        .char-counter {
+            text-align: right;
+            font-size: .75rem;
+            margin-top: 4px;
+            font-variant-numeric: tabular-nums;
+            transition: color .2s;
+        }
+        .char-counter.ok { color: var(--clr-faint); }
+        .char-counter.good { color: #2ecc71; }
+        .char-counter.bad { color: #e74c3c; }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
+        .status-dot.good { background: #2ecc71; }
+        .status-dot.bad { background: #e74c3c; }
+        .status-dot.ok { background: var(--clr-faint); }
+
+        .label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .label-row .tool-label {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .snippet-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="grid-overlay"></div>
+
+<header class="header" id="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="20" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="2" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5" opacity=".4"/>
+                    <rect x="20" y="20" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="27" cy="27" r="3" fill="currentColor" opacity=".8"/>
+                </svg>
+                <span>AXIIOM</span>
+            </a>
+            <ul class="nav-links nav-links--desktop">
+                <li><a href="/">Главная</a></li>
+                <li><a href="/o-kompanii.html">О компании</a></li>
+                <li><a href="/uslugi.html">Услуги</a></li>
+                <li><a href="/kejsy.html">Кейсы</a></li>
+                <li><a href="/kontakty.html">Контакты</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-btn" id="themeToggle" aria-label="Сменить тему">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                </button>
+                <button class="nav-toggle" id="navToggle" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="nav-overlay" id="navOverlay">
+    <ul class="nav-links">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/o-kompanii.html">О компании</a></li>
+        <li><a href="/uslugi.html">Услуги</a></li>
+        <li><a href="/kejsy.html">Кейсы</a></li>
+        <li><a href="/kontakty.html">Контакты</a></li>
+    </ul>
+</div>
+
+<div class="tool-page">
+    <div class="container">
+        <div class="tool-page-header">
+            <a href="../" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                Все инструменты
+            </a>
+            <h1>SEO Сниппет</h1>
+        </div>
+
+        <div class="tool-page-card">
+            <p class="tool-description">Предпросмотр сниппета вашей страницы в выдаче Google. Введите заголовок, описание и URL — и увидите, как результат будет выглядеть в поиске.</p>
+
+            <div class="tool-row">
+                <div class="label-row">
+                    <label class="tool-label" for="titleInput">Заголовок (Title)</label>
+                    <span class="status-dot" id="titleDot"></span>
+                </div>
+                <input class="tool-input" type="text" id="titleInput" maxlength="60" placeholder="Например: Купить квартиру в Москве — лучшие предложения" autocomplete="off">
+                <div class="char-counter ok" id="titleCounter">0 / 60</div>
+            </div>
+
+            <div class="tool-row">
+                <div class="label-row">
+                    <label class="tool-label" for="descInput">Описание (Description)</label>
+                    <span class="status-dot" id="descDot"></span>
+                </div>
+                <textarea class="tool-textarea" id="descInput" maxlength="160" placeholder="Например: Широкий выбор квартир в новостройках Москвы. Выгодные цены, удобное расположение, помощь в выборе."></textarea>
+                <div class="char-counter ok" id="descCounter">0 / 160</div>
+            </div>
+
+            <div class="tool-row">
+                <label class="tool-label" for="urlInput">URL страницы</label>
+                <input class="tool-input" type="text" id="urlInput" placeholder="example.com/page" autocomplete="off">
+            </div>
+
+            <div class="snippet-preview" id="snippetPreview">
+                <div class="snippet-breadcrumb" id="snippetBreadcrumb">example.com <span>›</span> Раздел</div>
+                <div class="snippet-title" id="snippetTitle">Заголовок страницы</div>
+                <div class="snippet-desc" id="snippetDesc">Описание страницы появится здесь после ввода текста в поля выше.</div>
+                <div class="snippet-url" id="snippetDisplayUrl">example.com/page</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="copy"><a href="https://axiiom.ru/" class="footer-link">AXIIOM</a> © 2026 — Бесплатные онлайн-инструменты для разработчиков, дизайнеров и SEO-специалистов</p>
+    </div>
+</footer>
+
+<script>
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+const navToggle = document.getElementById('navToggle');
+const navOverlay = document.getElementById('navOverlay');
+navToggle?.addEventListener('click', () => {
+    navOverlay.classList.toggle('open');
+    navToggle.classList.toggle('active');
+    document.body.style.overflow = navOverlay.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('[data-nav]').forEach(link => {
+    link.addEventListener('click', () => {
+        navOverlay.classList.remove('open');
+        navToggle.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+});
+navOverlay?.addEventListener('click', (e) => {
+    if (e.target === navOverlay) {
+        navOverlay.classList.remove('open');
+        navToggle.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+const saved = localStorage.getItem('theme');
+if (saved) html.setAttribute('data-theme', saved);
+if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    html.setAttribute('data-theme', 'light');
+}
+updateIcon();
+themeToggle?.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? '' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateIcon();
+});
+function updateIcon() {
+    const isLight = html.getAttribute('data-theme') === 'light';
+    themeToggle.innerHTML = isLight
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+}
+
+const cursor = document.createElement('div');
+cursor.className = 'cursor-glow';
+document.body.appendChild(cursor);
+document.addEventListener('mousemove', (e) => {
+    cursor.style.transform = `translate(${e.clientX - 400}px, ${e.clientY - 400}px)`;
+});
+
+// --- Snippet gen logic ---
+const titleInput = document.getElementById('titleInput');
+const descInput = document.getElementById('descInput');
+const urlInput = document.getElementById('urlInput');
+const snippetTitle = document.getElementById('snippetTitle');
+const snippetDesc = document.getElementById('snippetDesc');
+const snippetBreadcrumb = document.getElementById('snippetBreadcrumb');
+const snippetDisplayUrl = document.getElementById('snippetDisplayUrl');
+const titleCounter = document.getElementById('titleCounter');
+const descCounter = document.getElementById('descCounter');
+const titleDot = document.getElementById('titleDot');
+const descDot = document.getElementById('descDot');
+
+function update() {
+    const title = titleInput.value;
+    const desc = descInput.value;
+    const url = urlInput.value;
+
+    // Title
+    const titleDisplay = title.length > 60 ? title.slice(0, 57) + '...' : title || 'Заголовок страницы';
+    snippetTitle.textContent = titleDisplay;
+
+    // Title counter & status
+    const tLen = title.length;
+    titleCounter.textContent = tLen + ' / 60';
+    titleCounter.className = 'char-counter';
+    titleDot.className = 'status-dot';
+    if (tLen === 0) {
+        titleCounter.className += ' ok';
+        titleDot.className += ' ok';
+    } else if (tLen >= 30 && tLen <= 60) {
+        titleCounter.className += ' good';
+        titleDot.className += ' good';
+    } else {
+        titleCounter.className += ' bad';
+        titleDot.className += ' bad';
+    }
+
+    // Description
+    const descDisplay = desc.length > 160 ? desc.slice(0, 157) + '...' : desc || 'Описание страницы появится здесь после ввода текста в поля выше.';
+    snippetDesc.textContent = descDisplay;
+
+    // Description counter & status
+    const dLen = desc.length;
+    descCounter.textContent = dLen + ' / 160';
+    descCounter.className = 'char-counter';
+    descDot.className = 'status-dot';
+    if (dLen === 0) {
+        descCounter.className += ' ok';
+        descDot.className += ' ok';
+    } else if (dLen >= 120 && dLen <= 160) {
+        descCounter.className += ' good';
+        descDot.className += ' good';
+    } else {
+        descCounter.className += ' bad';
+        descDot.className += ' bad';
+    }
+
+    // URL
+    const displayUrl = url || 'example.com/page';
+    snippetDisplayUrl.textContent = displayUrl;
+
+    // Breadcrumb
+    const parts = displayUrl.split('/').filter(Boolean);
+    if (parts.length <= 1) {
+        snippetBreadcrumb.innerHTML = displayUrl + ' <span>›</span> Результат';
+    } else {
+        const domain = parts[0];
+        const rest = parts.slice(1).join(' › ');
+        snippetBreadcrumb.innerHTML = domain + ' <span>›</span> ' + rest;
+    }
+}
+
+titleInput.addEventListener('input', update);
+descInput.addEventListener('input', update);
+urlInput.addEventListener('input', update);
+
+update();
+</script>
+</body>
+</html>

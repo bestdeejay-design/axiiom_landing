@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lorem Ipsum — AXIIOM</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a28;
+    --border: #2a2a3e;
+    --text: #e4e4f0;
+    --text-dim: #8888a0;
+    --accent: #6c5ce7;
+    --accent-hover: #7f70f5;
+    --radius: 8px;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header svg { flex-shrink: 0; }
+
+  header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  header span { color: var(--text-dim); font-size: 13px; }
+
+  .container {
+    flex: 1;
+    max-width: 880px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .tool-header { margin-bottom: 36px; }
+
+  .tool-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .tool-header p { color: var(--text-dim); font-size: 15px; }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 32px;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field label {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+  }
+
+  .field select,
+  .field input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 14px;
+    padding: 10px 14px;
+    font-family: var(--font);
+    outline: none;
+    transition: border-color 0.2s;
+    min-width: 160px;
+  }
+
+  .field select:focus,
+  .field input:focus { border-color: var(--accent); }
+
+  .field input[type="number"] { min-width: 100px; width: 100px; }
+
+  .field input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover { background: var(--accent-hover); }
+
+  .btn-secondary {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover { background: var(--border); }
+
+  .output-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .output-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .output-header h3 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+  }
+
+  .output-actions { display: flex; gap: 8px; }
+
+  .output-body {
+    padding: 24px;
+    min-height: 200px;
+    max-height: 520px;
+    overflow-y: auto;
+  }
+
+  .output-body p {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .output-body p.placeholder {
+    color: var(--text-dim);
+    font-family: var(--font);
+    font-style: italic;
+    user-select: none;
+  }
+
+  .output-body::-webkit-scrollbar { width: 6px; }
+  .output-body::-webkit-scrollbar-track { background: transparent; }
+  .output-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 22px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+  }
+
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 600px) {
+    header { padding: 16px 20px; }
+    .container { padding: 24px 16px 60px; }
+    .controls { flex-direction: column; align-items: stretch; }
+    .field select,
+    .field input { width: 100%; min-width: 0; }
+    .btn { justify-content: center; }
+    .output-header { flex-direction: column; gap: 12px; align-items: stretch; }
+    .output-actions { justify-content: stretch; }
+    .output-actions .btn { flex: 1; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <rect width="28" height="28" rx="6" fill="#6c5ce7"/>
+    <path d="M8 14L12 18L20 10" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <h1>AXIIOM</h1>
+  <span>/ tools</span>
+</header>
+
+<div class="container">
+  <div class="tool-header">
+    <h2>Lorem Ipsum</h2>
+    <p>Генератор текста-заполнителя на основе классического Lorem Ipsum</p>
+  </div>
+
+  <div class="controls">
+    <div class="field">
+      <label for="unit">Тип</label>
+      <select id="unit">
+        <option value="words">Слова</option>
+        <option value="sentences" selected>Предложения</option>
+        <option value="paragraphs">Абзацы</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="count">Количество</label>
+      <input type="number" id="count" value="5" min="1" max="100">
+    </div>
+
+    <button class="btn btn-primary" id="generateBtn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M8 2V14M2 8H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Сгенерировать
+    </button>
+  </div>
+
+  <div class="output-section">
+    <div class="output-header">
+      <h3>Результат</h3>
+      <div class="output-actions">
+        <button class="btn btn-secondary" id="copyBtn">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <rect x="4.5" y="4.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M11 4.5V2.5C11 1.67 10.33 1 9.5 1H2.5C1.67 1 1 1.67 1 2.5V9.5C1 10.33 1.67 11 2.5 11H4.5" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          Копировать
+        </button>
+      </div>
+    </div>
+    <div class="output-body" id="output">
+      <p class="placeholder">Нажмите «Сгенерировать», чтобы создать текст…</p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+  const WORDS = [
+    "a", "ab", "accusamus", "accusantium", "ad", "adipisci", "adipiscing", "alias", "aliquam",
+    "aliquet", "aliquid", "amet", "anim", "animi", "ante", "aperiam", "appetere", "aptent",
+    "arcu", "arguendo", "at", "atque", "auctor", "augue", "aureus", "aut", "autem",
+    "beatae", "bibendum", "blandit", "bonus", "brute",
+    "cæterarum", "causa", "certum", "cetera", "ceteros", "cillum", "cinis", "circum", "civibus",
+    "clam", "class", "cognitio", "commodo", "communem", "communis", "complectitur", "concludaturque",
+    "condemn", "condicionesque", "consectetur", "consequat", "consequatur", "considerant", "consuetud",
+    "consul", "contra", "conubia", "convallis", "copiosae", "corrumpit", "cubilia", "cui", "cuius",
+    "cum", "curabitur", "curae", "cupidatat", "cursus",
+    "dapibus", "debent", "debetis", "definiebas", "delectus", "delenit", "deputare", "deserunt",
+    "desiderio", "deseruisse", "det", "detracto", "deus", "diam", "dicant", "dicat", "dico",
+    "dicta", "dictum", "dictumst", "dignissim", "diligunt", "dipiscing", "dis", "discere",
+    "distinguant", "dolor", "dolore", "dolorem", "dolores", "doloribus", "doming", "donec",
+    "dubitat", "duis", "duo",
+    "ea", "eam", "earum", "efficiendi", "eget", "ego", "egomet", "ei", "eius", "eiusmod",
+    "elaboraret", "electram", "elementum", "elit", "eloquentiam", "enim", "eos", "eosdem",
+    "erat", "eripuit", "erroribus", "esse", "essent", "est", "et", "eu", "eum", "euismod",
+    "eveniet", "ex", "exerci", "exercitation", "expetenda", "explicari", "extremum",
+    "facilisi", "facilisis", "facimus", "facer", "facies", "facimus", "facit", "factum",
+    "fames", "familiaris", "fapibus", "faucibus", "felis", "fermentum", "ferri", "fiant",
+    "fieri", "finibus", "finitus", "firmissimum", "flagitet", "fontes", "forensibus", "fringilla",
+    "fruuntur", "fugiat", "fugit", "fuisse", "fulvius", "fundisse",
+    "gaudere", "gigni", "gloriatur", "gratiam", "gratis", "graece", "gravissimum", "gravitate",
+    "gubergren", "habemus", "habent", "habet", "hac", "hæc", "harum", "has", "hassler",
+    "hendrerit", "hic", "hilare", "hinc", "hissler", "homines", "hominibus", "hominum",
+    "honestatis", "honestum", "huc", "huic", "huiuss", "hunc", "hyporum",
+    "iam", "id", "idoneam", "ieiunium", "iis", "ilium", "illa", "illac", "illam", "illarum",
+    "illas", "ille", "illis", "illorum", "illos", "illud", "illum", "imaginem", "imperdiet",
+    "imperii", "implacabilis", "importunus", "improb", "improbis", "in", "inciderint", "incididunt",
+    "incidunt", "includite", "indicabunt", "indignissimum", "indignus", "inferiorem", "inferri",
+    "infimum", "inimicus", "iniuria", "iniurias", "inker", "inquam", "inquis", "insipientiam",
+    "intellegat", "intellegi", "intelligant", "inter", "interesse", "interiret", "interpretaris",
+    "intervalla", "invenio", "inventore", "invidia", "invitat", "ioca", "ipse", "ipsa", "ipsi",
+    "ipsorum", "ipsos", "ipsum", "iracundia", "iratus", "irric",
+    "is", "istæ", "ista", "istam", "istas", "iste", "istis", "istorum", "istos", "istud",
+    "ita", "itaque", "iucundius", "iudicabit", "iudicantem", "iudicatum", "iugis", "ium",
+    "iungere", "iussu", "iustitia", "iustitiam", "iuventus", "iuvet",
+    "jucundum", "judice", "judicium", "jumenta",
+    "labor", "labores", "laboriosam", "laboris", "labore", "laedere", "lætitia", "lamentari",
+    "languescere", "laodamia", "largior", "latine", "laudandum", "laudant", "laudantium",
+    "lectus", "legat", "legere", "leget", "legendosque", "legum", "leo", "letalis", "levatis",
+    "levius", "lex", "liber", "libero", "libertatem", "libertatis", "libidine", "libidinis",
+    "libros", "licet", "ligula", "litora", "lobortis", "loca", "locis", "locum", "longe",
+    "longitudinem", "loqui", "lorem", "loremque", "loris", "luctus", "ludicra", "lugubre",
+    "lumen", "lupo", "lupus",
+    "macula", "maecenas", "magna", "magnam", "magni", "magnificat", "magnopere", "maiestatem",
+    "maiores", "male", "maledicto", "malesuada", "malis", "malle", "mallet", "malo", "malorum",
+    "malum", "mandamus", "manu", "margaritam", "marie", "massa", "materiam", "matrem",
+    "mattis", "mauris", "maximas", "maxime", "medicam", "mediocrem", "mediocrium", "mel",
+    "melior", "melius", "membra", "memini", "memor", "memoria", "mendacium", "mentis", "meo",
+    "meorum", "meos", "mera", "mererer", "mereri", "meritis", "metus", "meum", "meus",
+    "mi", "micare", "mihimet", "mihi", "milia", "militem", "minime", "minimi", "minimis",
+    "minimus", "minis", "minimum", "minuendi", "mirari", "miror", "mirum", "misera", "miserem",
+    "miserias", "misericordiam", "missa", "mitis", "mollitia", "mollit", "molestiae", "molestias",
+    "monere", "monet", "morbi", "more", "mori", "moribus", "mors", "mortem", "mortis", "motu",
+    "movere", "movet", "mox", "muci", "mulier", "mulierem", "multi", "multis", "multitudinem",
+    "multo", "multos", "multum", "mundi", "mundus", "munere", "munia", "munus", "muta",
+    "mutans", "mutat",
+    "nam", "nascetur", "nascuntur", "nata", "natio", "natoque", "naturalem", "natura", "natus",
+    "navem", "ne", "nec", "necesse", "necessitatibus", "neglegentur", "neglegit", "neglexerit",
+    "negotii", "negotium", "nemo", "neque", "nequeunt", "nervum", "nesciunt", "nescius",
+    "netus", "neve", "nihil", "nil", "nimirum", "nimis", "nimium", "nisi", "nisl", "nobis",
+    "nocendi", "noctis", "nolim", "nollem", "nolle", "nolo", "nomine", "nominis", "non",
+    "nonnumquam", "nonnulla", "nonnulli", "nonnunquam", "noris", "normam", "nos", "noscit",
+    "noster", "nostra", "nostrae", "nostram", "nostras", "nostri", "nostris", "nostro",
+    "nostrorum", "nostros", "nostrum", "notare", "notum", "novi", "novo", "novum", "noxam",
+    "nudus", "nulla", "nullam", "nullas", "nulli", "nullo", "nullum", "numero", "numerum",
+    "numquam", "numquid", "nunc", "nunquam", "nuntiari", "nusquam",
+    "ob", "obcaecati", "obruatur", "obsequium", "obtineant", "obtulisti", "obviam", "occae",
+    "occasio", "occaecat", "occaecati", "occultarum", "occupata", "occurreret", "oderit",
+    "odio", "odiosam", "odiosas", "odium", "offendit", "offeruntur", "officia", "officiis",
+    "officio", "officium", "olim", "omne", "omnem", "omnes", "omni", "omnia", "omnibus",
+    "omnino", "omnium", "onus", "opera", "operae", "operam", "oporteat", "opponunt",
+    "oppressum", "optat", "optimum", "opus", "oratio", "oratione", "orator", "orba", "orbis",
+    "ordine", "ordinem", "origo", "orior", "oriuntur", "ornare", "ornatum", "oro", "ortu",
+    "ortum", "ostendis", "ostendit",
+    "pacuvii", "paene", "palam", "palles", "palma", "panem", "par", "parabilis", "paratus",
+    "paratusque", "parcant", "parcat", "parcere", "pares", "pariatur", "paribus", "parietibus",
+    "pariter", "pars", "parta", "partem", "partes", "partibus", "partim", "partis", "parva",
+    "parvum", "parvus", "passim", "pastoris", "patere", "pateretur", "pati", "patiamini",
+    "patimur", "patiuntur", "patriam", "patronum", "patrum", "paucis", "paulo", "paupertas",
+    "paupertatem", "pax", "peccata", "peccati", "peccato", "peccatum", "pectore", "peculii",
+    "pecuniae", "pecuniam", "pedetemptim", "peiorem", "pellant", "pellat", "pelli", "pendere",
+    "penetrare", "penitus", "pennas", "penatibus", "per", "percipi", "perciperet", "percipe",
+    "percussione", "perdideris", "perdiderit", "perdidisses", "perditis", "perdito", "perdunt",
+    "peregrinis", "perennem", "perfecto", "perferendis", "perfunctio", "pergite", "pericula",
+    "periculis", "periculo", "periculorum", "periculum", "perinde", "peritus", "perlegendis",
+    "permanant", "permanet", "permittit", "permulcet", "perpeti", "perpetuarum", "perpetuum",
+    "persaepe", "persecutus", "persequi", "persequitur", "perspiciatis", "perspicuum", "persuaderi",
+    "pertinacia", "pertinaciam", "pertimescendam", "pertinent", "peruagata", "peruagatum",
+    "perveniri", "pes", "petat", "petenda", "petentium", "pharetra", "phasellus", "pia",
+    "pictam", "pictorum", "pietas", "piger", "piget", "pignus", "pigritia", "pilus", "pingue",
+    "piratica", "piratico", "piraticum", "piratis", "piscatorum", "pius", "placerat", "placet",
+    "placida", "placido", "plaga", "plagas", "plane", "planta", "planum", "platanum", "platea",
+    "plaudere", "plebis", "plecti", "plena", "plenam", "plenas", "pleni", "pleno", "plenus",
+    "plerique", "plerumque", "plico", "plorandum", "plura", "plures", "pluribus", "plurimis",
+    "plurimum", "pluris", "plus", "plutonem", "pocula", "poema", "poena", "poenam", "poenas",
+    "poenarum", "poenastis", "pol", "polliceri", "pollicitus", "pompeium", "pompeius", "ponamus",
+    "ponentes", "ponere", "poni", "ponte", "pontem", "pontes", "ponti", "pontifices", "populares",
+    "populi", "populis", "populo", "populorum", "populos", "populum", "populus", "porro",
+    "porta", "portas", "porticus", "portitor", "portu", "portum", "poscere", "positis", "positu",
+    "posset", "possideat", "possides", "possidet", "possint", "possis", "possit", "possum",
+    "possumus", "post", "postea", "poster", "postera", "posteriores", "posteris", "posteritas",
+    "posterius", "postero", "posteros", "posthac", "posthabui", "postpono", "postquam", "postrem",
+    "postrema", "postremo", "postridie", "postulabat", "postulatum", "posuere", "potens",
+    "potentem", "potentia", "potentiam", "poteris", "poterit", "potest", "potestas", "potestate",
+    "potestatem", "potius", "potuero", "potuisse", "potuit", "potum", "prae", "praecepta",
+    "praeceptis", "praecepto", "praeceptum", "praeclare", "praeclari", "praeclarum", "praecor",
+    "praeesse", "praefectus", "praefero", "praefinio", "praeliorum", "praemii", "praemium",
+    "praeponat", "praeposuit", "praesens", "praesent", "praesentem", "praesenti", "praesentibus",
+    "praesidium", "praestans", "praestant", "praestantem", "praestare", "praestat", "praestati",
+    "praesto", "praesumpseris", "praeter", "praeterea", "praeterita", "praeterito", "praeteritum",
+    "praetermittitur", "praeterpropter", "prata", "pratum", "precatio", "precatione", "precem",
+    "preces", "preci", "prematur", "premendum", "premere", "premuntur", "prendere", "prendi",
+    "prende", "presserit", "pretio", "pretiosum", "pretium", "prex", "pridem", "primas", "prime",
+    "primi", "primis", "primitiae", "primo", "primorum", "primum", "primus", "princeps",
+    "principatum", "principatus", "principem", "principes", "principia", "principii", "principiis",
+    "principio", "principiorum", "principium", "prior", "priore", "priorem", "priores", "priori",
+    "prioribus", "prioris", "pristinae", "pristinum", "prius", "priusquam", "privatim", "privatione",
+    "privatum", "privatus", "pro", "proavus", "probabant", "probabile", "probabilia", "probabiliora",
+    "probabilis", "probabilitate", "probabiliter", "probant", "probare", "probat", "probata",
+    "probationem", "probatum", "probe", "probi", "probitas", "probo", "proborum", "probos",
+    "probum", "probus", "procedit", "proceres", "proceribus", "processus", "proclivem",
+    "procliviores", "proconsul", "procul", "procumbit", "procurai", "procurrent", "prodeamus",
+    "proderit", "prodest", "prodigi", "prodigum", "prodire", "proditio", "proditionem",
+    "proelo", "proelium", "profanum", "profecto", "profectus", "profero", "professus", "profici",
+    "proficiscor", "proficiundi", "proficiunt", "proinde", "proin", "prolabitur", "prolabor",
+    "prolapsus", "prolem", "proles", "prolixe", "prolongo", "promereri", "promissum", "promitto",
+    "promptus", "promulgo", "pronepotem", "pronuntiat", "propaga", "propagari", "prope",
+    "propemodum", "propende", "propensus", "propere", "propinqua", "propinquis", "propinquitate",
+    "propinquo", "propinquus", "propior", "propius", "proponebas", "proponere", "proponi",
+    "proponitur", "proportione", "proposita", "propositis", "proposito", "propositum", "propria",
+    "propriae", "propriam", "proprias", "propriis", "proprio", "propriorum", "proprios",
+    "proprium", "proprius", "propter", "propugnacula", "prorogata", "prorogatur", "proscriptio",
+    "prosequi", "prosper", "prospera", "prospere", "prosperis", "prosperitas", "prosperitatem",
+    "prospero", "prosperum", "prosperus", "prosterneret", "prosus", "protegat", "protegendi",
+    "protinus", "protrahit", "protulisti", "protum", "providemus", "providentia", "providentiam",
+    "providere", "providet", "provincia", "provinciae", "provinciales", "provinciam", "provocabam",
+    "provocant", "proxime", "proximis", "proximo", "proximum", "proximus", "prudens", "prudentem",
+    "prudentia", "prudentiam", "prudentis", "prudentes", "pruna", "psittacus", "pudebat",
+    "pudenda", "pudet", "pudicitiam", "pudicus", "pudor", "pudorem", "puella", "puellam",
+    "puellas", "puer", "pueri", "puerilia", "puerilis", "pueris", "pueritia", "pueritiae",
+    "puerorum", "pueros", "pugna", "pugnabant", "pugnae", "pugnam", "pugnandi", "pugnare",
+    "pugnat", "pugnaturus", "pugnis", "pugnus", "pulchellus", "pulcher", "pulcherrimam",
+    "pulchra", "pulchre", "pulchritudinem", "pulchrividius", "pulcro", "pulcrum", "pulmentum",
+    "pulsant", "pulsat", "pulvinar", "pumiliones", "punctum", "pungit", "punica", "punice",
+    "punicea", "punicum", "punire", "punito", "punitor", "pupillus", "puppem", "puppes",
+    "purgatio", "purgato", "purpura", "purpuram", "purpurea", "purpuream", "purpureo", "purpureus",
+    "purus", "pusio", "pusillum", "putamus", "putandi", "putant", "putare", "putares", "putas",
+    "putat", "putate", "putatis", "putavi", "putavit", "puteat", "putem", "putent", "putes",
+    "putet", "putida", "putidum", "puto", "putorius",
+    "quadrupedem", "quadruplator", "quaeramus", "quaerant", "quaerat", "quarendi", "quarendo",
+    "quarens", "quaerentem", "quaerere", "quaeret", "quaeris", "quaerit", "quaeritis", "quaero",
+    "quaesierit", "quaesierunt", "quaesissem", "quaesisti", "quaesit", "quaesita", "quaesitas",
+    "quaesiti", "quaesitis", "quaesito", "quaesitum", "quaesiverunt", "quaesivi", "quaeso",
+    "quaestor", "quaestore", "quaestorem", "quaestores", "quaestori", "quaestoribus", "quaestoris",
+    "quaestu", "quaestum", "quaestus", "qualem", "qualia", "qualibus", "qualis", "qualisque",
+    "qualitate", "qualitatem", "qualitates", "qualitatibus", "qualitatis", "quam", "quamdiu",
+    "quamobrem", "quamquam", "quamuis", "quamvis", "quamus", "quandam", "quando", "quandoquidem",
+    "quanta", "quantae", "quantam", "quanti", "quantis", "quanto", "quantorum", "quantos",
+    "quantum", "quantus", "quare", "quarta", "quartam", "quarti", "quartus", "quas", "quasi",
+    "quassatio", "quatenus", "quater", "quaterna", "quattuor", "que", "quem", "quemadmodum",
+    "queo", "quia", "quibus", "quibusdam", "quibusque", "quicquam", "quicquid", "quid", "quidam",
+    "quidem", "quidique", "quippe", "quis", "quisquam", "quisque", "quisquis", "quo", "quod",
+    "quodam", "quodcumque", "quom", "quominus", "quomodo", "quondam", "quoniam", "quoque",
+    "quorum", "quos", "quot", "quotannis", "quotempus", "quotidiana", "quotidianam", "quotidianis",
+    "quotidiano", "quotidianum", "quotidianus", "quoties", "quotiens", "quotienscumque",
+    "quum",
+    "radices", "radicitus", "ram", "ramo", "ramos", "ramum", "ramus", "ranarum", "rapacitas",
+    "rapacitatis", "rapiatur", "rapidus", "rapina", "rapinas", "rapior", "raptam", "raptim",
+    "raptor", "raptos", "rar", "rara", "raram", "rari", "raris", "raro", "rarum", "rarus",
+    "ratio", "ratione", "rationem", "rationes", "rationibus", "rationis", "ratis", "rato",
+    "ratum", "ratus", "rausum", "rea", "reae", "realis", "reapse", "reatus", "rebantur",
+    "rebellare", "rebellatis", "rebellio", "rebellionem", "reboo", "recens", "recente",
+    "recenter", "receptaculum", "recepti", "receptis", "recepto", "receptui", "receptum",
+    "recessum", "recidat", "recidisse", "reciperandi", "reciperare", "reciperarit", "recipiat",
+    "recipit", "reclinis", "reclusi", "recogitate", "recognosce", "recolit", "recolunt",
+    "recondit", "recordamini", "recordatio", "recordatione", "recordationem", "recta", "rectae",
+    "rectam", "recte", "recti", "rectis", "rectius", "recto", "rector", "rectori", "rectorum",
+    "rectum", "rectus", "recumbere", "recuperatio", "recusandae", "recusantibus", "recusare",
+    "recusatum", "recuso", "redargueret", "reddam", "reddant", "reddantur", "reddare", "reddat",
+    "redde", "reddendi", "reddendo", "reddens", "reddere", "redderet", "reddet", "reddetur",
+    "reddi", "reddita", "redditae", "redditam", "redditas", "redditi", "redditis", "reddito",
+    "redditorum", "redditos", "redditum", "redditus", "reddo", "reddunt", "redduntur", "redeam",
+    "redeam", "redeamus", "redeat", "redeatis", "redemisti", "redempti", "redemptio",
+    "redemptionem", "redemptor", "redemptori", "redemptorum", "redeo", "redibit", "redierim",
+    "redieris", "redierunt", "redigere", "rediguntur", "redii", "rediit", "redimendi", "redimi",
+    "redimiculum", "redimire", "redimit", "redimitus", "redisse", "redit", "reditu", "reditum",
+    "reditus", "redivivus", "redolens", "redolere", "redonare", "reducat", "reducere", "reduci",
+    "reducta", "reductum", "redundant", "redundare", "refer", "referam", "referant", "referantur",
+    "referat", "referatur", "referenda", "referendae", "referendaris", "referendi", "referendo",
+    "referendum", "referens", "referente", "referenti", "referre", "referrem", "referri", "refert",
+    "referta", "referto", "refertum", "refigere", "reflectat", "reflorescere", "reformidans",
+    "refugere", "refugit", "fugitat", "refugium", "refulsit", "refutare", "refutatio", "regam",
+    "regantur", "regat", "regem", "regendi", "regendo", "regendum", "regens", "regente",
+    "regenum", "regeret", "reges", "rege", "regi", "regia", "regiae", "regiam", "regiarum",
+    "regias", "regibus", "regimen", "regimina", "regina", "reginam", "regionem", "regiones",
+    "regis", "regit", "regium", "regius", "regno", "regnorum", "regnum", "rego", "regredi",
+    "regressum", "regula", "regulae", "regulam", "regulas", "regum", "rei", "reici", "reiciendis",
+    "reiecerit", "reiecisse", "reiecisset", "reiecit", "reiecro", "relectio", "religione",
+    "religionem", "religionibus", "religionis", "religiosas", "religiose", "religiosi",
+    "religiosissimum", "religiosius", "religioso", "religiosum", "religiosus", "religione",
+    "religandum", "religatas", "religatus", "relinque", "relinqueret", "relinques", "relinquet",
+    "relinqui", "relinquit", "relinquo", "reliqua", "reliquae", "reliquam", "reliquarum",
+    "reliquas", "reliqui", "reliquiae", "reliquiis", "reliquis", "reliquo", "reliquorum",
+    "reliquos", "reliquum", "reliquus", "rem", "remanabant", "remaneat", "remanebit",
+    "remanendum", "remanent", "remanere", "remaneret", "remansit", "remeare", "remedii",
+    "remedium", "remigium", "remigrare", "remigrat", "remigratio", "remigraturum", "remigravit",
+    "remis", "remissa", "remissam", "remissi", "remissio", "remissione", "remissionem",
+    "remissis", "remissius", "remisso", "remissum", "remissus", "remittam", "remittant", "remittat",
+    "remittendi", "remittendo", "remittens", "remittere", "remittit", "remittitur", "remota",
+    "remotae", "remotam", "remoti", "remotio", "remotis", "remoto", "remotorum", "remotos",
+    "remotum", "remotus", "removeri", "removeas", "removenda", "removendi", "removendum",
+    "removentur", "removere", "removet", "removit", "remulco", "remum", "remunerandi",
+    "remunerari", "remuneratio", "remus", "ren", "renarrabant", "renasci", "renascentes",
+    "renatus", "renavigandi", "renovandi", "renovare", "renovari", "renovat", "renovata",
+    "renovatione", "renovatum", "renovatus", "renovit", "renuant", "renui", "renuis", "renuit",
+    "renuntiant", "renuntiat", "renuntiata", "renuntiatio", "renuntiatum", "renuntiavi",
+    "renuntiavistis", "renuntiem", "renuntiet", "reor", "reordior", "repagula", "reparanda",
+    "reparandi", "reparandum", "reparare", "reparari", "reparas", "reparat", "reparata",
+    "reparatione", "reparatum", "reparatus", "reparavit", "reparo", "repelli", "repellit",
+    "rependere", "repens", "repente", "repentina", "repentinam", "repentinas", "repentini",
+    "repentinis", "repentinum", "repentinus", "repercutit", "repercutiunt", "reperiam", "reperias",
+    "reperiat", "reperiendi", "reperiens", "reperientibus", "reperies", "reperiet", "reperietis",
+    "reperinntur", "reperio", "reperior", "reperire", "reperiret", "reperit", "reperta",
+    "repertam", "reperti", "repertis", "reperto", "repertor", "repertorem", "repertoria",
+    "repertorio", "repertorum", "repertos", "repertum", "repertu", "repertus", "repetam",
+    "repetant", "repetat", "repetenda", "repetendi", "repetens", "repetentem", "repetenti",
+    "repetere", "repetes", "repetet", "repeti", "repetierat", "repetierit", "repetita",
+    "repetitam", "repetitas", "repetitis", "repetito", "repetitum", "repetitus", "repetundarum",
+    "repetundis", "repleat", "repleta", "repletum", "repletus", "replicare", "replicat",
+    "replicatio", "reponam", "reponant", "reponas", "reponat", "repone", "reponenda", "reponendi",
+    "reponendum", "reponens", "reponent", "reponere", "reponerentur", "repones", "reponet",
+    "reponetur", "reponi", "reponit", "reponite", "reponunt", "reportant", "reportare", "reportat",
+    "reportata", "reportatis", "reportavi", "repose", "reposita", "repositas", "repositis",
+    "reposito", "repositorium", "repositum", "repositus", "reposset", "repraesentabat",
+    "repraesentant", "repraesentare", "repraesentat", "repraesentata", "repraesentatione",
+    "repraesentavi", "repraesento", "reprehendam", "reprehendat", "reprehendendi", "reprehendere",
+    "reprehendet", "reprehendi", "reprehendit", "reprehendo", "reprehensa", "reprehensi",
+    "reprehensio", "reprehensione", "reprehensionem", "reprehensis", "reprehensum", "reprensam",
+    "reprensas", "reprensos", "reprensum", "repressa", "repressae", "repressam", "repressisse",
+    "repressit", "reprimere", "reprime", "reprimenda", "reprimendi", "reprimere", "reprimit",
+    "reprobo", "reproborum", "repropitiatio", "repromittit", "repromittunt", "reptabant",
+    "reptatum", "repubescere", "repudio", "repudium", "repuerascere", "repugnabant",
+    "repugnante", "repugnantes", "repugnare", "repugnat", "repugnatio", "repugnator",
+    "repugnavi", "repulerat", "repulerit", "repulimus", "repulisse", "repulisti", "repulit",
+    "repulsa", "repulsae", "repulsam", "repulsi", "repulsiones", "repulso", "repulsum",
+    "repulsus", "repurgare", "repurgatio", "repurgatum", "repurgatus", "reputabat", "reputabatur",
+    "reputandum", "reputant", "reputantur", "reputare", "reputat", "reputatio", "reputatione",
+    "reputato", "reputatum", "reputatus", "reputaveris", "reputaverit", "reputavi", "reputetur",
+    "reputo", "requiem", "requies", "requiescat", "requieverunt", "requirat", "requiratur",
+    "requirendi", "requirens", "requirere", "requireret", "requiri", "requirimus", "requirit",
+    "requiritis", "requiritur", "requiro", "requisierit", "requisissem", "requisita", "requisitae",
+    "requisiti", "requisitis", "requisito", "requisitum", "requisivero", "requisivit", "rerum",
+    "resa", "resecat", "reserata", "reseratis", "reseratius", "reserato", "reseravisti",
+    "reservabo", "reservanda", "reservandi", "reservare", "reservata", "reservatione",
+    "reservato", "reservatum", "reservatus", "reservavit", "reservem", "reserves", "reservet",
+    "reservo", "reses", "residat", "residentes", "residere", "residet", "residua", "residuae",
+    "residuis", "residuo", "residuum", "residuus", "resignare", "resignata", "resignatis",
+    "resignato", "resilire", "resina", "resistamus", "resistat", "resistendum", "resistendo",
+    "resistens", "resistentem", "resistentes", "resistenti", "resistentibus", "resistentis",
+    "resistere", "resisteret", "resistetis", "resistimus", "resistit", "resistite", "resistunt",
+    "resoluta", "resolutam", "resoluti", "resolutione", "resolutum", "resolvere", "resolvit",
+    "resonabilis", "resonant", "resonare", "resonat", "resorbet", "respecta", "respectans",
+    "respectant", "respectare", "respectat", "respectavi", "respectet", "respecto",
+    "respectui", "respectum", "respectu", "respectus", "respergebat", "respersit", "respiciendum",
+    "respiciens", "respici", "respicit", "respirare", "respiratio", "respirationem", "respiratus",
+    "respiro", "resplendeat", "responde", "respondebant", "respondebunt", "respondens",
+    "respondent", "respondentem", "respondentes", "respondenti", "respondentibus", "respondentis",
+    "respondere", "responderem", "responderes", "responderet", "responderetur", "responderim",
+    "responderint", "responderis", "responderit", "respondero", "respondi", "respondimus",
+    "respondisse", "respondissem", "respondisset", "respondistis", "respondit", "responditur",
+    "respondi", "respondi", "responsa", "responsae", "responsam", "responsi", "responsio",
+    "responsionem", "responsitare", "responsito", "responsius", "responsorum", "responsum",
+    "responsuri", "responsurum", "responsurus", "responsus", "respublica", "respui", "respuit",
+    "respuo", "restare", "restat", "restaurandam", "restaurando", "restaurare", "restaurata",
+    "restauratione", "restauratum", "restauratus", "restauravi", "restauro", "restitere",
+    "restiti", "restitisset", "restitit", "restitorem", "restitores", "restituta", "restitutae",
+    "restitutam", "restituti", "restitutio", "restitutione", "restitutionem", "restitutis",
+    "restituit", "restituto", "restituunt", "restitutum", "restitutus", "restituo", "restitui",
+    "restituamus", "restituant", "restituas", "restituat", "restituenda", "restituendi",
+    "restituendo", "restituendus", "restituens", "restituent", "restituere", "restitueret",
+    "restituerunt", "restitui", "restituimus", "restituebant", "restituebat", "restituebatur",
+    "restituemur", "restitues", "restitue", "restitisse", "restitissent", "restitit", "resto",
+    "restrictim", "restrictio", "restrinxisset", "restrinxit", "resulta", "resumam", "resume",
+    "resumens", "resument", "resumere", "resumetur", "resumitis", "resumito", "resumunt",
+    "resupina", "resupinus", "resurgam", "resurgendi", "resurgens", "resurgent", "resurgere",
+    "resurgeret", "resurgit", "resurgunt", "resurrexit", "resurrectio", "resurrectione",
+    "resurrectionem", "retardata", "retardat", "retardatio", "retardationem", "retardatus",
+    "retardavit", "retardo", "retenta", "retentae", "retentam", "retenti", "retentis",
+    "retento", "retentum", "retentus", "retia", "retiaria", "retiariorum", "retiarius",
+    "reticeam", "reticemus", "reticenda", "reticendi", "reticendum", "reticens", "reticent",
+    "reticente", "reticet", "reticuere", "reticui", "reticuimus", "reticuissem", "reticuit",
+    "retinaculis", "retinaculum", "retinenda", "retinendi", "retinendo", "retinendum",
+    "retinens", "retinent", "retinentem", "retinentes", "retinentur", "retinere", "retinerem",
+    "retineres", "retineret", "retineri", "retineo", "retines", "retinet", "retinete",
+    "retinui", "retinuimus", "retinuisse", "retinuisset", "retinuit", "retrahens", "retrahere",
+    "retrahit", "retraxerit", "retraxisset", "retri", "retribuet", "retribuens", "retribuet",
+    "retribuere", "retributionem", "retro", "retroagere", "retrocedans", "retrocedere",
+    "retrocedit", "retrorsum", "retrost", "retrusum", "retulere", "retulerim", "retulerit",
+    "retulerunt", "retulimus", "retulisse", "retulisset", "retulisti", "retulit", "retundit",
+    "retusum", "reum", "reus", "revelabitur", "revelandi", "revelare", "revelari", "revelata",
+    "revelatio", "revelatione", "revelatum", "revelatus", "revelavit", "revellet", "revellit",
+    "reveniat", "venire", "reveniendi", "reveniens", "revenio", "revenit", "reverentia",
+    "reverentiam", "revereri", "reverita", "revertamini", "revertamur", "revertantur", "revertar",
+    "revertatur", "revertendi", "revertens", "revertentes", "revertentibus", "revertentur",
+    "revertere", "reverteretur", "reverti", "revertimini", "revertimur", "revertitur",
+    "revertor", "revertuntur", "revinci", "revincit", "revirescere", "revisam", "revisat",
+    "revisendi", "revisens", "revisent", "revisere", "reviset", "revise", "revisi", "revisit",
+    "reviso", "revisum", "reviviscam", "reviviscant", "reviviscere", "reviviscit", "revixit",
+    "revocandi", "revocare", "revocari", "revocata", "revocatio", "revocatus", "revocaverit",
+    "revocavit", "revoco", "revolar", "revolemus", "revolutio", "revolutione", "revolutum",
+    "revolvere", "revolvet", "revolvit", "revolvitur", "revomamus", "revor", "rex", "rhetor",
+    "rhetorica", "rhetorice", "rhetoricen", "rhetorices", "rhetorici", "rhetoricis",
+    "rhetorico", "rhetorum", "rhodiorum", "rhombi", "rhombo", "rhombus", "rhoncus", "ridiculus",
+    "riscus", "risus",
+    "saepe", "saepenumero", "saepius", "sagittis", "salus", "salutem", "sancti", "sanctus",
+    "sane", "sanguis", "sapere", "sapien", "sapiente", "sapienti", "sapientibus", "sapientiae",
+    "sapientiam", "sapientis", "sapientissima", "sapientissime", "sapientissimi", "sapientissimo",
+    "sapientissimum", "sapientissimus", "sapientium", "sapio", "sapitis", "sapit", "sarcina",
+    "sarcinam", "sarcinarum", "sarcinas", "sarcinula", "sarcire", "sarcit", "sarcophagi",
+    "sarcophagis", "sarcophagorum", "sarcophagos", "sarcophago", "sarcophagum", "sarcophagus",
+    "sarcoptes", "sarcoptis", "sard", "sardinia", "sardiniae", "sardiniam", "sardorum",
+    "sardos", "sardus", "sarmentum", "sartago", "sartaginem", "sartor", "sat", "satelles",
+    "satelli", "satellibus", "satellite", "satellitem", "satellites", "satellitum", "satiat",
+    "satiem", "satiari", "satiata", "satietas", "satietate", "satietatem", "satis", "satisfacere",
+    "satisfactio", "satisfactionem", "satisfactionis", "satisfacit", "satisfaciunt",
+    "satisfecisset", "satisfecit", "satisne", "satius", "sator", "satura", "saturnalia",
+    "saturnalibus", "saturni", "saturninum", "saturnino", "saturninum", "saturninus", "saturno",
+    "saturnum", "saturnus", "saturata", "satureia", "satureiam", "saucius", "saxa", "saxea",
+    "saxeae", "saxeas", "saxei", "saxeis", "saxeus", "saxifica", "saxificam", "saxificus",
+    "saxifraga", "saxifragam", "saxifragus", "saxo", "saxorum", "saxosi", "saxosis", "saxosum",
+    "saxosus", "saxum", "scaber", "scabies", "scabra", "scabros", "scabrum", "scaevus",
+    "scalae", "scalam", "scalaria", "scalaris", "scalarium", "scalas", "scalpere", "scalprum",
+    "scalptura", "scalpturam", "scammum", "scandala", "scandalis", "scandalizantur", "scandalizari",
+    "scandalizat", "scandalizati", "scandalizatum", "scandalizatus", "scandalo", "scandalorum",
+    "scandalosas", "scandalosi", "scandalosum", "scandalosus", "scandalum", "scandat",
+    "scandendum", "scandens", "scandente", "scandere", "scandit", "scandunt", "scaphium",
+    "scaphula", "scapula", "scapulae", "scapulam", "scapulas", "scapulis", "scapus",
+    "scarabaeorum", "scarabaeos", "scarabaeum", "scarabaeus", "scelerator", "sceleratum",
+    "sceleratus", "sceleri", "sceleribus", "sceleris", "scelerisque", "scelero", "scelerose",
+    "scelerum", "sceleratus", "scelerisque", "scelestus", "scelerat", "scelerata", "scelus",
+    "scena", "scenam", "scenas", "scenica", "scenici", "scenicis", "scenico", "scenicum",
+    "scenicus", "scenographia", "scenographiae", "scenographiam", "scenographiis", "scenopegia",
+    "sceptra", "sceptri", "sceptris", "sceptro", "sceptrorum", "sceptrum", "sceptus",
+    "schedulam", "schedula", "schedulem", "schelis", "schema", "schemate", "schematicus",
+    "schenobaticus", "schidiae", "schidias", "schisma", "schismata", "schismate", "schismatis",
+    "schola", "scholae", "scholam", "scholaris", "scholarum", "scholasticus", "scholia",
+    "scholiast", "scholiastes", "scholiastis", "scholis", "scientem", "scienter", "scientia",
+    "scientiae", "scientiam", "scientiarum", "scientibus", "scientis", "scilicet", "scindo",
+    "scindunt", "scintillam", "scintillas", "scintillo", "scintillula", "scio", "scire",
+    "sciret", "sciri", "scis", "scit", "scite", "scitis", "scito", "scitu", "scitum", "scitus",
+    "scius", "sclopetarius", "sclopetus", "scobina", "scobs", "scopae", "scopas", "scopire",
+    "scopos", "scopula", "scopum", "scopus", "scorilo", "scorpio", "scorpionem", "scorpiones",
+    "scorpionis", "scorpionum", "scorpios", "scorpio", "scorto", "scortorum", "scortum",
+    "scotia", "scotiata", "scotum", "scriba", "scribae", "scribam", "scribarum", "scribas",
+    "scribat", "scribendi", "scribendo", "scribendum", "scribens", "scribent", "scribentes",
+    "scribere", "scriberem", "scriberet", "scriberetur", "scribi", "scribimus", "scribit",
+    "scribo", "scribunt", "scrinium", "scriptio", "scriptione", "scriptis", "scriptitas",
+    "scriptito", "scriptor", "scriptorem", "scriptores", "scriptori", "scriptoris", "scriptorum",
+    "scriptum", "scriptura", "scripturae", "scripturam", "scripturarum", "scripturas",
+    "scripturientem", "scripturientes", "scripturis", "scripturist", "scripturistis", "scripturists",
+    "scriptus",
+    "scrupulosa", "scrupulosam", "scrupulose", "scrupulosi", "scrupulosius", "scrupuloso",
+    "scrupulosum", "scrupulosus", "scrupulus", "scrutamini", "scrutator", "scrutatus",
+    "scrutinia", "scrutinio", "scrutinium", "scrutino", "scrutor", "sculpo", "sculpta",
+    "sculptae", "sculptile", "sculptilia", "sculptilibus", "sculptilis", "sculptio",
+    "sculptor", "sculptorem", "sculptorum", "sculpturam", "sculptum", "scult", "scutatus",
+    "scutella", "scutellam", "scutica", "scutis", "scuto", "scutorum", "scutum", "scyllae",
+    "scyllam", "scyphorum", "scyphos", "scyphum", "scyphus", "se", "secedant", "secedere",
+    "secedunt", "secemas", "secemere", "secernere", "secerneret", "secernit", "secernuntur",
+    "secernuntur", "secesserit", "secessi", "secessio", "secessione", "secessionem", "secessit",
+    "seclusa", "seclusae", "seclusi", "seclusio", "seclusis", "seclusit", "secluso", "seclusos",
+    "seclusum", "seclusus", "secundam", "secundarium", "secundarius", "secunde", "secundi",
+    "secundis", "secundo", "secundum", "secundus", "securi", "securibus", "securicle", "securim",
+    "securis", "securitatem", "securitatis", "securus", "secus", "secutae", "secuti", "secutis",
+    "secutum", "secutus", "sed", "sede", "sedebant", "sedebat", "sedem", "sedendi", "sedendo",
+    "sedens", "sedent", "sedentaria", "sedentarium", "sedentarius", "sedentem", "sedentes",
+    "sedentis", "sedentium", "sederat", "sederet", "sedes", "sedet", "sedi", "sedibus",
+    "sedile", "sedilia", "sedilibus", "sedimur", "sedis", "sedisse", "sedissent", "sedisti",
+    "sedit", "seditio", "seditione", "seditionem", "seditiones", "seditionibus", "seditiosa",
+    "seditiosae", "seditiosi", "seditiosis", "seditiosum", "seditiosus", "seditio",
+    "seditibus", "seditum", "seditus", "seducemus", "seduci", "seducta", "seductae", "seducti",
+    "seductione", "seductis", "seductorem", "seductores", "seductoria", "seductoriam",
+    "seductorie", "seductorium", "seductorius", "seductos", "seducunt", "sedulam", "sedule",
+    "seduli", "sedulitas", "sedulo", "sedulorum", "sedulum", "sedulus", "segetem", "segetes",
+    "segetis", "segnis", "segniter", "segnitia", "segnitiem", "segrega", "segregabat",
+    "segreganda", "segregandi", "segregando", "segregandus", "segregans", "segregant",
+    "segregare", "segregat", "segregate", "segregatim", "segregatio", "segregationem",
+    "segregator", "segregatos", "segregatum", "segregavi", "segrego", "secludere", "secludit",
+    "seclusa", "seclusi", "seclusio", "seclusis", "seclusit", "secluso", "seclusos", "seclusum",
+    "seclusus", "secundum", "secundus", "sed", "sem", "semel", "semen", "semens", "sementia",
+    "sementem", "sementes", "sementis", "sementivae", "sementivam", "sementivas",
+    "sementivis", "semento", "sementum", "sementur", "semestrem", "semestria", "semestribus",
+    "semestri", "semestris", "semi", "semianimis", "semianimus", "semibos", "semicadens",
+    "semicadentia", "semicinctium", "semicirculi", "semicirculis", "semicirculorum",
+    "semicirculum", "semicirculus", "semiclausa", "semiclausis", "semiclauso", "semiclausum",
+    "semiclausus", "semicorpus", "semicruda", "semicrudis", "semicrudo", "semicrudus",
+    "semidei", "semideis", "semideo", "semideos", "semideorum", "semideum", "semideus",
+    "semidiametron", "semidiametro", "semidiametros", "semidiametrum", "semidiametrus",
+    "semidormio", "semidormitans", "semidormitat", "semidormito", "semidormit",
+    "semidormitatione", "semidormitione", "semidormivit", "semiermis", "semiermus",
+    "semifex", "semifossilis", "semigermana", "semigermanam", "semigermanus",
+    "semigraecus", "semigraium", "semigraius", "semihians", "semihiantia", "semihexapla",
+    "semihexaplaris", "semihexaplis", "semihexaplorum", "semihexaplos", "semihexaplum",
+    "semihexapla", "semihominem", "semihomines", "semihominis", "semihorae", "semihoram",
+    "semihoris", "semihorula", "semiiambus", "semiiamborum", "semiiambos", "semiiambum",
+    "semiiambus", "semiiambus", "semiinanimus", "semiinteger", "semiintegrata",
+    "semiintegrum", "semiintegri", "semiiustum", "semiiustus", "semiiustum", "semilacer",
+    "semilacera", "semilacerum", "semilatina", "semilatinam", "semilatinus", "semilibralia",
+    "semilibralibus", "semilibralis", "semilibre", "semilibrem", "semilibri", "semilibris",
+    "semilibrorum", "semilibros", "semilibro", "semiliber", "semilibera", "semilibere",
+    "semiliberis", "semilibert", "semilibertas", "semilibertate", "semilibertatem",
+    "semiliberto", "semilibrum", "semilibum", "semilibus", "semilixivius", "semilucens",
+    "semilucente", "semilux", "semimarinus", "semimas", "semimatronae", "semimatronam",
+    "semimatronarum", "semimatronas", "semimaturus", "semimensis", "semimensis", "semimensura",
+    "semimensuram", "semimensuris", "semimensurum", "semimensus", "semimerda", "semimerdae",
+    "semimerdam", "semimerde", "semimerdo", "semimerdum", "semimerdus", "semimetallicum",
+    "semimetallum", "semimilitaris", "semimilliarium", "semiminima", "semiminimae",
+    "semiminimam", "semiminimas", "semiminimis", "semiminimo", "semiminimum", "semiminimus",
+    "semiminus", "semimoderatus", "semimodo", "semimodulata", "semimodulatis",
+    "semimodulator", "semimodulatus", "semimolus", "semimortua", "semimortuae",
+    "semimortuam", "semimortui", "semimortuis", "semimortuo", "semimortuos", "semimortuum",
+    "semimortuus", "semimos", "semimunda", "semimundam", "semimundi", "semimundo",
+    "semimundum", "semimundus", "semimutatus", "semimutis", "semimuto", "semimutum",
+    "semimutus", "seminabam", "seminabis", "seminabitur", "seminabo", "seminabunt",
+    "seminans", "seminant", "seminantem", "seminantis", "seminantur", "seminare", "seminaret",
+    "seminaria", "seminarii", "seminario", "seminarium", "seminarum", "seminascitur",
+    "seminat", "seminatio", "seminationem", "seminatis", "seminato", "seminatore",
+    "seminatorem", "seminatores", "seminatur", "seminator", "seminatus", "seminavigare",
+    "seminavis", "seminavistis", "seminavit", "seminem", "seminibus", "seminibus",
+    "seminica", "seminicam", "seminico", "seminicum", "seminicus", "seminifecit",
+    "seminiferi", "seminifero", "seminiferum", "seminiferus", "seminificam", "seminificio",
+    "seminificium", "seminifica", "seminificam", "seminificas", "seminificavit",
+    "seminificium", "seminificus", "seminii", "seminium", "seminivium", "seminivus",
+    "semino", "seminudum", "seminudus", "seminutas", "seminutis", "seminuto", "seminutum",
+    "seminutus", "semiotica", "semioticam", "semiotice", "semiotices", "semiotici",
+    "semioticis", "semiotico", "semioticorum", "semioticum", "semioticus", "semipaganus",
+    "semipagani", "semipaganis", "semipagano", "semipaganorum", "semipaganum", "semipaganus",
+    "semipalma", "semipalmam", "semipalmatam", "semipalmati", "semipalmatis", "semipalmato",
+    "semipalmatum", "semipalmatus", "semipalmes", "semipalmibus", "semipalmium", "semipede",
+    "semipedem", "semipedes", "semipedalia", "semipedalibus", "semipedalis", "semipedem",
+    "semipedes", "semipede", "semipedum", "semipellis", "semipellitis", "semipellito",
+    "semipellitum", "semipellitus", "semipena", "semipenam", "semipenas", "semipenis",
+    "semipenna", "semipennam", "semipennas", "semipennis", "semipennorum", "semipennos",
+    "semipennum", "semipennus", "semiperegrina", "semiperegrinam", "semiperegrinus",
+    "semiperfectae", "semiperfecta", "semiperficitur", "semiperfecte", "semiperfecti",
+    "semiperfectum", "semiperfectus", "semiperitus", "semipermanentem", "semipermanens",
+    "semiperpetuus", "semiplenus", "semipraeda", "semipraedae", "semipraedam",
+    "semipraedarum", "semipraedas", "semipraedam", "semipraedibus", "semipraedis",
+    "semipraedium", "semipraedo", "semipraedonis", "semipraedonum", "semipraedones",
+    "semipraedonium", "semipraedonius", "semipraedonis", "semipraedonum", "semipraedones",
+    "semipraedonibus", "semipraedonem", "semipraedones", "semipraedonum", "sempiterna",
+    "sempiternae", "sempiternam", "sempiternas", "sempiterni", "sempiternis", "sempiterno",
+    "sempiternorum", "sempiternos", "sempiternum", "sempiternus", "semper", "semperflorens",
+    "semperflorent", "semperflorentia", "semperflorens", "semperflorenti", "sempiterni",
+    "sempervirid", "sempervirida", "semperviridans", "semperviridantia", "semperviridantis",
+    "semperviridantis", "semperviridis", "sempervivum", "sempervivus", "sempiternum",
+    "sempiternus", "semplum", "sempst", "semper", "sempronia", "sempronianum", "sempronianus",
+    "sempronius", "semuncia", "semunciale", "semuncialia", "semuncialibus", "semuncialis",
+    "semunciam", "semunciarium", "semunciarius", "semuncias", "semuncis", "semunco",
+    "semuncorum", "semuncos", "semuncti", "semunctum", "semunctus", "semunciatim",
+    "semunciatim", "semus", "semivir", "semivira", "semivirgo", "semivirginis",
+    "semiviri", "semiviribus", "semivirilis", "semivirorum", "semiviros", "semivirum",
+    "semivivam", "semivivarum", "semivivis", "semivivo", "semivivos", "semivivum",
+    "semivivus", "semivocales", "semivolantem", "semivolantes", "semivolantis",
+    "semivolantia", "semivolantibus", "semovens", "semoveor", "semoveri", "semovet",
+    "semovit", "semoveatur", "semovendum", "semovente", "semoventem", "semoventes",
+    "semoventibus", "semoventium", "semoventur", "semoveret", "semoverunt", "semovi",
+    "semotus", "semoveo", "semper", "senacula", "senaculi", "senaculis", "senaculo",
+    "senaculum", "senator", "senatorem", "senatores", "senatori", "senatoria", "senatoriae",
+    "senatoriam", "senatoriis", "senatorio", "senatorium", "senatorius", "senatorum",
+    "senatum", "senatus", "senectus", "senectuti", "senectutis", "senectutum", "senectute",
+    "senem", "senes", "senex", "senibus", "senile", "senilem", "seniles", "senili",
+    "senilibus", "senilis", "senilia", "senilior", "seniliora", "seniliore", "seniliori",
+    "senilium", "senio", "senior", "seniorem", "seniores", "seniori", "seniorum",
+    "senis", "senium", "senix", "senoni", "senonis", "senonibus", "senonum", "senones",
+    "senseras", "senserat", "senserim", "senserit", "sensero", "senserti", "sensibus",
+    "sensicula", "sensiculam", "sensiculas", "sensiculis", "sensiculo", "sensiculum",
+    "sensifico", "sensificat", "sensificatum", "sensificus", "sensificae",
+    "sensificam", "sensificas", "sensit", "sensitive", "sensitivum", "sensitivus",
+    "sensitivo", "sensitivis", "sensitivae", "sensitivam", "sensitivarum", "sensitivorum",
+    "sensitivitas", "sensitivitatis", "sensitive", "sensitivus", "sensor", "sensoribus",
+    "sensorium", "sensorii", "sensorio", "sensoriorum", "sensorium", "sensualitas",
+    "sensualitatis", "sensualis", "sensualia", "sensualium", "sensualiter", "sensu",
+    "sensui", "sensuum", "sensurae", "sensuram", "sensurum", "sensurus", "sensus",
+    "sententia", "sententiae", "sententiam", "sententiarum", "sententias", "sententiis",
+    "sententiola", "sententiolam", "sententiolis", "sententiosae", "sententiosam",
+    "sententiose", "sententiosi", "sententiosissime", "sententiosissimum", "sententiosius",
+    "sententioso", "sententiosum", "sententiosus", "sententis", "sentes", "sentibus",
+    "senticetum", "senticeti", "senticetis", "senticeto", "sentina", "sentinae",
+    "sentinam", "sentinarum", "sentinas", "sentinis", "sentina", "sentio", "sentis",
+    "sentiscere", "sentit", "sentite", "sentitis", "sentitur", "sentius", "sentorum",
+    "sentum", "senum", "separabant", "separabat", "separabimur", "separabilia",
+    "separabile", "separabilibus", "separabilis", "separabimus", "separabis", "separabit",
+    "separabitur", "separabo", "separabuntur", "separanda", "separandae", "separandam",
+    "separandarum", "separandas", "separandi", "separandis", "separando", "separandos",
+    "separandum", "separans", "separant", "separantem", "separantes", "separantia",
+    "separantibus", "separantis", "separantur", "separare", "separarem", "separares",
+    "separaret", "separarentur", "separasse", "separassem", "separasset", "separat",
+    "separata", "separatae", "separatim", "separatio", "separatum", "separatus",
+    "separaverat", "separaverit", "separaverunt", "separavimus", "separavistis",
+    "separavit", "separatus", "separatrix", "separatum", "separavi", "separo", "separes",
+    "separetur", "sepeliam", "sepelias", "sepeliat", "sepeliatur", "sepelientem",
+    "sepeliendo", "sepelientur", "sepelies", "sepelietur", "sepeliri", "sepelirentur",
+    "sepeliunt", "sepeliuntur", "sepellerat", "sepellerit", "sepellerunt",
+    "sepellet", "sepelletur", "sepelier", "sepelierant", "sepelierint", "sepelieris",
+    "sepelierit", "sepelierunt", "sepelimus", "sepeliramus", "sepelire", "sepeliret",
+    "sepelitur", "sepelivere", "sepeliverunt", "sepelivi", "sepelivimus", "sepelivissent",
+    "sepelivisti", "sepelivit", "sepeliant", "sepelias", "sepeliatur", "sepelienda",
+    "sepeliendae", "sepeliendum", "sepeliendus", "sepeliens", "sepeliens", "sepelient",
+    "sepeliere", "sepeliet", "sepelievit", "sepelio", "sepellite", "sepelivi",
+    "sepeliunt", "sepeliuntur", "sepello", "sepep", "sepes", "sepe", "sepia",
+    "sepiari", "sepiarum", "sepibus", "sepicula", "sepiculam", "sepii", "sepiis",
+    "sepin", "sepire", "sepissetis", "sepisset", "sepissim", "sepissimas", "sepissime",
+    "sepissimi", "sepissimum", "sepissimus", "sepius", "sepiuscule", "sepiusculum",
+    "sepiusculus", "seplasium", "seplasium", "seponas", "seponat", "seponatur",
+    "seponenda", "seponendae", "seponendam", "seponendi", "seponendum", "seponens",
+    "seponens", "seponere", "seponerem", "seponeret", "seponi", "seponite", "sepono",
+    "seponunt", "sepositae", "sepositis", "seposito", "sepositor", "sepositorium",
+    "sepositorius", "sepositos", "sepositum", "sepositus", "seposui", "seposuisse",
+    "seposuisset", "seposuistis", "seposuit", "septem", "septembres", "septembribus",
+    "septembris", "septembri", "septena", "septenae", "septenam", "septenas", "septeni",
+    "septenis", "septeno", "septenos", "septenum", "septenus", "septentrio",
+    "septentrional", "septentrionale", "septentrionale", "septentrionales",
+    "septentrionalia", "septentrionalibus", "septentrionalis", "septentrionalium",
+    "septentrionalibus", "septentrionem", "septentriones", "septentrionibus",
+    "septentrionis", "septentrionum", "septicollis", "septicolle", "septicolles",
+    "septicollia", "septicollis", "septifarie", "septifariam", "septifarium",
+    "septifarius", "septifluus", "septiforis", "septifori", "septiforo", "septiforum",
+    "septiforus", "septimana", "septimanae", "septimanam", "septimanarum", "septimanas",
+    "septimanatim", "septimanis", "septimano", "septimanorum", "septimanos", "septimanula",
+    "septimanulam", "septimanulis", "septimanum", "septimanus", "septimaria", "septimarium",
+    "septimarius", "septimas", "septimatus", "septimi", "septimis", "septimo", "septimum",
+    "septimus", "septingena", "septingeni", "septingenta", "septingentesima",
+    "septingentesimae", "septingentesimam", "septingentesimas", "septingentesimi",
+    "septingentesimo", "septingentesimum", "septingentesimus", "septingenti",
+    "septingentorum", "septingentos", "septingentum", "septingint", "septiplex",
+    "septuagi", "septuagies", "septuaginta", "septupla", "septuplae", "septuplam",
+    "septuplas", "septupli", "septuplis", "septuplo", "septuplos", "septuplum",
+    "septuplo", "septuplus", "septum", "septunx", "septunces", "septunci", "sepulchral",
+    "sepulchralia", "sepulchralis", "sepulchralium", "sepulchro", "sepulchrum",
+    "sepulcrum", "sepulti", "sepulto", "sepultor", "sepultura", "sepulturae",
+    "sepulturam", "sepulturarum", "sepulturas", "sepulturis", "sepultus", "sepult",
+    "sepultum", "sequacitas", "sequaciter", "sequacius", "sequaculum", "sequaculus",
+    "sequamur", "sequana", "sequanam", "sequanarum", "sequanas", "sequani", "sequania",
+    "sequaniam", "sequanicorum", "sequanicum", "sequanicus", "sequanii", "sequaniis",
+    "sequaniorum", "sequanios", "sequanis", "sequannorum", "sequannos", "sequannum",
+    "sequannus", "sequanorum", "sequanos", "sequanum", "sequanus", "sequar", "sequatur",
+    "sequax", "sequemur", "sequens", "sequentem", "sequentes", "sequentia",
+    "sequentibus", "sequentis", "sequentium", "sequentur", "sequere", "sequeremur",
+    "sequerer", "sequeretur", "sequeris", "sequi", "sequimini", "sequimur", "sequitur",
+    "sequius", "sequor", "sequost", "sequuntur", "sera", "serae", "seram", "serarum",
+    "seras", "serenitas", "serenitatis", "serenus", "seria", "seriae", "seriam",
+    "seriarum", "sericas", "serice", "sericea", "sericeae", "sericeam", "sericei",
+    "sericeis", "sericeo", "sericeorum", "sericeos", "sericeum", "sericeus", "serici",
+    "sericis", "serico", "sericorum", "sericos", "sericum", "sericus", "series",
+    "serietas", "serietatem", "serietatis", "serietatibus", "serio", "seriola",
+    "seriolam", "seriose", "seriositas", "seriositatem", "seriositatis", "seriosus",
+    "seris", "serit", "serium", "serius", "sermo", "sermocinabor", "sermocinandi",
+    "sermocinandis", "sermocinandi", "sermocinandis", "sermocinando", "sermocinans",
+    "sermocinante", "sermocinantem", "sermocinantes", "sermocinationem", "sermocinationis",
+    "sermocinatione", "sermocinationum", "sermocinationibus", "sermocinatur", "sermocinari",
+    "sermonem", "sermones", "sermoni", "sermonibus", "sermonis", "sermonum",
+    "sero", "serorem", "serotina", "serotinae", "serotinam", "serotinas", "serotinis",
+    "serotino", "serotinos", "serotinum", "serotinus", "serpae", "serpam", "serparum",
+    "serpas", "serpe", "serpens", "serpente", "serpentem", "serpentes", "serpentibus",
+    "serpentiformis", "serpentigena", "serpentigenam", "serpentigenas", "serpentigeni",
+    "serpentigenis", "serpentigeno", "serpentigenorum", "serpentigenos", "serpentigenum",
+    "serpentigenus", "serpentina", "serpentinae", "serpentinam", "serpentinas", "serpentini",
+    "serpentinis", "serpentino", "serpentinos", "serpentinum", "serpentinus", "serpentis",
+    "serpentium", "serpents", "serpentum", "serpit", "serpyllum", "serra",
+    "serrae", "serram", "serrarum", "serras", "serratula", "serratulam", "serratum",
+    "serratur", "serratus", "serrulata", "serrulatam", "serrulatas", "serrulati",
+    "serrulatis", "serrulato", "serrulatum", "serrulatus", "serum", "serus",
+    "serva", "servabam", "servabat", "servabimur", "servabimus", "servabis", "servabit",
+    "servabitur", "servabo", "servabunt", "servandam", "servandi", "servandum",
+    "servans", "servant", "servantem", "servantes", "servantia", "servantibus", "servantis",
+    "servantur", "servare", "servarent", "servaret", "servarentur", "servari", "servarint",
+    "servaris", "servarit", "servaro", "servasse", "servassem", "servassent", "servasses",
+    "servasseti", "servassitis", "servastis", "servat", "servata", "servatae", "servatam",
+    "servatarum", "servatas", "servate", "servati", "servatis", "servato", "servator",
+    "servatore", "servatorem", "servatores", "servatoria", "servatoriam", "servatoriis",
+    "servatorio", "servatorium", "servatorius", "servatorum", "servatos", "servatum",
+    "servatur", "servatus", "servaverat", "servaveris", "servaverit", "servavero",
+    "servaverunt", "servavimus", "servavis", "servavisse", "servavissem", "servavisset",
+    "servavistis", "servavit", "servem", "servemus", "servent", "serventur", "serves",
+    "servet", "servetur", "servi", "serviam", "serviant", "serviantur", "servias",
+    "serviat", "serviatur", "servicium", "servicio", "serviciis", "servicii", "servicio",
+    "servicium", "serviebant", "serviebat", "serviebas", "serviebatur", "serviemur",
+    "serviemus", "serviendo", "serviendum", "serviens", "servientem", "servientes",
+    "servientia", "servientibus", "servientis", "servientium", "servieram", "servieras",
+    "servierat", "servierimus", "servierint", "servieris", "servierit", "serviero",
+    "servierunt", "servies", "serviet", "servietis", "servietur", "servile", "servilem",
+    "serviles", "servili", "servilibus", "servilis", "servilium", "serviliter",
+    "servilitas", "servilitatis", "serviliter", "servio", "servior", "servire", "servirem",
+    "servires", "serviret", "serviretis", "servirent", "servirentur", "servirier",
+    "servis", "servisse", "servissem", "servisset", "servisti", "servita", "servitam",
+    "servitas", "serviti", "servitiis", "servitii", "servitio", "servitiorum", "servitios",
+    "servitium", "servitius", "servitores", "servitores", "servitoribus", "servitoris",
+    "servitorum", "servitrice", "servitricem", "servitrices", "servitricibus",
+    "servitricis", "servitricium", "servitri", "servituros", "serviturum", "serviturus",
+    "servitus", "servitute", "servitutem", "servitutibus", "servitutis", "servitutum",
+    "servitus", "servo", "servorum", "servos", "servula", "servulam", "servulas",
+    "servuli", "servulis", "servulo", "servulorum", "servulos", "servulum", "servulus",
+    "servum", "servus", "sesamum", "sescuncia", "sescunciam", "sescuncias", "sescuncis",
+    "sescunco", "sescuncorum", "sescuncos", "sescunci", "sescuncti", "sescuncti",
+    "sescunctum", "sescunctus", "sescuncia", "sescuncis", "sescuncius", "sescundus",
+    "sescuntius", "sescuntius", "sescuncia", "sescuncias", "sescuncis",
+    "sesel", "seselis", "seseli", "seselium", "sesel", "seselis", "sesquialter",
+    "sesquialtera", "sesquialterae", "sesquialteram", "sesquialteras", "sesquialteri",
+    "sesquialteris", "sesquialtero", "sesquialteros", "sesquialterum", "sesquialterius",
+    "sesquialtera", "sesquialtero", "sesquialtero", "sesquicentum", "sesquicubitum",
+    "sesquicubiti", "sesquicubito", "sesquicubitum", "sesquidigitali", "sesquidigitalia",
+    "sesquidigitalibus", "sesquidigitalis", "sesquidigiti", "sesquidigitis",
+    "sesquidigito", "sesquidigitorum", "sesquidigitos", "sesquidigitum", "sesquidigitus",
+    "sesquidodrans", "sesquidodrantem", "sesquidodrantes", "sesquidodrantis",
+    "sesquidodrante", "sesquidodrantium", "sesquidodrantibus", "sesquidupla",
+    "sesquiduplae", "sesquiduplam", "sesquiduplarum", "sesquiduplo", "sesquiduplorum",
+    "sesquiduplos", "sesquidupulum", "sesquidupulus", "sesquihora", "sesquihorae",
+    "sesquihoram", "sesquihoras", "sesquihoris", "sesquihorula", "sesquihorulae",
+    "sesquihorulam", "sesquihorulas", "sesquihorulis", "sesquihorulo", "sesquihorulos",
+    "sesquihorulum", "sesquihorulus", "sesquihoram", "sesquijugerum", "sesquijugeri",
+    "sesquijugero", "sesquijugerum", "sesquijugeris", "sesquimodius", "sesquimodi",
+    "sesquimodiis", "sesquimodii", "sesquimodio", "sesquimodiorum", "sesquimodios",
+    "sesquimodium", "sesquimodius", "sesquimodius", "sesquimodius", "sesquimodius",
+    "sesquimodiorum", "sesquimodios", "sesquimodium", "sesquimodius", "sesquimodialis",
+    "sesquimodiale", "sesquimodialem", "sesquimodiales", "sesquimodialia",
+    "sesquimodialibus", "sesquimodialis", "sesquimodialium", "sesquimodialibus",
+    "sesquimodiarius", "sesquimodiari", "sesquimodiari", "sesquimodiarius",
+    "sesquimodiaria", "sesquimodiariam", "sesquimodiarias", "sesquimodiariis",
+    "sesquimodiario", "sesquimodiariorum", "sesquimodiarios", "sesquimodiarium",
+    "sesquimodiarius", "sesquimodiata", "sesquimodiatam", "sesquimodiatas",
+    "sesquimodiati", "sesquimodiatis", "sesquimodiato", "sesquimodiatum",
+    "sesquimodiatus", "sesquimodiatus", "sesquimodiatus", "sesquimodiorum",
+    "sesquimodios", "sesquimodium", "sesquimodius", "sesquimodiarius",
+    "sesquimodiari", "sesquimodiari", "sesquimodiarius", "sesquimodiaria",
+    "sesquimodiariam", "sesquimodiarias", "sesquimodiariis", "sesquimodiario",
+    "sesquimodiariorum", "sesquimodiarios", "sesquimodiarium", "sesquimodiarius",
+    "sesquimodiata", "sesquimodiatam", "sesquimodiatas", "sesquimodiati",
+    "sesquimodiatis", "sesquimodiato", "sesquimodiatum",
+    "sesquimodiatus", "sesquimodiatus", "sesquimodiatus", "sesquimodiorum"
+  ];
+
+  const unitSelect = document.getElementById('unit');
+  const countInput = document.getElementById('count');
+  const generateBtn = document.getElementById('generateBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const output = document.getElementById('output');
+  const toast = document.getElementById('toast');
+
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
+  function generateWords(n) {
+    const result = [];
+    for (let i = 0; i < n; i++) {
+      result.push(pick(WORDS));
+    }
+    return result.join(' ');
+  }
+
+  function generateSentence() {
+    const len = 5 + Math.floor(Math.random() * 8);
+    const words = [];
+    for (let i = 0; i < len; i++) {
+      words.push(pick(WORDS));
+    }
+    return capitalize(words.join(' ')) + '.';
+  }
+
+  function generateSentences(n) {
+    const result = [];
+    for (let i = 0; i < n; i++) {
+      result.push(generateSentence());
+    }
+    return result.join(' ');
+  }
+
+  function generateParagraph() {
+    const sentenceCount = 3 + Math.floor(Math.random() * 4);
+    const sentences = [];
+    for (let i = 0; i < sentenceCount; i++) {
+      sentences.push(generateSentence());
+    }
+    return sentences.join(' ');
+  }
+
+  function generateParagraphs(n) {
+    const result = [];
+    for (let i = 0; i < n; i++) {
+      result.push(generateParagraph());
+    }
+    return result.join('\n\n');
+  }
+
+  function generate() {
+    const unit = unitSelect.value;
+    let count = parseInt(countInput.value, 10);
+    if (isNaN(count) || count < 1) count = 1;
+    if (count > 100) count = 100;
+    countInput.value = count;
+
+    let text = '';
+    switch (unit) {
+      case 'words':
+        text = generateWords(count);
+        break;
+      case 'sentences':
+        text = generateSentences(count);
+        break;
+      case 'paragraphs':
+        text = generateParagraphs(count);
+        break;
+    }
+
+    output.innerHTML = `<p>${text}</p>`;
+  }
+
+  function copyText() {
+    const p = output.querySelector('p');
+    if (!p || p.classList.contains('placeholder')) {
+      showToast('Нет текста для копирования');
+      return;
+    }
+    navigator.clipboard.writeText(p.textContent).then(() => {
+      showToast('Скопировано в буфер обмена');
+    }).catch(() => {
+      showToast('Не удалось скопировать');
+    });
+  }
+
+  let toastTimeout;
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2200);
+  }
+
+  generateBtn.addEventListener('click', generate);
+  copyBtn.addEventListener('click', copyText);
+
+  generate();
+})();
+</script>
+</body>
+</html>

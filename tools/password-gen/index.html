@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор паролей — AXIIOM</title>
+    <meta name="description" content="Бесплатный онлайн-генератор паролей. Создавайте стойкие пароли с настраиваемой длиной и набором символов.">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" sizes="any">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .tool-section {
+            padding: 60px 0 40px;
+        }
+        .tool-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 28px;
+            padding: 40px;
+            max-width: 640px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-card);
+        }
+        .tool-card h1 {
+            font-size: 2rem;
+            color: var(--color-text-heading);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .tool-card .subtitle {
+            color: var(--color-text-secondary);
+            text-align: center;
+            margin-bottom: 32px;
+            font-size: 1rem;
+        }
+        .password-output {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .password-output input {
+            flex: 1;
+            background: var(--color-bg-dark);
+            border: 2px solid var(--border-strong);
+            border-radius: 16px;
+            padding: 16px 20px;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 1.15rem;
+            color: var(--color-text-primary);
+            outline: none;
+            transition: border-color 0.2s;
+            letter-spacing: 1px;
+        }
+        .password-output input:focus {
+            border-color: var(--color-primary);
+        }
+        .password-output .btn-copy {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--color-bg-dark);
+            border: 2px solid var(--border-strong);
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .password-output .btn-copy:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        .password-output .btn-copy.copied {
+            border-color: var(--color-success);
+            color: var(--color-success);
+        }
+        .btn-copy-tooltip {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .btn-copy-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: var(--color-primary);
+        }
+        .btn-copy.copied .btn-copy-tooltip {
+            opacity: 1;
+        }
+        .strength-container {
+            margin-bottom: 28px;
+        }
+        .strength-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+        }
+        .strength-label span:last-child {
+            font-weight: 600;
+        }
+        .strength-bar {
+            height: 8px;
+            border-radius: 100px;
+            background: var(--color-bg-dark);
+            overflow: hidden;
+        }
+        .strength-bar-fill {
+            height: 100%;
+            border-radius: 100px;
+            transition: width 0.3s, background 0.3s;
+            width: 0;
+        }
+        .strength-bar-fill.weak {
+            width: 25%;
+            background: var(--color-error);
+        }
+        .strength-bar-fill.medium {
+            width: 55%;
+            background: var(--color-warning);
+        }
+        .strength-bar-fill.strong {
+            width: 100%;
+            background: var(--color-success);
+        }
+        .options-group {
+            margin-bottom: 24px;
+        }
+        .options-group label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--color-bg-dark);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--color-text-primary);
+        }
+        .options-group label:hover {
+            border-color: var(--color-primary);
+            background: var(--color-primary-light);
+        }
+        .options-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--color-primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .length-group {
+            margin-bottom: 28px;
+        }
+        .length-group .length-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .length-group .length-header label {
+            font-size: 0.95rem;
+            color: var(--color-text-primary);
+        }
+        .length-group .length-header .length-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            min-width: 36px;
+            text-align: center;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 100px;
+            background: var(--color-bg-dark);
+            outline: none;
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            cursor: pointer;
+            border: 3px solid var(--color-bg-card);
+            box-shadow: 0 2px 8px rgba(216, 79, 198, 0.4);
+            transition: transform 0.15s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            cursor: pointer;
+            border: 3px solid var(--color-bg-card);
+            box-shadow: 0 2px 8px rgba(216, 79, 198, 0.4);
+        }
+        .btn-generate {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 60px;
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-glow);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(216, 79, 198, 0.5);
+        }
+        .btn-generate:active {
+            transform: translateY(0);
+        }
+        @media (max-width: 768px) {
+            .tool-card {
+                padding: 24px 20px;
+                border-radius: 20px;
+            }
+            .tool-card h1 {
+                font-size: 1.5rem;
+            }
+            .password-output input {
+                font-size: 0.95rem;
+                padding: 12px 16px;
+            }
+            .password-output .btn-copy {
+                width: 48px;
+                height: 48px;
+                font-size: 1.1rem;
+            }
+            input[type="range"]::-webkit-slider-thumb {
+                width: 28px;
+                height: 28px;
+            }
+        }
+        .checkbox-icon {
+            width: 32px;
+            text-align: center;
+            color: var(--color-primary);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Перейти к контенту</a>
+
+    <header class="header">
+        <div class="container header-content">
+            <a href="/" class="logo">
+                <img src="../img/logos/lovii-logo.svg" alt="AXIIOM" class="logo-light" height="40">
+                <img src="../img/logos/lovii-logo_dark.svg" alt="AXIIOM" class="logo-dark" height="40">
+            </a>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav">
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/tools/">Инструменты</a></li>
+                    <li><a href="/#contact">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon" id="themeIcon"></i> Тема
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/tools/">Инструменты</a></li>
+                <li><a href="/#contact">Контакты</a></li>
+            </ul>
+            <button class="theme-toggle-btn mobile-theme-btn" id="themeToggleMobile">
+                <i class="fas fa-sun" id="themeIconMobile"></i>
+                <span>Сменить тему</span>
+            </button>
+        </nav>
+    </div>
+
+    <main class="container tool-section" id="main" role="main">
+        <div class="tool-card">
+            <h1>Генератор паролей</h1>
+            <p class="subtitle">Создайте надёжный пароль за один клик</p>
+
+            <div class="password-output">
+                <input type="text" id="passwordField" readonly value="">
+                <button class="btn-copy" id="copyBtn" title="Копировать">
+                    <i class="fas fa-copy"></i>
+                    <span class="btn-copy-tooltip">Скопировано!</span>
+                </button>
+            </div>
+
+            <div class="strength-container">
+                <div class="strength-label">
+                    <span>Надёжность пароля</span>
+                    <span id="strengthText">—</span>
+                </div>
+                <div class="strength-bar">
+                    <div class="strength-bar-fill" id="strengthBar"></div>
+                </div>
+            </div>
+
+            <div class="length-group">
+                <div class="length-header">
+                    <label for="lengthSlider">Длина пароля</label>
+                    <span class="length-value" id="lengthDisplay">16</span>
+                </div>
+                <input type="range" id="lengthSlider" min="4" max="64" value="16">
+            </div>
+
+            <div class="options-group">
+                <label>
+                    <input type="checkbox" id="chkUpper" checked>
+                    <span class="checkbox-icon"><i class="fas fa-font"></i></span>
+                    Заглавные (A-Z)
+                </label>
+                <label>
+                    <input type="checkbox" id="chkLower" checked>
+                    <span class="checkbox-icon"><i class="fas fa-text-height"></i></span>
+                    Строчные (a-z)
+                </label>
+                <label>
+                    <input type="checkbox" id="chkDigits" checked>
+                    <span class="checkbox-icon"><i class="fas fa-hashtag"></i></span>
+                    Цифры (0-9)
+                </label>
+                <label>
+                    <input type="checkbox" id="chkSpecial">
+                    <span class="checkbox-icon"><i class="fas fa-star"></i></span>
+                    Спецсимволы (!@#$%^&amp;*)
+                </label>
+            </div>
+
+            <button class="btn-generate" id="generateBtn">
+                <i class="fas fa-shield-alt"></i> Сгенерировать
+            </button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Продукты</h4>
+                    <ul>
+                        <li><a href="#">SaaS «Лови»</a></li>
+                        <li><a href="#">Цифровая витрина</a></li>
+                        <li><a href="#">City Franchise</a></li>
+                        <li><a href="#">API для партнёров</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Компания</h4>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Команда</a></li>
+                        <li><a href="#">Карьера</a></li>
+                        <li><a href="#">Новости</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Партнёрам</h4>
+                    <ul>
+                        <li><a href="#">Франчайзи</a></li>
+                        <li><a href="#">Поставщики</a></li>
+                        <li><a href="#">Интеграторы</a></li>
+                        <li><a href="#">Инвесторам</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Документы</h4>
+                    <ul>
+                        <li><a href="#">Публичная оферта</a></li>
+                        <li><a href="#">Политика ПДн</a></li>
+                        <li><a href="#">Договор франшизы</a></li>
+                        <li><a href="#">Реквизиты</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AXIIOM. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        // --- Theme ---
+        var toggleBtn = document.getElementById('themeToggle');
+        var icon = document.getElementById('themeIcon');
+        var html = document.documentElement;
+        var savedTheme = 'dark';
+        try { savedTheme = localStorage.getItem('theme') || 'dark'; } catch(e) {}
+        html.setAttribute('data-theme', savedTheme);
+        if (toggleBtn && icon) updateIcon(savedTheme);
+
+        function updateIcon(theme) {
+            if (!icon || !toggleBtn) return;
+            if (theme === 'dark') {
+                icon.className = 'fas fa-moon';
+                toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Тема';
+            } else {
+                icon.className = 'fas fa-sun';
+                toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Тема';
+            }
+        }
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var newTheme = current === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', newTheme);
+                try { localStorage.setItem('theme', newTheme); } catch(e) {}
+                updateIcon(newTheme);
+            });
+        }
+
+        // --- Mobile menu ---
+        function initMobileMenu() {
+            var menuToggle = document.getElementById('mobileMenuToggle');
+            var nav = document.querySelector('.nav');
+            var mobileNav = document.querySelector('.mobile-nav');
+            var overlay = document.getElementById('mobileMenuOverlay');
+            var navLinks = document.querySelectorAll('.nav a, .mobile-nav a');
+            if (!menuToggle) return;
+
+            menuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                if (nav) nav.classList.toggle('active');
+                if (mobileNav) mobileNav.classList.toggle('active');
+                if (overlay) overlay.classList.toggle('active');
+                if (overlay && overlay.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    menuToggle.classList.remove('active');
+                    if (nav) nav.classList.remove('active');
+                    if (mobileNav) mobileNav.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    var href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        var targetId = href.substring(1);
+                        var targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            menuToggle.classList.remove('active');
+                            if (nav) nav.classList.remove('active');
+                            if (mobileNav) mobileNav.classList.remove('active');
+                            if (overlay) overlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                            var headerOffset = 80;
+                            var elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                            window.scrollTo({ top: elementPosition - headerOffset, behavior: 'smooth' });
+                        }
+                    } else {
+                        menuToggle.classList.remove('active');
+                        if (nav) nav.classList.remove('active');
+                        if (mobileNav) mobileNav.classList.remove('active');
+                        if (overlay) overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+        }
+
+        function initMobileThemeToggle() {
+            var themeToggleMobile = document.getElementById('themeToggleMobile');
+            var themeIconMobile = document.getElementById('themeIconMobile');
+            if (!themeToggleMobile || !themeIconMobile) return;
+            themeToggleMobile.addEventListener('click', function() {
+                var htmlEl = document.documentElement;
+                var currentTheme = htmlEl.getAttribute('data-theme');
+                var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                htmlEl.setAttribute('data-theme', newTheme);
+                try { localStorage.setItem('theme', newTheme); } catch(e) {}
+                updateThemeIcon(newTheme, themeIconMobile);
+                var mainThemeIcon = document.getElementById('themeIcon');
+                if (mainThemeIcon) updateThemeIcon(newTheme, mainThemeIcon);
+            });
+        }
+
+        function updateThemeIcon(theme, iconElement) {
+            if (!iconElement) return;
+            iconElement.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        initMobileMenu();
+        initMobileThemeToggle();
+
+        // --- Password Generator ---
+        var passwordField = document.getElementById('passwordField');
+        var copyBtn = document.getElementById('copyBtn');
+        var generateBtn = document.getElementById('generateBtn');
+        var lengthSlider = document.getElementById('lengthSlider');
+        var lengthDisplay = document.getElementById('lengthDisplay');
+        var chkUpper = document.getElementById('chkUpper');
+        var chkLower = document.getElementById('chkLower');
+        var chkDigits = document.getElementById('chkDigits');
+        var chkSpecial = document.getElementById('chkSpecial');
+        var strengthBar = document.getElementById('strengthBar');
+        var strengthText = document.getElementById('strengthText');
+
+        var UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var LOWER = 'abcdefghijklmnopqrstuvwxyz';
+        var DIGITS = '0123456789';
+        var SPECIAL = '!@#$%^&*';
+
+        function generatePassword() {
+            var chars = '';
+            if (chkUpper.checked) chars += UPPER;
+            if (chkLower.checked) chars += LOWER;
+            if (chkDigits.checked) chars += DIGITS;
+            if (chkSpecial.checked) chars += SPECIAL;
+
+            if (chars.length === 0) {
+                passwordField.value = '';
+                updateStrength(0, 0);
+                return;
+            }
+
+            var length = parseInt(lengthSlider.value, 10);
+            var password = '';
+
+            // Ensure at least one char from each selected set
+            var sets = [];
+            if (chkUpper.checked) sets.push(UPPER);
+            if (chkLower.checked) sets.push(LOWER);
+            if (chkDigits.checked) sets.push(DIGITS);
+            if (chkSpecial.checked) sets.push(SPECIAL);
+
+            for (var i = 0; i < sets.length; i++) {
+                password += sets[i].charAt(Math.floor(Math.random() * sets[i].length));
+            }
+
+            for (var j = password.length; j < length; j++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+
+            // Shuffle using Fisher-Yates
+            var arr = password.split('');
+            for (var k = arr.length - 1; k > 0; k--) {
+                var m = Math.floor(Math.random() * (k + 1));
+                var tmp = arr[k];
+                arr[k] = arr[m];
+                arr[m] = tmp;
+            }
+            password = arr.join('');
+
+            passwordField.value = password;
+            updateStrength(length, sets.length);
+        }
+
+        function updateStrength(length, variety) {
+            var score = 0;
+            if (length >= 12) score += 40;
+            else if (length >= 8) score += 25;
+            else score += 10;
+
+            score += variety * 15;
+
+            if (length >= 16 && variety >= 3) score = Math.min(score, 100);
+            if (length >= 12 && variety >= 4) score = Math.min(score, 100);
+
+            var pct = 0;
+            var label = '—';
+            var cssClass = '';
+
+            if (variety === 0 || length === 0) {
+                pct = 0;
+                label = '—';
+                cssClass = '';
+            } else if (score < 40) {
+                pct = 25;
+                label = 'Слабый';
+                cssClass = 'weak';
+            } else if (score < 70) {
+                pct = 55;
+                label = 'Средний';
+                cssClass = 'medium';
+            } else {
+                pct = 100;
+                label = 'Надёжный';
+                cssClass = 'strong';
+            }
+
+            strengthBar.className = 'strength-bar-fill ' + cssClass;
+            strengthText.textContent = label;
+        }
+
+        // Events
+        lengthSlider.addEventListener('input', function() {
+            lengthDisplay.textContent = this.value;
+            generatePassword();
+        });
+
+        chkUpper.addEventListener('change', generatePassword);
+        chkLower.addEventListener('change', generatePassword);
+        chkDigits.addEventListener('change', generatePassword);
+        chkSpecial.addEventListener('change', generatePassword);
+
+        generateBtn.addEventListener('click', generatePassword);
+
+        copyBtn.addEventListener('click', function() {
+            if (!passwordField.value) return;
+            passwordField.select();
+            passwordField.setSelectionRange(0, 99999);
+            try {
+                navigator.clipboard.writeText(passwordField.value);
+            } catch(e) {
+                document.execCommand('copy');
+            }
+            copyBtn.classList.add('copied');
+            setTimeout(function() {
+                copyBtn.classList.remove('copied');
+            }, 1800);
+        });
+
+        // Generate on load
+        generatePassword();
+    })();
+    </script>
+</body>
+</html>
