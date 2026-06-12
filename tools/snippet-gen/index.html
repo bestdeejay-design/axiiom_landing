@@ -356,7 +356,7 @@ function populateCards(title, desc, image, domain) {
         var imgWrap = card.querySelector('.pv-img-wrap');
         var img = card.querySelector('.pv-img');
         if (image) {
-            img.src = image;
+            img.src = image + (image.indexOf('?') > -1 ? '&' : '?') + '_t=' + Date.now();
             imgWrap.classList.add('has-image');
         } else {
             img.src = '';
