@@ -368,8 +368,10 @@ function populateCards(title, desc, image, domain) {
 linkLoadBtn.addEventListener('click', function() {
     var url = linkUrl.value.trim();
     if (!url) { showLinkStatus('Введите URL', false); return; }
-    showLinkStatus('Загрузка...', true);
-    fetch(url)
+    linkLoadBtn.disabled = true;
+    linkLoadBtn.textContent = 'Загрузка...';
+    showLinkStatus('', true);
+    fetch(url, { cache: 'no-store' })
         .then(function(resp) { return resp.text(); })
         .then(function(text) {
             var parser = new DOMParser();
@@ -393,9 +395,13 @@ linkLoadBtn.addEventListener('click', function() {
             populateCards(title, desc, image, domain);
             linkOgRaw.textContent = JSON.stringify({ ogTitle: title || '', ogDescription: desc || '', ogImage: image || '' }, null, 2);
             showLinkStatus('Готово', true);
+            linkLoadBtn.disabled = false;
+            linkLoadBtn.textContent = 'Загрузить';
         })
         .catch(function() {
-            showLinkStatus('Не удалось загрузить — проверьте URL или попробуйте другой домен (междоменные запросы заблокированы)', false);
+            showLinkStatus('Не удалось загрузить — проверьте URL', false);
+            linkLoadBtn.disabled = false;
+            linkLoadBtn.textContent = 'Загрузить';
         });
 });
 
