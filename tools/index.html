@@ -79,6 +79,15 @@
             </div>
             <p class="badge">AXIIOM Tools</p>
             <h1>Полезные инструменты</h1>
+            <button class="share-btn" onclick="copyPageUrl(this)" aria-label="Поделиться" title="Поделиться">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/>
+                    <polyline points="16 6 12 2 8 6"/>
+                    <line x1="12" y1="2" x2="12" y2="15"/>
+                </svg>
+                <span class="share-tooltip">Ссылка скопирована</span>
+            </button>
+            
             <p class="hero-desc">Набор бесплатных онлайн-инструментов для разработки, дизайна, SEO и повседневных задач. Просто, быстро, без регистрации.</p>
         </div>
     </div>
@@ -253,6 +262,15 @@ document.querySelectorAll('.tool-card').forEach(card => {
         card.style.transform = '';
     });
 });
+</script>
+<script>
+function copyPageUrl(btn) {
+    var url = window.location.href;
+    navigator.clipboard.writeText(url).then(function() {
+        var tip = btn.querySelector('.share-tooltip');
+        if (tip) { tip.classList.add('show'); setTimeout(function() { tip.classList.remove('show'); }, 2000); }
+    });
+}
 </script>
 <script src="nav.js"></script>
 <script>initToolsNav('');</script>

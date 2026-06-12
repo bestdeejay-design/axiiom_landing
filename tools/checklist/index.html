@@ -76,6 +76,8 @@
                 </svg>
                 <span class="share-tooltip">Ссылка скопирована</span>
             </button>
+            
+            
         </div>
 
         <p class="tool-description">Шаблоны чек-листов для запуска сайта, SEO-аудита, разработки и дизайна.</p>
@@ -103,15 +105,16 @@
     </div>
 </footer>
 
-<script src="../nav.js"></script>
+<script>
 function copyPageUrl(btn) {
     var url = window.location.href;
     navigator.clipboard.writeText(url).then(function() {
         var tip = btn.querySelector('.share-tooltip');
-        tip.classList.add('show');
-        setTimeout(function() { tip.classList.remove('show'); }, 2000);
+        if (tip) { tip.classList.add('show'); setTimeout(function() { tip.classList.remove('show'); }, 2000); }
     });
 }
+</script>
+<script src="../nav.js"></script>
 <script>
 initToolsNav('checklist/');
 
