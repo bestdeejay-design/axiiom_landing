@@ -17,18 +17,6 @@ function initToolsNav(currentPath) {
   var base = '/tools/';
   var w = window.innerWidth;
 
-  // Desktop sidebar
-  var sidebar = document.getElementById('toolsSidebar');
-  if (sidebar && w >= 1024) {
-    TOOLS.forEach(function(t) {
-      var a = document.createElement('a');
-      a.href = base + t.path;
-      a.textContent = t.name;
-      if (t.path === currentPath) a.className = 'nav-active';
-      sidebar.appendChild(a);
-    });
-  }
-
   // Tablet pills
   var pillsContainer = document.getElementById('toolsPills');
   if (pillsContainer && w >= 769 && w < 1024) {
@@ -85,6 +73,20 @@ function initToolsNav(currentPath) {
       mobileNav.appendChild(cloneLi2);
     }
   });
+
+  // Footer tools list (desktop)
+  var footerTools = document.getElementById('footerTools');
+  if (footerTools && w >= 1024) {
+    var inner = document.createElement('div');
+    inner.className = 'footer-tools-inner';
+    TOOLS.forEach(function(t) {
+      var a = document.createElement('a');
+      a.href = base + t.path;
+      a.textContent = t.name;
+      inner.appendChild(a);
+    });
+    footerTools.appendChild(inner);
+  }
 
   // Nav toggle
   var navToggle = document.getElementById('navToggle');

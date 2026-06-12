@@ -841,56 +841,42 @@ a.logo:hover::after { width: 100%; }
 
 .copy .footer-link:hover { opacity: .7; }
 
-/* Tool pages: sidebar & responsive nav */
-.tools-sidebar, .tools-pills { display: none; }
+/* Footer tools list (desktop only) */
+.footer-tools { display: none; }
 
-.tools-sidebar {
-  position: fixed;
-  top: 72px;
-  left: 0;
-  width: 220px;
-  height: calc(100vh - 72px);
-  overflow-y: auto;
-  background: var(--clr-bg-alt);
-  border-right: 1px solid var(--clr-border);
-  padding: 12px 0;
-  z-index: 100;
-  scrollbar-width: thin;
-  scrollbar-color: var(--clr-border) transparent;
-}
-
-.tools-sidebar::-webkit-scrollbar { width: 4px; }
-.tools-sidebar::-webkit-scrollbar-thumb { background: var(--clr-border); border-radius: 2px; }
-
-.tools-sidebar a {
-  display: block;
-  padding: 8px 20px;
-  color: var(--clr-muted);
-  text-decoration: none;
-  font-size: .82rem;
-  letter-spacing: .3px;
-  transition: background .2s, color .2s;
-  border-left: 2px solid transparent;
-}
-
-.tools-sidebar a:hover {
-  background: var(--clr-surface);
-  color: var(--clr-heading);
-}
-
-.tools-sidebar a.nav-active {
-  color: var(--clr-heading);
-  background: var(--clr-surface);
-  border-left-color: var(--clr-accent);
-}
-
-/* Desktop: show sidebar */
 @media (min-width: 1024px) {
-  .tools-sidebar { display: block; }
-  .tool-page { margin-left: 220px; }
-  .nav-links--desktop.tools-nav-links { display: none; }
-  .tools-nav-toggle { display: none !important; }
+  .footer-tools {
+    display: block;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .footer-tools-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 12px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .footer-tools-inner a {
+    font-size: .78rem;
+    color: var(--clr-muted);
+    text-decoration: none;
+    letter-spacing: .3px;
+    padding: 3px 0;
+    transition: color .2s;
+    white-space: nowrap;
+  }
+  .footer-tools-inner a:hover {
+    color: var(--clr-heading);
+  }
 }
+
+/* Tool pages: responsive nav */
+.tools-pills { display: none; }
+
+/* Burger always visible on tool pages */
+.tools-nav-toggle { display: flex !important; }
 
 /* Tablet: show pills bar */
 @media (min-width: 769px) and (max-width: 1023px) {
@@ -935,6 +921,13 @@ a.logo:hover::after { width: 100%; }
   }
 
   .tool-page { padding-top: 130px; }
+  .nav-links--desktop.tools-nav-links { display: none; }
+}
+
+/* Desktop: burger + footer tools list */
+@media (min-width: 1024px) {
+  .nav-links--desktop.tools-nav-links { display: none; }
+  .tool-page { margin-left: 0; }
 }
 
 /* Reveal animations */
@@ -951,7 +944,7 @@ a.logo:hover::after { width: 100%; }
 
 @media (max-width: 768px) {
     .nav-links--desktop { display: none; }
-    .tools-sidebar, .tools-pills { display: none; }
+    .tools-pills { display: none; }
     .tool-page { margin-left: 0; }
 
     .nav-overlay {
